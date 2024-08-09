@@ -15,7 +15,7 @@ export class AuthAdministratorDataSourceImpl implements AuthAdministratorDataSou
     }
     
     async register(registerAdministratorDto: RegisterAdministratorDto): Promise<{message: string}> {
-        const { id, name, email, phone, address, password, img, role, idCenter} = registerAdministratorDto;
+        const { id, name, email, phone, address, password, role, idCenter} = registerAdministratorDto;
 
         const hashedPassword = BcryptAdapter.hash(password);
         
@@ -31,7 +31,6 @@ export class AuthAdministratorDataSourceImpl implements AuthAdministratorDataSou
                 phone: phone,
                 address: address,
                 password: hashedPassword,
-                img: img,
                 role: role,
                 idCenter: idCenter,
             });
@@ -49,7 +48,7 @@ export class AuthAdministratorDataSourceImpl implements AuthAdministratorDataSou
         }
     }
 
-    async login(email:string, password: string): Promise<{ token: string, message: string }> {
+    async login(email:string, password: string): Promise<{ token: string, role: string | undefined, message: string }> {
         try {
             const admin = await this.administratorRepository.findOne({ where: { email }});
             if (!admin) throw CustomError.badRequest("Correo Invalido");
@@ -63,6 +62,7 @@ export class AuthAdministratorDataSourceImpl implements AuthAdministratorDataSou
 
             return {
                 token,
+                role: admin.role,
                 message: "Inicio de sesion exitoso"
             };
         } catch (error) {
@@ -74,4 +74,10 @@ export class AuthAdministratorDataSourceImpl implements AuthAdministratorDataSou
         }
     }
 
+    async getAdministratorByEmail(email: string): Promise<AdministratorEntity | null> {
+        // Implementación para obtener el administrador por su email
+        // Ejemplo usando TypeORM:
+        const admin = await this.administratorRepository.findOne({ where: { email } });
+        return admin || null;
+    }
 }

@@ -293,7 +293,7 @@ export const FormsTwoVerific = () => {
             // console.log('User registered:', data);
             setTimeout(() => {
               // Redirigir a /twoverific
-              setLocation("/home");
+              setLocation("/");
             }, 2000);
             // Redirige al usuario o realiza otra acción según sea necesario
         } catch (error) {
@@ -366,10 +366,11 @@ export const Formslogempleado = () => {
 
       if (response.status === 200 || response.status === 201) {
         const token = response.data.token;
-
+        const role = response.data.role;
         
         // Almacenar el token en localStorage
         localStorage.setItem('token', token);
+        localStorage.setItem('role', role);
         
         await sendVerificationCode(token);
         toast.success("Redireccion en curso", {
@@ -518,10 +519,12 @@ export const Formslogadmin = () => {
 
       if (response.status === 200 || response.status === 201) {
         const token = response.data.token;
-
+        const role = response.data.role;
+        
         
         // Almacenar el token en localStorage
         localStorage.setItem('token', token);
+        localStorage.setItem('role', role);
         
         await sendVerificationCode(token);
         toast.success("Redireccion en curso", {

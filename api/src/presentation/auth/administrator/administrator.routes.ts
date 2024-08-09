@@ -15,6 +15,7 @@ export class AuthAdministratorRoutes {
 
         router.post('/login', controller.loginAdministrator);
         router.post('/register', controller.registerAdministrator)
+        router.get('/administrator/:token', controller.getAdministratorById);
 
         return router;
     }

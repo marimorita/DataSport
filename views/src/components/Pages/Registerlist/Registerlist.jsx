@@ -68,12 +68,12 @@ export const Registerlist = () => {
     const toggleCreateUser = async () => {
   
       const userData = {
-        state: 'Pendiente'
+        state: 'Activo'
       };
   
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.patch(`/clients/clients/${1658448984}/state`, userData, {
+        const response = await axios.patch(`/clients/clients/${1218227381}/state`, userData, {
           headers: {
               Authorization: `Bearer ${token}`
           }

@@ -27,8 +27,8 @@ export class ClientsEntity {
   @Column({ name: 'Estado'})
   state?: string;
 
-  @Column({ name: 'Imagen'})
-  img?: string;
+  // @Column({ name: 'Imagen'})
+  // img?: string;
   
   @Column({ name: 'Id_Centro'})
   idCenter?: number;

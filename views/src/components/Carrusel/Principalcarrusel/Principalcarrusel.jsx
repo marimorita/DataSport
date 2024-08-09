@@ -1,5 +1,5 @@
 import React from "react";
-import { ButtomHome } from "../../shared/Button/Buttons";
+import { Buttonredirect } from "../../shared/Button/Buttons";
 import { useLocation } from "wouter";
 
 export const Principalcarrusel1 = () => {
@@ -7,7 +7,7 @@ export const Principalcarrusel1 = () => {
   return (
     <div className=" w-[80%] items-center mx-[10%] flex justify-around rounded-[20px] h-[25rem] shadow-2xl bg-gradient-to-b from-[#692FDB]  to-[#381975]">
       <svg
-        className="size-[30rem] mt-[2rem] ml-[2rem]"
+        className="size-[40rem] mt-[2rem] ml-[2rem]"
         width="318"
         height="276"
         viewBox="0 0 318 276"
@@ -319,8 +319,8 @@ export const Principalcarrusel1 = () => {
           ven e interactua con el sistema
         </p>
         <div onClick={() => setLocation("/asitencia")}>
-        <ButtomHome
-          customClassName={"bg-[#F0ECE3] text-[#381975] "}
+        <Buttonredirect
+          customClassName={"bg-[#F0ECE3] text-[#381975] w-[20rem] text-[30px] rounded-[20px] py-[0.5rem] "}
           Text={"Asistencia"}
         />
         </div>
@@ -334,7 +334,7 @@ export const Principalcarrusel2 = () => {
   return (
     <div className=" w-[80%] items-center mx-[10%] flex justify-around rounded-[20px] h-[25rem] shadow-2xl bg-gradient-to-b from-[#231F20]  to-[#3F3D56]">
       <svg
-        className="size-[30rem] mt-[2rem] ml-[2rem]"
+        className="size-[40rem] mt-[2rem] ml-[2rem]"
         width="300"
         height="281"
         viewBox="0 0 300 281"
@@ -731,8 +731,8 @@ export const Principalcarrusel2 = () => {
           ven y revisa la nuestra no es nada dificil{" "}
         </p>
         <div onClick={() => setLocation("/registeredlist")}>
-        <ButtomHome
-          customClassName={"bg-[#F0ECE3] text-[#3F3D56] "}
+        <Buttonredirect
+          customClassName={"bg-[#F0ECE3] text-[#3F3D56] w-[20rem] text-[30px] rounded-[20px] py-[0.5rem] "}
           Text={"Registro"}
         />
         </div>
@@ -746,7 +746,7 @@ export const Principalcarrusel3 = () => {
   return (
     <div className=" w-[80%] items-center mx-[10%] flex justify-around rounded-[20px] h-[25rem] shadow-2xl bg-gradient-to-b from-[#231F20]  to-[#381975]">
       <svg
-        className="size-[30rem] mt-[2rem] ml-[2rem]"
+        className="size-[40rem] mt-[2rem] ml-[2rem]"
         width="300"
         height="300"
         viewBox="0 0 300 300"
@@ -870,8 +870,8 @@ export const Principalcarrusel3 = () => {
         <p className="text-[#dfdcd6] text-[35px] w-[35rem] text-center mb-[2rem]">
           todo esta en orden
         </p>
-        <ButtomHome
-          customClassName={"bg-[#F0ECE3] text-[#381975] "}
+        <Buttonredirect
+          customClassName={"bg-[#F0ECE3] text-[#381975] w-[20rem] text-[30px] rounded-[20px] py-[0.5rem] "}
           Text={"Inventario"}
         />
       </div>
@@ -885,7 +885,7 @@ export const Principalcarrusel4 = () => {
   return (
     <div className=" w-[80%] items-center mx-[10%] flex justify-around rounded-[20px] h-[25rem] shadow-2xl bg-gradient-to-b from-[#692FDB]  to-[#3F3D56]">
       <svg
-        className="size-[30rem] ml-[2rem] "
+        className="size-[40rem] ml-[2rem] "
         width="300"
         height="300"
         viewBox="0 0 300 300"
@@ -1276,8 +1276,8 @@ export const Principalcarrusel4 = () => {
           aqui en observaciones puedes hacer eso y mucho mas
         </p>
         <div onClick={() => setLocation("/loginempleados")}>
-          <ButtomHome
-            customClassName={"bg-[#F0ECE3] text-[#381975] "}
+          <Buttonredirect
+            customClassName={"bg-[#F0ECE3] text-[#381975] w-[20rem] text-[30px] rounded-[20px] py-[0.5rem] "}
             Text={"Observaciones"}
           />
         </div>

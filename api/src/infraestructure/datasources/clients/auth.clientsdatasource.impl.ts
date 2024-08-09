@@ -15,7 +15,7 @@ export class AuthClientsDataSourceImpl implements AuthClientsDataSource {
     }
     
     async register(registerClientDto: RegisterClientDto): Promise<ClientsEntity> {
-        const { id, name, lastName, email, phone, address, assistance, state, img, idCenter} = registerClientDto;
+        const { id, name, lastName, email, phone, address, assistance, state, idCenter} = registerClientDto;
 
         // const hashedPassword = BcryptAdapter.hash(password);
         
@@ -33,7 +33,7 @@ export class AuthClientsDataSourceImpl implements AuthClientsDataSource {
                 address: address,
                 assistance: assistance,
                 state: state,
-                img: img,
+                // img: img,
                 // password: hashedPassword,
                 idCenter: idCenter,
             });

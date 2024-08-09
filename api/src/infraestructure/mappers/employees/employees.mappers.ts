@@ -12,7 +12,7 @@ export class EmployeesMapper {
         if (!password) throw CustomError.badRequest("Falta Contraseña");
         if (!address) throw CustomError.badRequest("Falta Direccion");
         if (!role) throw CustomError.badRequest("Falta Rol");
-        if (!img) throw CustomError.badRequest("Falta Imagen");
+        // if (!img) throw CustomError.badRequest("Falta Imagen");
         if (!idCenter) throw CustomError.badRequest("Faltaid del Centro");
 
         return {
@@ -22,7 +22,7 @@ export class EmployeesMapper {
             phone,
             password,
             address,
-            img,
+            // img,
             role,
             idCenter,
         };
@@ -36,7 +36,7 @@ export class EmployeesMapper {
             phone: entity.phone,
             password: entity.password,
             address: entity.address,
-            img: entity.img,
+            // img: entity.img,
             role: entity.role,
             idCenter: entity.idCenter,
         };

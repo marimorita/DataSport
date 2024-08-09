@@ -11,7 +11,7 @@ export class AdministratorMapper {
         if (!phone) throw CustomError.badRequest("Falta Telefono");
         if (!password) throw CustomError.badRequest("Falta Contraseña");
         if (!address) throw CustomError.badRequest("Falta Direccion");
-        if (!img) throw CustomError.badRequest("Falta Imagen");
+        // if (!img) throw CustomError.badRequest("Falta Imagen");
         if (!role) throw CustomError.badRequest("Falta Rol");
         if (!idCenter) throw CustomError.badRequest("Faltaid del Centro");
 
@@ -22,7 +22,6 @@ export class AdministratorMapper {
             phone,
             password,
             address,
-            img,
             role,
             idCenter,
         };
@@ -36,7 +35,6 @@ export class AdministratorMapper {
             phone: entity.phone,
             password: entity.password,
             address: entity.address,
-            img: entity.img,
             role: entity.role,
             idCenter: entity.idCenter,
         };

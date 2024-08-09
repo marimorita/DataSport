@@ -9,7 +9,7 @@ export class RegisterAdministratorDto {
         public phone: number,
         public address: string,
         public password: string,
-        public img: string,
+        // public img: string,
         public role: string,
         public idCenter: number,
     ){}
@@ -31,14 +31,14 @@ export class RegisterAdministratorDto {
             if ( !Validators.text.test( role ) ) return [ 'Rol no valido'];
             if ( !idCenter ) return [ 'Falta el id del Centro' ];
             if ( !Validators.number.test( idCenter ) ) return [ 'Solo caracteres numericos en id centro'];
-            if ( !img ) return [ 'Falta la Imagen' ];
+            // if ( !img ) return [ 'Falta la Imagen' ];
             if ( !address ) return [ 'Falta la direccion' ];
             if ( !password ) return [ 'Falta la contraseña' ];
             if ( password.length < 6 ) return [ 'Contraseña muy corta' ];
             
             return [
                 undefined,
-                new RegisterAdministratorDto(id, name, email, phone, address , password, img, role, idCenter)
+                new RegisterAdministratorDto(id, name, email, phone, address , password, role, idCenter)
             ];
         }
 }

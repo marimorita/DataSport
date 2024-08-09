@@ -3,11 +3,11 @@ import { useLocation } from 'wouter'
 
 
 
-export const Usertype = () => {
+export const Usertype = ({name, customClassName}) => {
     const [location, setLocation] = useLocation();
     return (
         <div className='flex justify-center items-center my-[3rem] cursor-pointer'>
-        <div className='bg-gradient-to-r from-[#692FDB]  to-[#381975] w-[50rem] h-[15rem] rounded-[20px] flex items-center shadow-2xl gap[4rem]'>
+        <div className={`${customClassName} w-[50rem] h-[15rem] rounded-[20px] flex items-center shadow-2xl gap[4rem]`}>
         <svg width="282" height="250" viewBox="0 0 282 250" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M58.2046 226.35L58.0918 221.1C58.0918 220.65 57.3022 175.8 56.851 130.9C56.0614 38.6996 57.5278 36.3496 58.8814 34.2996C60.6298 31.5496 62.6038 28.4496 125.997 25.2996C153.915 23.8996 192.437 22.8496 208.849 24.4496C214.263 24.9496 219.283 25.7996 220.693 29.8996C222.836 36.1496 221.595 165.45 220.975 220.75L220.919 226L58.2046 226.35ZM66.1006 40.6996C64.5214 57.5496 65.5366 153.8 66.6082 216.7L212.346 216.35C213.079 149.45 213.756 52.9996 212.684 35.1996C204.563 34.0996 176.419 33.8496 139.251 35.3496C103.719 36.7996 74.1658 39.0996 66.1006 40.6996Z" fill="#F2EBEB"/>
 <path d="M217.815 106.55H64.125V113.4H217.815V106.55Z" fill="#F2EBEB"/>
@@ -27,7 +27,7 @@ export const Usertype = () => {
 <path d="M100.845 215.4C102.029 208.45 100.168 167.75 100.168 167.75L81.1049 163L66.3281 194.3L66.7229 216.7L100.845 215.4Z" fill="#FE7A36"/>
 </svg>
         <div className='flex flex-col text-center text-[#F0ECE3] ml-[2rem]'>
-            <h1 className='text-[40px]'>¡Hola admin!</h1>
+            <h1 className='text-[40px]'>¡Hola{name}!</h1>
             <p className='w-[25rem] text-[20px] text-[#cacac9]'>Espero que estes teniendo un gran día, ¿hoy que tienes en mente? </p>
         </div>
         </div>

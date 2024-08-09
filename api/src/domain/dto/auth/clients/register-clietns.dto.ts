@@ -11,13 +11,13 @@ export class RegisterClientDto {
         public address: string,
         public assistance: string,
         public state: string,
-        public img: string,
+        // public img: string,
         public idCenter: number,
     ){}
 
         static create( object: {[ key: string]: any;}): [ string?, RegisterClientDto?] {
 
-            const { id, name ,lastName, email, assistance, address, phone, img, state, idCenter } = object;
+            const { id, name ,lastName, email, assistance, address, phone, state, idCenter } = object;
 
             if ( !id ) return [ 'Falta la cedula' ];
             if ( !Validators.number.test( id ) ) return [ 'Solo caracteres numericos en numero de cedula'];
@@ -34,13 +34,13 @@ export class RegisterClientDto {
             if ( !Validators.text.test( assistance ) ) return [ 'Asistencia no valido'];
             if ( !state ) return [ 'Falta el Estado' ];
             if ( !Validators.text.test( state ) ) return [ 'Estado no valido'];
-            if ( !img ) return [ 'Falta la Imagen' ];
+            // if ( !img ) return [ 'Falta la Imagen' ];
             if ( !idCenter ) return [ 'Falta el id del Centro' ];
             if ( !Validators.number.test( idCenter ) ) return [ 'Solo caracteres numericos en id centro'];
             
             return [
                 undefined,
-                new RegisterClientDto(id, name,lastName, email, phone, address , assistance, img, state, idCenter)
+                new RegisterClientDto(id, name,lastName, email, phone, address , assistance, state, idCenter)
             ];
         }
 }
