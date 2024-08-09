@@ -92,11 +92,3 @@ export const Buttonfilter = ({Text, width, customClassName }) => {
     </>
   )
 }
-
-export const Buttonredirect = ({Text,customClassName}) => {
-  return (
-    <div>
-      <button className={`${customClassName}`}>{Text}</button>
-    </div>
-  )
-}
