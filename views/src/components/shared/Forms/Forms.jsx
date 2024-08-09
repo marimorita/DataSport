@@ -457,13 +457,13 @@ export const Formslogempleado = () => {
 
 export const Formsreg = ({ }) => {
   return (
-    <form className='absolute w-[600px] flex flex-col top-[50px] right-[190px] gap-[60px] items-center '>
+    <form className='absolute w-[600px] flex flex-col top-[50px] right-[140px] gap-[60px] items-center '>
       <div className='flex flex-col items-center gap-[20px] '>
         <h2 className='text-[#692FDB] font-medium text-[62px] '>Registrate</h2>
         <FaUserCircle className='text-[80px] text-[#692FDB] ' />
       </div>
       <div className='flex flex-col items-center gap-[40px]'>
-        <label className='flex flex-wrap justify-between gap-y-[20px] '>
+        <label className='flex flex-wrap justify-around gap-y-[20px] '>
           <InputFormsreg placeholder='Pon tu correo' />
           <InputFormsreg placeholder='Pon tu numero' />
           <InputFormsreg placeholder='Pon tu local' />

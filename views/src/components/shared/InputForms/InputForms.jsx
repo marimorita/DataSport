@@ -37,14 +37,13 @@ export const InputFormsUsers = ({placeholder,type,userRef}) => {
   )
 }
 
-export const InputFormsreg = ({placeholder}) => {
+export const InputFormsreg = ({ placeholder }) => {
   return (
     <>
-    <div className='w-[272px] h-[64px]  p-1 rounded-[4px] bg-gradient-to-r from-[#FE7A36]  to-[#692FDB] '>
-      <div className=' w-full h-full bg-[#efeeee] flex items-center justify-center'>
-            <input type="text" placeholder={placeholder} className='w-full h-full text-[#3f3d56] placeholder-[#3f3d56] bg-[#efeeee] text-[25px] indent-[20px] rounded-[4px] ' />
-      </div>
-    </div>
+        <div className=' w-[240px] h-[50px]  p-1 rounded-[4px] border-[4px] border-[#381975] bg-[#efeeee] flex items-center justify-center'>
+          <input type="text" placeholder={placeholder} className='w-full h-full text-[#3f3d56] placeholder-[#3f3d56] bg-[#efeeee] text-[20px] indent-[20px] rounded-[4px] ' />
+        </div>
+     
     </>
   )
 }

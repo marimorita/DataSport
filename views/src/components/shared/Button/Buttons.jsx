@@ -47,6 +47,13 @@ export const Buttonlog2 = ({onClick,Text, width}) => {
     </div>
   )
 }
+export const Buttonredirect = ({Text,customClassName}) => {
+  return (
+    <div>
+      <button className={`${customClassName}`}>{Text}</button>
+    </div>
+  )
+}
 
 export const ButtomHome = ({Text, width, customClassName, onClick }) => {
   return (
