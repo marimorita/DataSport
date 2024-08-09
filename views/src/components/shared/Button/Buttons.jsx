@@ -19,7 +19,7 @@ export const ButtonEmployees = ({Text, width="38%", onClick}) => {
 export const ButtonUsers = ({Text, width="38%", onClick}) => {
   return (
     <>
-    <button type='button' className={` w-[${width}] text-[33px] text-white bg-gradient-to-r from-[#FE7A36]  to-[#FF9F2E] px-9 py-1 rounded-[10px] shadow-md `} onClick={onClick}>{Text}</button>
+    <button type='button' className={` w-[${width}] text-[33px] text-[#1E1E1E] bg-[#F0ECE3] px-9 py-1 rounded-[10px] shadow-2xl `} onClick={onClick}>{Text}</button>
     </>
   )
 }
@@ -44,6 +44,13 @@ export const Buttonlog2 = ({onClick,Text, width}) => {
   return (
     <div >
     <button type='button'  onClick={onClick} className={` w-[${width}] mb-[2rem] mt-[1rem] text-[30px] text-white bg-gradient-to-r from-[#692FDB]  to-[#381975] px-[3rem] py-[0.5rem] rounded-[10px] shadow-md `}>{Text}</button>
+    </div>
+  )
+}
+export const Buttonredirect = ({Text,customClassName}) => {
+  return (
+    <div>
+      <button className={`${customClassName}`}>{Text}</button>
     </div>
   )
 }

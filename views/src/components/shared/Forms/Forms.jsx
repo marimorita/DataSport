@@ -1,7 +1,7 @@
 import React, { useContext, useRef, useState } from 'react'
 import axios from '../../../../axiosConfig';
 import { InputFormsreg, InputFormslog, Inputrecuerdame, Inputolvi, InputFormsUsers, InputFormsEmployees, InputFormslog2, Perfilcontenedor, InputFormsAdmin } from '../InputForms/InputForms';
-import { Buttonlog, Buttonreg, ButtonUsers, ButtonEmployees, Buttonlog2, Buttonfilter, ButtonAdmin } from '../Button/Buttons';
+import { Buttonlog, Buttonreg, ButtonUsers, ButtonEmployees, Buttonlog2, Buttonfilter, ButtonAdmin, ButtomHome } from '../Button/Buttons';
 import { FaUserCircle } from "react-icons/fa";
 import { useLocation } from 'wouter'
 import { StateContext } from '../../Context/Context';
@@ -241,23 +241,19 @@ export const FormsUsers = ({ }) => {
 
   return (
     <>
-    <form className='absolute w-[600px] flex flex-col justify-center top-[10%] right-[30%] gap-[60px] items-center '>
+    <form className='w-[560px] flex flex-col  gap-[60px] items-center '>
     <div onClick= {() => setLocation("/registeredlist")} >
-<IoMdArrowRoundBack className='cursor-pointer text-[40px] text-[#1E1E1E] fixed left-[15rem] top-[6rem]' />
+<ButtomHome customClassName={'cursor-pointer text-[40px] text-[#1E1E1E] fixed right-[55rem] top-[0rem]'} />
 </div>
       <div className='flex flex-col items-center gap-[20px] '>
-        <h2 className='text-[#381975] font-medium text-[56px] '>Inscripción Cliente</h2>
+        <h2 className='text-[#1E1E1E] font-medium text-[56px] '>Inscripción Cliente</h2>
       </div>
       <div className='flex flex-col items-center gap-[40px]'>
         <label className='flex flex-wrap justify-between gap-y-[20px] '>
-          <InputFormsUsers type={'text'} placeholder='Pon tu Cedula' userRef={inputIdRef} />
           <InputFormsUsers type={'text'} placeholder='Pon tu Nombre' userRef={inputNameRef} />
-          <InputFormsUsers type={'text'} placeholder='Pon tu Apellido'userRef={inputLastNameRef} />
-          <InputFormsUsers type={'email'} placeholder='Pon tu Correo'userRef={inputEmailRef} />
-          <InputFormsUsers type={'text'} placeholder='Pon tu Telefono'userRef={inputPhoneRef} />
-          <InputFormsUsers type={'text'} placeholder='Pon tu Direccion'userRef={inputAddressRef} />
-          <InputFormsUsers type={'text'} placeholder='Pon tu Asistencia'userRef={inputAsistanceRef} />
-          <InputFormsUsers type={'text'} placeholder='Pon tu Numero de Centro'userRef={inputIdCenterRef} />
+          <InputFormsUsers type={'text'} placeholder='Pon tu Numero'userRef={inputIdCenterRef} />
+          <InputFormsUsers type={'text'} placeholder='Pon tu Documento'userRef={inputLastNameRef} />
+          <InputFormsUsers type={'email'} placeholder='Pon tu email'userRef={inputEmailRef} />
         </label>
         <ButtonUsers Text={'Crear Usuario'} onClick={toggleCreateUser} />
       </div>
@@ -457,21 +453,31 @@ export const Formslogempleado = () => {
 };
 
 export const Formsreg = ({ }) => {
+  const [location, setLocation] = useLocation();
+  const { setmodalverificate} = useContext(StateContext);
   return (
-    <form className='absolute w-[600px] flex flex-col top-[50px] right-[190px] gap-[60px] items-center '>
-      <div className='flex flex-col items-center gap-[20px] '>
+    <form className='absolute w-[550px] flex flex-col top-[30px] right-[160px] gap-[50px] items-center '>
+      <div className='flex flex-col items-center gap-[10px] '>
         <h2 className='text-[#692FDB] font-medium text-[62px] '>Registrate</h2>
         <FaUserCircle className='text-[80px] text-[#692FDB] ' />
       </div>
-      <div className='flex flex-col items-center gap-[40px]'>
-        <label className='flex flex-wrap justify-between gap-y-[20px] '>
-          <InputFormsreg placeholder='Pon tu correo' />
-          <InputFormsreg placeholder='Pon tu numero' />
-          <InputFormsreg placeholder='Pon tu local' />
-          <InputFormsreg placeholder='Pon tu direccion' />
-          <InputFormsreg placeholder='Pon tu deporte' />
-          <InputFormsreg placeholder='Pon tu ciudad' />
+      <div className='flex flex-col items-center gap-[10px]'>
+        <label className='flex flex-wrap justify-around gap-y-[15px] '>
+        <InputFormsreg placeholder="Pon tu correo..." />
+            <InputFormsreg placeholder="Pon tu direccion..." />
+            <InputFormsreg placeholder="Pon tu local..." />
+            <InputFormsreg placeholder="Pon tu numero..." />
+            <InputFormsreg placeholder="Pon tu nombre..." />
+            <InputFormsreg placeholder="Pon tu documento..." />
+            <InputFormsreg placeholder="Pon tu deporte..." />
+            <InputFormsreg placeholder="Servicios..." />
         </label>
+        <div className="w-full flex justify-end gap-[0rem] ">
+            <Inputolvi
+              onClick={() => setLocation("/loginempleados")}
+              placeholder="¿Ya estas registrado en la app?"
+            />
+          </div>
         <Buttonreg Text={'Contactanos'} />
       </div>
     </form>
