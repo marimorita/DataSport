@@ -60,8 +60,12 @@ function App() {
             <ProtectedRoute path="/asitencia" allowedRoles={['admin', 'employee']}>
               <Asistence />
             </ProtectedRoute>
+
             <ProtectedRoute path="/createusers" allowedRoles={['admin', 'employee']}>
               <Clients />
+            </ProtectedRoute>
+            <ProtectedRoute path="/createadmin" allowedRoles={['admin', 'employee']}>
+              <Admin />
             </ProtectedRoute>
 
             {/* Normal Routes */}
@@ -76,9 +80,7 @@ function App() {
             <Route path="/">
               <Home />
             </Route>
-            <Route path="/createadmin">
-              <Admin />
-            </Route>
+
             <Route path="/twoverific">
               <Twoverific />
             </Route>
