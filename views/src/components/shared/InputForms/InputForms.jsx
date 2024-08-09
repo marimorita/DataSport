@@ -28,7 +28,7 @@ export const InputFormsEmployees = ({placeholder,type,userRef}) => {
 export const InputFormsUsers = ({placeholder,type,userRef}) => {
   return (
     <>
-    <div className='w-[272px] h-[64px]  p-1 rounded-[4px] bg-gradient-to-r from-[#FE7A36]  to-[#381975] '>
+    <div className='w-[272px] h-[64px]  p-1 rounded-[4px] bg-[#1E1E1E]'>
       <div className=' w-full h-full bg-[#efeeee] flex items-center justify-center'>
             <input type={type} required placeholder={placeholder} className='w-full h-full text-[#3f3d56] placeholder-[#3f3d56] bg-[#efeeee] text-[18px] indent-[20px] rounded-[4px] ' ref={userRef} />
       </div>

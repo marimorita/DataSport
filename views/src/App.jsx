@@ -21,7 +21,7 @@ function App() {
     <AppContextProvider>
       <div className="min-h-screen max-w-[1920px] mx-auto w-full flex flex-col ">
         <Switch>
-          <Route path="/">
+          <Route path="/loginadmin">
             <LoginAdmin />
           </Route>
           <Route path="/profile/users">
@@ -45,7 +45,7 @@ function App() {
           <Route path="/registeredlist">
             <Registerlist />
           </Route>
-          <Route path="/home">
+          <Route path="/">
             <Home />
           </Route>
           <Route path="/asitencia">

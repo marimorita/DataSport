@@ -19,7 +19,7 @@ export const ButtonEmployees = ({Text, width="38%", onClick}) => {
 export const ButtonUsers = ({Text, width="38%", onClick}) => {
   return (
     <>
-    <button type='button' className={` w-[${width}] text-[33px] text-white bg-gradient-to-r from-[#FE7A36]  to-[#FF9F2E] px-9 py-1 rounded-[10px] shadow-md `} onClick={onClick}>{Text}</button>
+    <button type='button' className={` w-[${width}] text-[33px] text-[#1E1E1E] bg-[#F0ECE3] px-9 py-1 rounded-[10px] shadow-2xl `} onClick={onClick}>{Text}</button>
     </>
   )
 }

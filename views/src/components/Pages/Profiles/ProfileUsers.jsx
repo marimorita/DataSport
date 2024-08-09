@@ -467,7 +467,7 @@ export const ProfileUsers = () => {
                 customClassName={
                   "bg-[#F0ECE3] text-[#000001] text-[20px] text-center w-[15rem] text-[22px] rounded-[10px] py-[0.5rem]"
                 }
-                Text={"Equipo de trabajo"}
+                Text={"Historial de pagos"}
               />
             </div>
           </div>

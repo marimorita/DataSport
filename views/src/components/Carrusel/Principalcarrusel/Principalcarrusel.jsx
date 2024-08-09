@@ -7,7 +7,7 @@ export const Principalcarrusel1 = () => {
   return (
     <div className=" w-[80%] items-center mx-[10%] flex justify-around rounded-[20px] h-[25rem] shadow-2xl bg-gradient-to-b from-[#692FDB]  to-[#381975]">
       <svg
-        className="size-[40rem] mt-[2rem] ml-[2rem]"
+        className="size-[30rem] mt-[2rem] ml-[2rem]"
         width="318"
         height="276"
         viewBox="0 0 318 276"
@@ -334,7 +334,7 @@ export const Principalcarrusel2 = () => {
   return (
     <div className=" w-[80%] items-center mx-[10%] flex justify-around rounded-[20px] h-[25rem] shadow-2xl bg-gradient-to-b from-[#231F20]  to-[#3F3D56]">
       <svg
-        className="size-[40rem] mt-[2rem] ml-[2rem]"
+        className="size-[30rem] mt-[2rem] ml-[2rem]"
         width="300"
         height="281"
         viewBox="0 0 300 281"
@@ -746,7 +746,7 @@ export const Principalcarrusel3 = () => {
   return (
     <div className=" w-[80%] items-center mx-[10%] flex justify-around rounded-[20px] h-[25rem] shadow-2xl bg-gradient-to-b from-[#231F20]  to-[#381975]">
       <svg
-        className="size-[40rem] mt-[2rem] ml-[2rem]"
+        className="size-[30rem] mt-[2rem] ml-[2rem]"
         width="300"
         height="300"
         viewBox="0 0 300 300"
@@ -885,7 +885,7 @@ export const Principalcarrusel4 = () => {
   return (
     <div className=" w-[80%] items-center mx-[10%] flex justify-around rounded-[20px] h-[25rem] shadow-2xl bg-gradient-to-b from-[#692FDB]  to-[#3F3D56]">
       <svg
-        className="size-[40rem] ml-[2rem] "
+        className="size-[30rem] ml-[2rem] "
         width="300"
         height="300"
         viewBox="0 0 300 300"
