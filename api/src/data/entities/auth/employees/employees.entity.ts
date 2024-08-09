@@ -21,8 +21,8 @@ export class EmployeesEntity {
   @Column({ name: 'Direccion'})
   address?: string;
 
-  @Column({ name: 'Imagen'})
-  img?: string;
+  // @Column({ name: 'Imagen'})
+  // img?: string;
 
   @Column({ name: 'Rol'})
   role?: string;

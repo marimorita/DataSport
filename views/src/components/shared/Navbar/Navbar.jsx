@@ -4,8 +4,9 @@ import { useLocation } from 'wouter'
 
 
 
-export const Navbar = () => {
+export const Navbar = ({customClassName, login}) => {
   const [location, setLocation] = useLocation();
+
   return (
     <div className='w-full flex items-center justify-center'>
         <div className='w-[80%] h-[5.5rem] rounded-[20px] flex items-center justify-between  bg-white gap-[2rem] mt-[2rem] shadow-2xl'>
@@ -21,7 +22,7 @@ export const Navbar = () => {
                 <li>Observaciones</li>
             </ul>
             </div>
-            <FaUserCircle className=" w-[20%] text-[60px] text-[#692FDB]  " />
+            {login ? <FaUserCircle className={`${customClassName} w-[20%] text-[60px]`}   /> : <div className='w-[20%] flex justify-center '><button onClick={() => setLocation("/login")} className=' w-[50%] text-[25px] text-[#F0ECE3] flex justify-center cursor-pointer bg-[#2F2C37] shadow-xl rounded-[18px] ' >Login</button></div> }
         </div>
     </div>
   )

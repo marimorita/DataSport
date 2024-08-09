@@ -1,7 +1,47 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from 'react';
 import { Buttonredirect } from "../../shared/Button/Buttons";
+import axios from '../../../../axiosConfig';
+import { StateContext } from '../../Context/Context';
+import { toast, ToastContainer } from "react-toastify";
+import { useLocation } from 'wouter';
+
+const statusColors = {
+  'Activo': 'bg-[#FE8D32]',
+  'Inactivo': 'bg-[#3F3D56]',
+  'Pendiente': 'bg-[#5023A7]'
+};
 
 export const ProfileUsers = () => {
+  const [location] = useLocation();
+  const { userView, setUserView } = useContext(StateContext)
+
+  useEffect(() => {
+    
+  const userDocument = localStorage.getItem('userDocument');
+    console.log(userDocument);
+
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get(`/clients/clients/${userDocument}`);
+        // console.log(response.data);
+
+        setUserView([response.data])
+
+      } catch (error) {
+        console.error("Error obteniendo el usuario", error);
+      }
+    };
+    console.log("a",userView);
+    
+    fetchUser();
+  }, [setUserView]);
+
+  useEffect(() => {
+    if (!location.startsWith('/profile/')) {
+      localStorage.removeItem('userDocument');
+    }
+  }, [location]);
+
   return (
     <div className="flex">
       <div>
@@ -53,26 +93,29 @@ export const ProfileUsers = () => {
           </div>
         </div>
         <div className="mx-[6rem] mt-[-3rem] flex flex-col justify-start">
-          <h1 className="text-[30px] text-start w-[15rem]">
-            <b>sergio andres chica jaimes</b>
-          </h1>
-          <ul>
-            <li className="text-[20px] text-start w-[20rem]">
-              Nombre: 1072421546
-            </li>
-            <li className="text-[20px] text-start w-[20rem]">
-              Numero: 3107564241
-            </li>
-            <li className="text-[20px] text-start w-[20rem]">
-              Email: sergioanjaci@gmail.com
-            </li>
-            <li className="felx text-[20px] text-start w-[20rem] ">
-              Estado:{" "}
-              <b className="text-white bg-[#FE7A36] px-[2rem] py-[0.2rem] rounded-md ">
-                Activo
-              </b>
-            </li>
-          </ul>
+          {userView.map(user => (
+            <>
+            <h1 className="text-[30px] text-start w-[15rem]">
+              <b>{user.name}</b>
+            </h1><ul>
+                <li className="text-[20px] text-start w-[20rem]">
+                  Nombre: {user.name} {user.lastName}
+                </li>
+                <li className="text-[20px] text-start w-[20rem]">
+                  Numero: {user.phone}
+                </li>
+                <li className="text-[20px] text-start w-[20rem]">
+                  Email: {user.email}
+                </li>
+                <li className="felx text-[20px] text-start w-[20rem] ">
+                  Estado:{" "}
+                  <b className={` text-white ${statusColors[user.state]} px-[2rem] py-[0.2rem] rounded-md `}>
+                    {user.state}
+                  </b>
+                </li>
+              </ul></>
+          ))
+          }
         </div>
       </div>
       <div className="flex flex-col gap-[5rem]">
@@ -293,7 +336,7 @@ export const ProfileUsers = () => {
 
           <div className="flex flex-col items-center text-center">
             <h1 className="text-[35px] w-[25rem] text-center text-[#000001]">
-            Este es el de perfil un de usuario bienvenidoo{" "}
+              Este es el de perfil un de usuario bienvenidoo{" "}
             </h1>
             <h2 className="text-[30px] w-[30rem] text-center text-[#1E1E1E]">
               aqui se guardara toda su informacion{" "}
@@ -467,7 +510,7 @@ export const ProfileUsers = () => {
                 customClassName={
                   "bg-[#F0ECE3] text-[#000001] text-[20px] text-center w-[15rem] text-[22px] rounded-[10px] py-[0.5rem]"
                 }
-                Text={"Historial de pagos"}
+                Text={"Equipo de trabajo"}
               />
             </div>
           </div>

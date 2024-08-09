@@ -1,7 +1,32 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from 'react';
 import { Buttonredirect } from "../../shared/Button/Buttons";
+import axios from '../../../../axiosConfig';
+import { StateContext } from '../../Context/Context';
+import { toast, ToastContainer } from "react-toastify";
 
 export const ProfileAdmin = () => {
+  const { adminView, setAdminView } = useContext(StateContext);
+
+  const token = localStorage.getItem('token');
+
+  useEffect(() => {
+    const fetchAdmin = async () => {
+      try {
+        const response = await axios.get(`/administrator/administrator/${token}`);
+        // console.log(response.data);
+
+        setAdminView([response.data])
+
+      } catch (error) {
+        console.error("Error obteniendo el admin", error);
+      }
+    };
+
+    fetchAdmin();
+  }, [setAdminView]);
+
+  console.log(adminView);
+
   return (
     <div className="flex">
       <div>
@@ -65,20 +90,22 @@ export const ProfileAdmin = () => {
           </div>
         </div>
         <div className="mx-[6rem] mt-[-3rem] flex flex-col justify-start">
-          <h1 className="text-[30px] text-start w-[15rem]">
-            <b>sergio andres chica jaimes</b>
-          </h1>
-          <ul>
-            <li className="text-[20px] text-start w-[20rem]">
-              Nombre: 1072421546
-            </li>
-            <li className="text-[20px] text-start w-[20rem]">
-              Numero: 3107564241
-            </li>
-            <li className="text-[20px] text-start w-[20rem]">
-              Email: sergioanjaci@gmail.com
-            </li>
-          </ul>
+          {adminView.map(admin => (
+         <><h1 className="text-[30px] text-start w-[15rem]">
+              <b>{admin.name}</b>
+            </h1><ul>
+                <li className="text-[20px] text-start w-[20rem]">
+                  Nombre: {admin.name}
+                </li>
+                <li className="text-[20px] text-start w-[20rem]">
+                  Numero: {admin.phone}
+                </li>
+                <li className="text-[20px] text-start w-[20rem]">
+                  Email: {admin.email}
+                </li>
+              </ul></>
+          ))
+          }
         </div>
       </div>
       <div className="flex flex-col gap-[5rem]">
@@ -463,10 +490,10 @@ export const ProfileAdmin = () => {
 
           <div className="flex flex-col w-[20rem] items-center ">
             <div className="flex w-[25rem] ">
-            <h1 className="text-[#F0ECE3] text-[25px] mr-[4rem] text-center">
-              Aqui puedes analizar y darle un vistaso a tus empleados y su
-              infoirmacion{" "}
-            </h1>
+              <h1 className="text-[#F0ECE3] text-[25px] mr-[4rem] text-center">
+                Aqui puedes analizar y darle un vistaso a tus empleados y su
+                infoirmacion{" "}
+              </h1>
             </div>
             <div className="mt-[1rem] mr-[4rem] ">
               <Buttonredirect

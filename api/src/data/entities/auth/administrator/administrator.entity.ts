@@ -21,9 +21,6 @@ export class AdministratorEntity {
   @Column({ name: 'Direccion'})
   address?: string;
 
-  @Column({ name: 'Imagen'})
-  img?: string;
-
   @Column({ name: 'Rol'})
   role?: string;
 

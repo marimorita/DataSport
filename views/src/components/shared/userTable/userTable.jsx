@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useLocation } from 'wouter';
+import { StateContext } from '../../Context/Context';
 
 const statusColors = {
   'Activo': 'bg-[#FE8D32]',
@@ -9,6 +10,7 @@ const statusColors = {
 
 const TableComponent = ({ users }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const { userDocument, setUserDocument } = useContext(StateContext);
   const [, setLocation] = useLocation();
 
   return (
@@ -28,13 +30,16 @@ const TableComponent = ({ users }) => {
               onMouseLeave={() => setHoveredIndex(null)}
             >
               <div
+                  onClick={() => {
+                    localStorage.setItem('userDocument', user.id);
+                    setLocation(`/profile/U`); 
+                  }}
                 className={`rounded-[20px] mx-auto ${statusColors[user.state]} transition-all duration-300 ${hoveredIndex === index ? 'w-20 h-8' : 'w-4 h-8 '} `}
                 title={user.state}
               >
                 {hoveredIndex === index && (
                   <button
                     className="absolute inset-0 flex items-center justify-center text-white text-xs font-bold"
-                    onClick={() => setLocation(`/perfil/${user.id}`)}
                   >
                     Ver más
                   </button>

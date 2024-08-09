@@ -10,8 +10,11 @@ export class AuthAdministratorRepositoryImpl implements AuthAdministratorReposit
         return this.authAdministratorDataSource.register(registerAdministratorDto);
     }
 
-    login(email: string, password: string): Promise<{ token: string, message: string }> {
+    login(email: string, password: string): Promise<{ token: string, role: string | undefined, message: string }> {
         return this.authAdministratorDataSource.login(email, password);
     }
 
+    getAdministratorByEmail(email: string): Promise<AdministratorEntity | null> {
+        return this.authAdministratorDataSource.getAdministratorByEmail(email); // Implementa esta lógica en el DataSource
+    }
 }

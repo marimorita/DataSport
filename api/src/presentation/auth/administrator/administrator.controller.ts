@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { RegisterAdministratorDto, AuthAdministratorRepository, CustomError  } from "../../../domain";
 import { AdministratorEntity } from "../../../data";
+import jwt from 'jsonwebtoken';
+import { envs } from "../../../config";
 export class AuthAdministratorController {
     
     constructor(
@@ -35,10 +37,38 @@ export class AuthAdministratorController {
         }
 
         try {
-            const { token, message } = await this.authAdministratorRepository.login(email, password)
-            res.json({ token, message })
+            const { token, role, message } = await this.authAdministratorRepository.login(email, password)
+            res.json({ token, role, message })
         } catch (error) {
             this.handleError(error, res)
         }
     }
+
+    getAdministratorById = async (req: Request, res: Response) => {
+        const token = req.params.token;
+        console.log("Token recibido:", token);
+
+        if (!token) {
+            return res.status(400).json({ error: 'Token requerido' });
+        }
+
+        try {
+            // Verifica el token
+            const decoded = jwt.verify(token, envs.JWT_SECRET as string) as { user: { email: string, role: string } };
+            console.log("Email decodificado:", decoded.user.email);
+            // Obtiene el administrador basado en el email decodificado
+            const admin = await this.authAdministratorRepository.getAdministratorByEmail(decoded.user.email);
+            console.log("Administrador encontrado:", admin);
+            if (!admin) {
+                return res.status(404).json({ error: 'Administrador no encontrado' });
+            }
+
+            res.status(200).json(admin);
+        } catch (error) {
+            console.log(error);
+            
+            this.handleError(error, res);
+        }
+    }
+
 }

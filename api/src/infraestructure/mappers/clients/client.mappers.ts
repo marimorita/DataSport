@@ -15,7 +15,7 @@ export class ClientMapper {
         if (!phone) throw CustomError.badRequest("Falta Telefono");
         if (!assistance) throw CustomError.badRequest("Falta Asistencia");
         if (!address) throw CustomError.badRequest("Falta direccion");
-        if (!img) throw CustomError.badRequest("Falta Imagen");
+        // if (!img) throw CustomError.badRequest("Falta Imagen");
         if (!idCenter) throw CustomError.badRequest("Falta id de Centro");
 
         return {
@@ -27,7 +27,7 @@ export class ClientMapper {
             assistance,
             address,
             state,
-            img,
+            // img,
             idCenter,
         };
     }
@@ -42,7 +42,7 @@ export class ClientMapper {
             assistance: entity.assistance,
             address: entity.address,
             state: entity.state,
-            img: entity.img,
+            // img: entity.img,
             idCenter: entity.idCenter,
         };
     }

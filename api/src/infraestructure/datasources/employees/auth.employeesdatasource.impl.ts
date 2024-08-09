@@ -23,7 +23,7 @@ export class AuthEmployeesDataSourceImpl implements AuthEmployeesDataSource {
 
     async register(payload: { [key: string]: any }): Promise<{ message: string }> {
         const dto = this.createEmployeeData(payload);
-        const { id, name, email, phone, address, password, img, role, idCenter } = dto;
+        const { id, name, email, phone, address, password, role, idCenter } = dto;
         const hashedPassword = BcryptAdapter.hash(password);
 
         try {
@@ -37,7 +37,7 @@ export class AuthEmployeesDataSourceImpl implements AuthEmployeesDataSource {
                 phone,
                 address,
                 password: hashedPassword,
-                img,
+                // img,
                 role,
                 idCenter,
             });
@@ -55,7 +55,7 @@ export class AuthEmployeesDataSourceImpl implements AuthEmployeesDataSource {
         }
     }
 
-    async login(email:string, password: string): Promise<{ token: string, message: string }> {
+    async login(email:string, password: string): Promise<{ token: string, role: string | undefined, message: string  }> {
         try {
             const employees = await this.employeesRepository.findOne({ where: { email }});
             if (!employees) throw CustomError.badRequest("Correo invalido");
@@ -69,6 +69,7 @@ export class AuthEmployeesDataSourceImpl implements AuthEmployeesDataSource {
 
             return {
                 token,
+                role: employees.role,
                 message: "Inicio de sesion exitoso"
             };
         } catch (error) {
@@ -77,6 +78,22 @@ export class AuthEmployeesDataSourceImpl implements AuthEmployeesDataSource {
             }
             throw CustomError.internalServer();
         }
+    }
+
+    async getEmployeeById(id: number): Promise<EmployeesEntity | null> {
+        try {
+            return await this.employeesRepository.findOne({ where: { id } });
+        } catch (error) {
+            console.error("Error fetching client by ID:", error);
+            throw CustomError.internalServer();
+        }
+    }
+
+    async getEmployeeByEmail(email: string): Promise<EmployeesEntity | null> {
+        // Implementación para obtener el administrador por su email
+        // Ejemplo usando TypeORM:
+        const admin = await this.employeesRepository.findOne({ where: { email } });
+        return admin || null;
     }
 
 }

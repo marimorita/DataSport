@@ -16,6 +16,8 @@ export class AuthEmployeesRoutes {
 
         router.post('/login', controller.loginEmployees);
         router.post('/register', authenticateToken, authorizeRoles(['admin']), controller.registerEmployees)
+        router.get('/employee/token/:token', controller.getEmployeeByToken)
+        router.get('/employee/:id', controller.getEmployeeById)
 
         return router;
     }

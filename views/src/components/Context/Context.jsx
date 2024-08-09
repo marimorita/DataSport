@@ -9,9 +9,14 @@ export const StateProvider = ({ children }) => {
   const [loginEmpleyees, setLoginEmpleyees] = useState(false);
   const [loginAdmin, setLoginAdmin] = useState(false);
   const [clientsView, setClientsView] = useState([]);
+  const [adminView, setAdminView] = useState([]);
+  const [employeeView, setEmployeeView] = useState([]);
+  const [userView, setUserView] = useState([]);
+  const [userDocument, setUserDocument] = useState([]);
+
 
   return (
-    <StateContext.Provider value={{ createUser, setCreateUser, createEmpleyees, setCreateEmpleyees, loginEmpleyees, setLoginEmpleyees, clientsView, setClientsView, loginAdmin, setLoginAdmin, createAdmin, setCreateAdmin }}>
+    <StateContext.Provider value={{ createUser, setCreateUser, createEmpleyees, setCreateEmpleyees, loginEmpleyees, setLoginEmpleyees, clientsView, setClientsView, loginAdmin, setLoginAdmin, createAdmin, setCreateAdmin, adminView, setAdminView, employeeView, setEmployeeView, userView, setUserView, userDocument, setUserDocument }}>
       {children}
     </StateContext.Provider>
   );

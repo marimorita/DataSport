@@ -1,7 +1,31 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from 'react';
 import { Buttonredirect } from "../../shared/Button/Buttons";
+import axios from '../../../../axiosConfig';
+import { StateContext } from '../../Context/Context';
+import { toast, ToastContainer } from "react-toastify";
 
 export const ProfileEmployee = () => {
+  const { employeeView, setEmployeeView } = useContext(StateContext);
+
+  const token = localStorage.getItem('token');
+
+  useEffect(() => {
+    const fetchAdmin = async () => {
+      try {
+        const response = await axios.get(`/employees/employee/token/${token}`);
+        // console.log(response.data);
+
+        setEmployeeView([response.data])
+
+      } catch (error) {
+        console.error("Error obteniendo el admin", error);
+      }
+    };
+
+    fetchAdmin();
+  }, [setEmployeeView]);
+  console.log(employeeView);
+  
   return (
     <div className="flex">
       <div>
@@ -66,23 +90,22 @@ export const ProfileEmployee = () => {
           </div>
         </div>
         <div className="mx-[6rem] mt-[-3rem] flex flex-col justify-start">
-          <h1 className="text-[30px] text-start w-[15rem]">
-            <b>sergio andres chica jaimes</b>
-          </h1>
-          <ul>
-            <li className="text-[20px] text-start w-[20rem]">
-              Nombre: 1072421546
-            </li>
-            <li className="text-[20px] text-start w-[20rem]">
-              Numero: 3107564241
-            </li>
-            <li className="text-[20px] text-start w-[20rem]">
-              Email: sergioanjaci@gmail.com
-            </li>
-            <li className="felx text-[20px] text-start w-[20rem] ">
-                Estado: <b className="text-white bg-[#FE7A36] px-[2rem] py-[0.2rem] rounded-md ">empleado</b>
-            </li>
-          </ul>
+        {employeeView.map(employee => (
+         <><h1 className="text-[30px] text-start w-[15rem]">
+              <b>{employee.name}</b>
+            </h1><ul>
+                <li className="text-[20px] text-start w-[20rem]">
+                  Nombre: {employee.name}
+                </li>
+                <li className="text-[20px] text-start w-[20rem]">
+                  Numero: {employee.phone}
+                </li>
+                <li className="text-[20px] text-start w-[20rem]">
+                  Email: {employee.email}
+                </li>
+              </ul></>
+          ))
+          }
         </div>
       </div>
       <div className="flex flex-col gap-[5rem]">
