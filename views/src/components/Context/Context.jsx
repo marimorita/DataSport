@@ -15,8 +15,10 @@ export const StateProvider = ({ children }) => {
   const [userDocument, setUserDocument] = useState([]);
 
 
+
+
   return (
-    <StateContext.Provider value={{ createUser, setCreateUser, createEmpleyees, setCreateEmpleyees, loginEmpleyees, setLoginEmpleyees, clientsView, setClientsView, loginAdmin, setLoginAdmin, createAdmin, setCreateAdmin, adminView, setAdminView, employeeView, setEmployeeView, userView, setUserView, userDocument, setUserDocument }}>
+    <StateContext.Provider value={{ createUser, setCreateUser, createEmpleyees, setCreateEmpleyees, loginEmpleyees, setLoginEmpleyees, clientsView, setClientsView, loginAdmin, setLoginAdmin, createAdmin, setCreateAdmin, adminView, setAdminView, employeeView, setEmployeeView, userView, setUserView, userDocument, setUserDocument}}>
       {children}
     </StateContext.Provider>
   );

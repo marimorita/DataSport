@@ -1,10 +1,14 @@
+import React, { useContext, useRef, useState, useEffect } from 'react'
+import { StateContext } from './components/Context/Context';
 // import { Login } from "./components/Pages/Login/Login"
 // import { Register } from "./components/Pages/Register/Register"
 import { Employees } from "./components/Pages/Register/Employees"
 import { Route, Switch } from "wouter"
 import { AppContextProvider } from "./contexts/app.context"
+import { useLocation } from 'wouter'
 
-import { Twoverific } from "./components/Pages/Twoverific/Twoverific"
+import { TwoverificAdmin } from "./components/Pages/Twoverific/TwoVerificAdmin"
+import { TwoverificEmployee } from "./components/Pages/Twoverific/TwoVerificEmployee"
 // import { Users } from "./components/Pages/Users/Users"
 
 import { Admin } from "./components/Pages/Register/Admin"
@@ -28,62 +32,109 @@ import { ProtectedRoute } from "./components/Context/ProtectectRoutes"
 
 
 function App() {
+  const [routeEmployee, setRouteEmployee] = useState(localStorage.getItem('routeE') || '');
+  const [routeAdmin, setRouteAdmin] = useState(localStorage.getItem('routeA') || '');
+  const [location, setLocation] = useLocation();
+
+  useEffect(() => {
+    const storedRouteE = localStorage.getItem('routeE');
+    if (storedRouteE !== routeEmployee) {
+      setRouteEmployee(storedRouteE);
+    }
+  }, [routeEmployee]);
+
+  useEffect(() => {
+    const storedRouteA = localStorage.getItem('routeA');
+    if (storedRouteA !== routeAdmin) {
+      setRouteAdmin(storedRouteA);
+    }
+  }, [routeAdmin]);
+  
+  console.log("esta en App",routeEmployee);
+  
+
   return (
     <AuthProvider>
       <AppContextProvider>
         <div className="min-h-screen max-w-[1920px] mx-auto w-full flex flex-col ">
           <Switch>
             {/* Protectec Routes */}
-            <ProtectedRoute path="/admin/home" allowedRoles={['admin']}>
-              <HomeAdmin />
-            </ProtectedRoute>
-            <ProtectedRoute path="/employee/home" allowedRoles={['employee']}>
-              <HomeEmployee />
-            </ProtectedRoute>
-            
-            <ProtectedRoute path="/profile/A" allowedRoles={['admin']}>
-              <ProfileAdmin />
-            </ProtectedRoute>
-            <ProtectedRoute path="/profile/E" allowedRoles={['admin', 'employee']}>
-              <ProfileEmployee />
-            </ProtectedRoute>
-            <ProtectedRoute path="/profile/U" allowedRoles={['admin', 'employee']}>
-              <ProfileUsers />
-            </ProtectedRoute>
+            {routeAdmin && (
+              <>
+                <ProtectedRoute path={`/HJQL9823/${routeAdmin}/home`} allowedRoles={['admin']}>
+                  <HomeAdmin />
+                </ProtectedRoute>
+                <ProtectedRoute path={`/HJQL9823/${routeAdmin}/profile/A`} allowedRoles={['admin']}>
+                  <ProfileAdmin />
+                </ProtectedRoute>
+                <ProtectedRoute path={`/HJQL9823/${routeAdmin}/registeredlist`} allowedRoles={['admin']}>
+                  <Registerlist Location={`/HJQL9823/${routeAdmin}/home`} LocationProfile={`/HJQL9823/${routeAdmin}/profile/U`} LocationRegisterUser={`/HJQL9823/${routeAdmin}/register/user`} LocationRegisterEmployee={`/HJQL9823/${routeAdmin}/register/employeed`} />
+                </ProtectedRoute>
+                <ProtectedRoute path={`/HJQL9823/${routeAdmin}/assistance`} allowedRoles={['admin']}>
+                  <Asistence Location={`/HJQL9823/${routeAdmin}/home`} />
+                </ProtectedRoute>
+                <ProtectedRoute path={`/HJQL9823/${routeAdmin}/profile/U`} allowedRoles={['admin']}>
+                  <ProfileUsers Location={`/HJQL9823/${routeAdmin}/profile/U`} />
+                </ProtectedRoute>
+                <ProtectedRoute path={`/HJQL9823/${routeAdmin}/register/user`} allowedRoles={['admin']}>
+                  <Clients Location={`/HJQL9823/${routeAdmin}/registeredlist`} />
+                </ProtectedRoute>
+                <ProtectedRoute path={`/HJQL9823/${routeAdmin}/register/employeed`} allowedRoles={['admin']}>
+                  <Employees Location={`/HJQL9823/${routeAdmin}/register/employeed`} />
+                </ProtectedRoute>
+              </>
+            )}
+            {routeEmployee && (
+              <>
+                <ProtectedRoute path={`/KQWJ7482/${routeEmployee}/home`} allowedRoles={['employee']}>
+                  <HomeEmployee />
+                </ProtectedRoute>
+                <ProtectedRoute path={`/KQWJ7482/${routeEmployee}/profile/E`} allowedRoles={['employee']}>
+                  <ProfileEmployee />
+                </ProtectedRoute>
+                <ProtectedRoute path={`/KQWJ7482/${routeEmployee}/registeredlist`} allowedRoles={['employee']}>
+                  <Registerlist Location={`/KQWJ7482/${routeEmployee}/home`} LocationProfile={`/KQWJ7482/${routeEmployee}/profile/U`} LocationRegisterUser={`/KQWJ7482/${routeEmployee}/register/user`} />
+                </ProtectedRoute>
+                <ProtectedRoute path={`/KQWJ7482/${routeEmployee}/assistance`} allowedRoles={['employee']}>
+                  <Asistence Location={`/KQWJ7482/${routeEmployee}/home`} />
+                </ProtectedRoute>
+                <ProtectedRoute path={`/KQWJ7482/${routeEmployee}/profile/U`} allowedRoles={['employee']}>
+                  <ProfileUsers Location={`/KQWJ7482/${routeEmployee}/profile/U`} />
+                </ProtectedRoute>
+                <ProtectedRoute path={`/KQWJ7482/${routeEmployee}/register/user`} allowedRoles={['employee']}>
+                  <Clients Location={`/KQWJ7482/${routeEmployee}/registeredlist`} />
+                </ProtectedRoute>
+              </>
+            )}
 
-            <ProtectedRoute path="/registeredemployeed" allowedRoles={['admin']}>
-              <Employees />
-            </ProtectedRoute>
-            <ProtectedRoute path="/registeredlist" allowedRoles={['admin', 'employee']}>
+            {/* <ProtectedRoute path="/registeredlist" allowedRoles={['admin', 'employee']}>
               <Registerlist />
-            </ProtectedRoute>
-            <ProtectedRoute path="/asitencia" allowedRoles={['admin', 'employee']}>
+            </ProtectedRoute> */}
+            {/* <ProtectedRoute path="/asitencia" allowedRoles={['admin', 'employee']}>
               <Asistence />
-            </ProtectedRoute>
-
-            <ProtectedRoute path="/createusers" allowedRoles={['admin', 'employee']}>
-              <Clients />
-            </ProtectedRoute>
-            <ProtectedRoute path="/createadmin" allowedRoles={['admin', 'employee']}>
-              <Admin />
-            </ProtectedRoute>
+            </ProtectedRoute> */}
 
             {/* Normal Routes */}
 
-
-            <Route path="/login">
-              <LoginAdmin />
-            </Route>
-            <Route path="/loginempleados">
-              <LoginEmpleados />
-            </Route>
             <Route path="/">
               <Home />
             </Route>
-
-            <Route path="/twoverific">
-              <Twoverific />
+            <Route path="/login/HJQL9823">
+              <LoginAdmin />
             </Route>
+            <Route path="/twoverific/HJQL9823">
+              <TwoverificAdmin />
+            </Route>
+            <Route path="/login/KQWJ7482">
+              <LoginEmpleados />
+            </Route>
+            <Route path="/twoverific/KQWJ7482">
+              <TwoverificEmployee />
+            </Route>
+            <Route path="/estonoseaccedeporfavor">
+              <Admin />
+            </Route>
+
             <Route>
               <div>404: No such page</div>
             </Route>

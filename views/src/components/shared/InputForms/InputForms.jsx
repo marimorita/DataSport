@@ -135,7 +135,7 @@ export const Perfilcontenedor = ({ customClassName, nombre, apellido, documento,
   );
 }
 
-const Buscador = ({ onChange, value }) => {
+export const Buscador = ({ onChange, value }) => {
   return (
     <div className="relative">
       <input
@@ -164,4 +164,31 @@ const Buscador = ({ onChange, value }) => {
   );
 };
 
-export default Buscador;
+export const AsistenceBuscador = ({ value, onChange, possibleMatch, onSelectMatch, onRegisterAttendance }) => {
+  return (
+    <div className="w-full max-w-[25rem] "> {/* Contenedor principal con ancho máximo */}
+      <div className="relative  w-full">
+        <Buscador
+          value={value}
+          onChange={onChange}
+        />
+      </div>
+      {possibleMatch && (
+        <div className='w-full bg-white border border-gray-300 rounded-b-md shadow-md p-2 text-center cursor-pointer'
+             onClick={() => onSelectMatch(possibleMatch.document)}>
+          <p>¿Buscabas a {possibleMatch.name}?</p>
+          <button
+            className="bg-[#3F3D56] text-white font-bold py-1 px-2 rounded-[10px] mt-2"
+            onClick={(e) => {
+              e.stopPropagation();
+              onRegisterAttendance(possibleMatch);
+            }}
+          >
+            Registrar Asistencia
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
+export default AsistenceBuscador;

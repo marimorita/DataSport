@@ -33,6 +33,7 @@ export class AuthClientsController {
             const clients = await this.authClientsRepository.getAllClients();
             res.json(clients);
         } catch (error) {
+            console.log(error);
             this.handleError(error, res);
         }
     }
@@ -54,6 +55,7 @@ export class AuthClientsController {
             }
             res.json(client);
         } catch (error) {
+            // console.log(error);
             this.handleError(error, res);
         }
     }

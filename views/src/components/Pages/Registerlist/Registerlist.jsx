@@ -3,18 +3,41 @@ import { useLocation } from 'wouter';
 import { toast, ToastContainer } from "react-toastify";
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { ButtomHome } from '../../shared/Button/Buttons';
-import TableComponent from '../../shared/userTable/userTable';
+import TableComponent from '../../shared/userTable/registerTable';
 import Buscador from '../../shared/InputForms/InputForms';
 import StatusDropdown from '../../shared/DropDowns/StatusFilter';
 import RegisterDropdown from '../../shared/DropDowns/RegisterDropDown/RegisterDropDown';
+import StatusCard from '../../shared/utils/utils';
+import SearchVector from '../../../assets/Searching.png'
 import axios from '../../../../axiosConfig';
 import { StateContext } from '../../Context/Context';
 
-export const Registerlist = () => {
+const SearchWithSuggestion = ({ onChange, value, possibleMatch, onSelectMatch }) => {
+  return (
+    <div className="relative">
+      <Buscador onChange={onChange} value={value} />
+      {possibleMatch && (
+        <div className='absolute top-full left-0 right-0 bg-white border border-gray-300 rounded-b-md shadow-md p-2 text-center z-10'>
+          <p>¿Buscabas a {possibleMatch.name}?</p>
+          <button
+            className="bg-[#3F3D56] text-white font-bold py-1 px-2 rounded-[10px] mt-2"
+            onClick={() => onSelectMatch(possibleMatch)}
+          >
+            Seleccionar
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export const Registerlist = ({Location, LocationProfile, LocationRegisterUser, LocationRegisterEmployee}) => {
   const [location, setLocation] = useLocation();
   const { clientsView, setClientsView } = useContext(StateContext);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [inputValue, setInputValue] = useState('');
   const [filteredUsers, setFilteredUsers] = useState([]);
+  const [possibleMatch, setPossibleMatch] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
   const [selectedStatus, setSelectedStatus] = useState('Filtrar');
 
   useEffect(() => {
@@ -39,10 +62,26 @@ export const Registerlist = () => {
 
   useEffect(() => {
     filterUsers();
-  }, [searchTerm, selectedStatus, clientsView]);
+  }, [inputValue, selectedStatus, clientsView]);
 
-  const handleSearch = (term) => {
-    setSearchTerm(term);
+  const handleInputChange = (value) => {
+    setInputValue(value);
+    if (value.trim() === '') {
+      setPossibleMatch(null);
+    } else {
+      const possibleMatch = clientsView.find(date =>
+        date.document.includes(value)
+      );
+      setPossibleMatch(possibleMatch);
+    }
+    setSelectedUser(null);
+  };
+
+
+  const handleSelectMatch = (user) => {
+    setSelectedUser(user);
+    setInputValue('');
+    setPossibleMatch(null);
   };
 
   const handleStatusChange = (status) => {
@@ -52,9 +91,9 @@ export const Registerlist = () => {
   const filterUsers = () => {
     let results = clientsView;
     
-    if (searchTerm !== '') {
+    if (inputValue !== '') {
       results = results.filter(user =>
-        String(user.id).includes(searchTerm) || user.name.toLowerCase().includes(searchTerm.toLowerCase())
+        String(user.id).includes(inputValue) || user.name.toLowerCase().includes(inputValue.toLowerCase())
       );
     }
     
@@ -105,25 +144,34 @@ export const Registerlist = () => {
   return (
     <>
     <div className='bg-[#F0ECE3] w-full h-full flex flex-col flex-1 items-center relative py-[2.5%]'>
-      <div className='absolute left-[5%] py-3' onClick={() => setLocation("/")}>
+      <div className='absolute left-[5%] ' onClick={() => setLocation(Location)}>
         <ButtomHome customClassName={''} />
         <IoMdArrowRoundBack className="hidden sm:inline-block sm:text-[3rem] sm:top-[1%] text-[#000000] bg-[#F0ECE3] p-[0.5rem] rounded-[10px] shadow-xl border-2 border-transparent" />
       </div>
-      <label className="flex flex-row justify-evenly mt-[1.4%] items-center">
-        <Buscador onChange={handleSearch} value={searchTerm} />
+      <div className="flex justify-between w-60% items-center">
+        <SearchWithSuggestion 
+          onChange={handleInputChange} 
+          value={inputValue} 
+          possibleMatch={possibleMatch}
+          onSelectMatch={handleSelectMatch}
+        />
         <StatusDropdown onStatusChange={handleStatusChange} />
-        <RegisterDropdown />
-      </label>
-      <h1 className='text-[2rem] mt-[5rem] 2xl:text-[2rem] xl:text-[1.5rem] lg:text-[1.7rem]'>Usuarios Registrados</h1>
+        <RegisterDropdown LocationRegisterUser={LocationRegisterUser} LocationRegisterEmployee={LocationRegisterEmployee} />
+      </div>
+      <div className='w-[50%] flex h-[14rem] border border-[#3F3D56] m-6 rounded-md items-center shadow-xl'>
+        <img src={SearchVector} alt="SearchingVector" className='w-[200px] p-1'/>
+        <p className='text-center m-[0.5rem]'>Aquí, podrás encontrar todos los usuarios registrados del establecimiento. Además, tendrás la opción de registrar nuevos usuarios de manera sencilla y rápida. ¡Explora y gestiona tu lista de usuarios con facilidad!</p>
+      </div>
+      <StatusCard/>
       <div className='m-2 h-full w-[90%] flex flex-wrap justify-center items-center mb-[15px] lg:w-[92%]'>
-        {filteredUsers.length > 0 ? (
-          <TableComponent users={filteredUsers} />
+        {selectedUser ? (
+          <TableComponent users={[selectedUser]} LocationProfile={LocationProfile} />
+        ) : filteredUsers.length > 0 ? (
+          <TableComponent users={filteredUsers} LocationProfile={LocationProfile} />
         ) : (
-          <p>No se encontró ningún usuario con ese documento.</p>
+          <p>No se encontró ningún usuario con ese documento o estado.</p>
         )}
       </div>
-      <button className='bg-white text-center w-48 rounded-2xl h-14 relative font-sans text-black text-xl font-semibold group' onClick={toggleCreateUser} />
-
     </div>
     <ToastContainer position="top-center" autoClose={1500} pauseOnHover={false}  />
     </>

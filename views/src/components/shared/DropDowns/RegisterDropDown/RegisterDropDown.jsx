@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useLocation } from 'wouter';
 
-const RegisterMenu = () => {
+const RegisterMenu = ({LocationRegisterUser, LocationRegisterEmployee}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState('Registrar');
   const [, setLocation] = useLocation();
@@ -9,9 +9,9 @@ const RegisterMenu = () => {
 
   const handleSelect = (option) => {
     if (option === 'Empleado') {
-      setLocation('');
+      setLocation(LocationRegisterEmployee);
     } else if (option === 'Usuario') {
-      setLocation('/createusers');
+      setLocation(LocationRegisterUser);
     }
     setSelectedOption(option);
     setIsOpen(false);

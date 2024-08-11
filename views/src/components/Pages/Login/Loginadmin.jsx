@@ -14,7 +14,7 @@ export const LoginAdmin = () => {
       <div > 
 
       <svg className="w-[470px] rotate-180 h-[488px] fixed right-[-1rem] top-[22rem] " width="316" height="235" viewBox="0 0 316 235" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path className='cursor-pointer ' onClick={() => setLocation("/loginempleados")}
+<path className='cursor-pointer ' onClick={() => setLocation("/login/KQWJ7482")}
             fill="url(#paint0_linear_425_3047)" transform="translate(0 0)">
             <animate attributeName='d' dur="18000ms" repeatCount="indefinite"
               values='

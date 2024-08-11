@@ -1,10 +1,29 @@
-import React, {useContext} from 'react'
-import { FormsTwoVerific } from '../../shared/Forms/Forms'
+import React, { useContext, useRef, useState, useEffect } from 'react'
+import { FormsTwoVerificAdmin } from '../../shared/Forms/Forms'
 import { StateContext } from '../../Context/Context'
 import { FaRegCheckCircle } from 'react-icons/fa'
 import { useLocation } from 'wouter'
 
-export const Twoverific = () => {
+export const TwoverificAdmin = () => {
+
+  useEffect(() => {
+    // Verifica si ya se ha recargado la página
+    const hasReloaded = localStorage.getItem('hasReloaded');
+
+    if (!hasReloaded) {
+      // Marca que la página ha sido recargada
+      localStorage.setItem('hasReloaded', 'true');
+
+      // Recarga la página
+      window.location.reload();
+    }
+    
+    // Limpia la bandera para futuras visitas si es necesario
+    return () => {
+      localStorage.removeItem('hasReloaded');
+    };
+  }, []);
+
   return (
     <div className='w-full h-full flex flex-1 items-center relative'>
     <div>
@@ -191,7 +210,7 @@ export const Twoverific = () => {
 
     <div className='w-[90px] h-[93px] bg-[#FE7A3659] rounded-[50%] bottom-[30%]  left-[6%] absolute ' />
     <div className='w-[110px] h-[113px] bg-[#38197559] rounded-[50%] bottom-[4%] left-[12%] absolute ' />
-    <FormsTwoVerific />
+    <FormsTwoVerificAdmin />
     <div className='w-[80px] h-[83px] bg-[#FE7A3659] rounded-[50%] top-[5%]  right-[12%] absolute ' />
     <div className='w-[126px] h-[123px] bg-[#FF9F2E59] rounded-[50%] top-[20%]  right-[8%] absolute ' />
 
