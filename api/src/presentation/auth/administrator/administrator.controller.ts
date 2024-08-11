@@ -1,44 +1,64 @@
 import { Request, Response } from "express";
-import { RegisterAdministratorDto, AuthAdministratorRepository, CustomError  } from "../../../domain";
+import { RegisterAdministratorDto, AuthAdministratorRepository, CustomError } from "../../../domain";
 import { AdministratorEntity } from "../../../data";
 import jwt from 'jsonwebtoken';
 import { envs } from "../../../config";
-export class AuthAdministratorController {
+import crypto from 'crypto';
+
+function generateVerificationCode(): string {
     
+    const letters = Array(4)
+        .fill(null)
+        .map(() => String.fromCharCode(65 + Math.floor(Math.random() * 26)))
+        .join('');
+
+    
+    const numbers = Array(4)
+        .fill(null)
+        .map(() => Math.floor(Math.random() * 10))
+        .join('');
+
+    
+    return `${letters}${numbers}`;
+}
+export class AuthAdministratorController {
+
     constructor(
         private readonly authAdministratorRepository: AuthAdministratorRepository
-    ){}
+    ) { }
 
-    private handleError = ( error: unknown, res: Response ) => {
-    
-         if ( error instanceof CustomError ) {
-           return res.status(error.statusCode).json({ error: error.message });
-         }
-    
-         return res.status(500).json({ error: 'Internal Server Error' });
-       }
+    private handleError = (error: unknown, res: Response) => {
+
+        if (error instanceof CustomError) {
+            return res.status(error.statusCode).json({ error: error.message });
+        }
+
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
 
     registerAdministrator = async (req: Request, res: Response) => {
-       const [error, registerAdministratorDto] = RegisterAdministratorDto.create(req.body);
-       if ( error ) return res.status(400).json({ error });
-       
-       try {
-        await this.authAdministratorRepository.register(registerAdministratorDto!)
-        res.status(201).json({ message: 'Registro exitoso!' });
-       } catch (error) {
-        this.handleError(error, res);
-       }
+        const [error, registerAdministratorDto] = RegisterAdministratorDto.create(req.body);
+        if (error) return res.status(400).json({ error });
+
+        try {
+            await this.authAdministratorRepository.register(registerAdministratorDto!)
+            res.status(201).json({ message: 'Registro exitoso!' });
+        } catch (error) {
+            this.handleError(error, res);
+        }
     }
 
     loginAdministrator = async (req: Request, res: Response) => {
-        const {email, password} = req.body;
-        if (!email ||!password) {
-            return res.status(400).json({ error: 'Email and password are required'})
+        const { email, password } = req.body;
+        if (!email || !password) {
+            return res.status(400).json({ error: 'Email and password are required' })
         }
+
+        const routeCode = generateVerificationCode();
 
         try {
             const { token, role, message } = await this.authAdministratorRepository.login(email, password)
-            res.json({ token, role, message })
+            res.json({ token, role, routeCode, message })
         } catch (error) {
             this.handleError(error, res)
         }
@@ -66,7 +86,7 @@ export class AuthAdministratorController {
             res.status(200).json(admin);
         } catch (error) {
             console.log(error);
-            
+
             this.handleError(error, res);
         }
     }

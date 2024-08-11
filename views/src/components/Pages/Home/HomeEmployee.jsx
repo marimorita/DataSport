@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navbar } from "../../shared/Navbar/Navbar";
+import { NavbarEmployee } from "../../shared/Navbar/Navbar";
 import { Usertype } from "../../shared/Figures/Figures";
 import Carrusel from "../../Carrusel/Datoscuriosos/carrusel1";
 import { Footer } from "../../Footer/Footer";
@@ -9,7 +9,7 @@ import Principalcarrusel from "../../Carrusel/Principalcarrusel/carrusel0";
 export const HomeEmployee = () => {
   return (
     <div className="w-full h-auto bg-[#F0ECE3] flex flex-col gap-[5rem]">
-      <Navbar login={true} customClassName={'text-[#FE7A36]'} />
+      <NavbarEmployee login={true} customClassName={'text-[#FE7A36]'} />
       <Usertype name={' Empleado'} customClassName={'bg-gradient-to-r from-[#F25200]  to-[#FF9F2E]'}/>
       <div className="flex flex-col justify-end min-h-[35rem] relative overflow-hidden ">
         <section className="flex justify-between ">

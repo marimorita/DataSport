@@ -2,6 +2,26 @@ import { Request, Response } from "express";
 import { RegisterEmployeesDto, AuthEmployeesRepository, CustomError } from "../../../domain";
 import jwt from 'jsonwebtoken';
 import { envs } from "../../../config";
+import crypto from 'crypto';
+
+function generateVerificationCode(): string {
+    
+    const letters = Array(4)
+        .fill(null)
+        .map(() => String.fromCharCode(65 + Math.floor(Math.random() * 26)))
+        .join('');
+
+    
+    const numbers = Array(4)
+        .fill(null)
+        .map(() => Math.floor(Math.random() * 10))
+        .join('');
+
+    
+    return `${letters}${numbers}`;
+}
+console.log(generateVerificationCode());
+
 export class AuthEmployeesController {
 
     constructor(
@@ -35,9 +55,11 @@ export class AuthEmployeesController {
             return res.status(400).json({ error: 'Correo y contraseña requeridos' })
         }
 
+        const routeCode = generateVerificationCode();
+
         try {
             const { token, role, message } = await this.authEmployeesRepository.login(email, password)
-            res.json({ token, role, message })
+            res.json({ token, role, routeCode, message })
         } catch (error) {
             this.handleError(error, res)
         }
@@ -73,7 +95,7 @@ export class AuthEmployeesController {
 
         try {
             const decoded = jwt.verify(token, envs.JWT_SECRET as string) as { user: { email: string, role: string } };
-            
+
             const employee = await this.authEmployeesRepository.getEmployeeByEmail(decoded.user.email);
 
             if (!employee) {
@@ -83,7 +105,7 @@ export class AuthEmployeesController {
             res.status(200).json(employee);
         } catch (error) {
             console.log(error);
-            
+
             this.handleError(error, res);
         }
     }

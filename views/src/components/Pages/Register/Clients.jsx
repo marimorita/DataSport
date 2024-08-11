@@ -4,7 +4,7 @@ import { ModalCreate } from "../../Modals/ModalCreate/ModalCreate";
 import { StateContext } from "../../Context/Context";
 import { FaRegCheckCircle } from "react-icons/fa";
 
-export const Clients = () => {
+export const Clients = ({Location}) => {
   const { createUser, setCreateUser } = useContext(StateContext);
 
   return (
@@ -275,7 +275,7 @@ export const Clients = () => {
         />
       </svg>
         </div> 
-      <FormsUsers />
+      <FormsUsers Location={Location} />
       </div>
 
       <ModalCreate

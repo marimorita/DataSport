@@ -12,7 +12,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ path, allowedRol
     const { role, isAuthenticated } = useAuth();
 
     if (!isAuthenticated) {
-        return <Redirect to="/login" />; 
+        return <Redirect to="/login/HJQL9823" />; 
     }
 
     if (!allowedRoles.includes(role || '')) {

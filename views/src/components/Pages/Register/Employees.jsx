@@ -4,7 +4,7 @@ import { ModalCreate } from '../../Modals/ModalCreate/ModalCreate'
 import { StateContext } from '../../Context/Context'
 import { FaRegCheckCircle } from 'react-icons/fa'
 
-export const Employees = () => {
+export const Employees = ({Location}) => {
     const { createEmpleyees, setCreateEmpleyees  } = useContext(StateContext);
 
   return (

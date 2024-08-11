@@ -11,14 +11,14 @@ const statusColors = {
   'Pendiente': 'bg-[#5023A7]'
 };
 
-export const ProfileUsers = () => {
+export const ProfileUsers = ({Location}) => {
   const [location] = useLocation();
   const { userView, setUserView } = useContext(StateContext)
 
   useEffect(() => {
     
   const userDocument = localStorage.getItem('userDocument');
-    console.log(userDocument);
+    // console.log(userDocument);
 
     const fetchUser = async () => {
       try {
@@ -31,13 +31,13 @@ export const ProfileUsers = () => {
         console.error("Error obteniendo el usuario", error);
       }
     };
-    console.log("a",userView);
+    // console.log("a",userView);
     
     fetchUser();
   }, [setUserView]);
 
   useEffect(() => {
-    if (!location.startsWith('/profile/')) {
+    if (!location.startsWith(Location)) {
       localStorage.removeItem('userDocument');
     }
   }, [location]);

@@ -58,7 +58,7 @@ export const Buttonredirect = ({Text,customClassName}) => {
 export const ButtomHome = ({Text, width, customClassName, onClick }) => {
   return (
     <>
-   <button onClick={onClick} className={`${customClassName}   bg-white text-center w-48 rounded-2xl h-14 relative font-sans text-black text-xl font-semibold group`}
+   <button type='button' onClick={onClick} className={`${customClassName}   bg-white text-center w-48 rounded-2xl h-14 relative font-sans text-black text-xl font-semibold group`}
 >
   <div
     class="bg-[#5023A7] rounded-xl h-12 w-1/4 flex items-center justify-center absolute left-1 top-[4px] group-hover:w-[184px] z-10 duration-500"

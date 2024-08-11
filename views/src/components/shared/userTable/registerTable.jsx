@@ -8,9 +8,8 @@ const statusColors = {
   'Pendiente': 'bg-[#5023A7]'
 };
 
-const TableComponent = ({ users }) => {
+const TableComponent = ({ users, LocationProfile }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  const { userDocument, setUserDocument } = useContext(StateContext);
   const [, setLocation] = useLocation();
 
   return (
@@ -32,9 +31,9 @@ const TableComponent = ({ users }) => {
               <div
                   onClick={() => {
                     localStorage.setItem('userDocument', user.id);
-                    setLocation(`/profile/U`); 
+                    setLocation(LocationProfile); 
                   }}
-                className={`rounded-[20px] mx-auto ${statusColors[user.state]} transition-all duration-300 ${hoveredIndex === index ? 'w-20 h-8' : 'w-4 h-8 '} `}
+                className={`rounded-[20px] mx-auto ${statusColors[user.state.charAt(0).toUpperCase() + user.state.slice(1)]} transition-all duration-300 ${hoveredIndex === index ? 'w-20 h-8' : 'w-4 h-8 '} `}
                 title={user.state}
               >
                 {hoveredIndex === index && (
