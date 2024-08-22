@@ -20,6 +20,8 @@ export class AuthClientsRoutes {
         router.get('/clients/:id', controller.getClientById)
         router.put('/clients/:id', authenticateToken, authorizeRoles(['admin', 'employee']), controller.updateAllClientData)
         router.patch('/clients/:id/state', authenticateToken, authorizeRoles(['admin', 'employee']), controller.updateClientStatus);
+        router.patch('/clients/:id/img', authenticateToken, authorizeRoles(['admin', 'employee']), controller.updateClientImg);
+
 
         return router;
     }

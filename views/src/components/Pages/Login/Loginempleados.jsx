@@ -9,6 +9,7 @@ export const LoginEmpleados = () => {
   const { loginEmpleyees, setLoginEmpleyees } = useContext(StateContext);
   const [location, setLocation] = useLocation();
   return (
+    <>
     <div className='w-full h-full flex flex-1 items-center relative'>
       <div>
 <svg className="w-[470px] h-[488px] absolute bottom-[28rem] " width="299" height="186" viewBox="0 0 299 186" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -200,5 +201,6 @@ export const LoginEmpleados = () => {
       <ModalLogin visibility={loginEmpleyees} IconAlert={FaRegCheckCircle} closeButton={() => setLoginEmpleyees(false)} closeIcon={() => setLoginEmpleyees(false)} text={`Your login was successful, Welcome ${name}.`} />
 
     </div>
+    </>
   )
 }

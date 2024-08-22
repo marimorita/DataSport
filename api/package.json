@@ -24,6 +24,8 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
+    "@cloudinary/react": "^1.13.0",
+    "@cloudinary/url-gen": "^1.20.0",
     "@types/bcryptjs": "^2.4.6",
     "@vonage/server-sdk": "^3.15.1",
     "axios": "^1.7.2",

@@ -27,10 +27,10 @@ const generateAsistencePDF = (asistencia) => {
     // Añadir tabla de asistencia
     const tableColumn = ["Documento", "Nombre", "Teléfono", "Estado"];
     const tableRows = asistencia.map(person => [
-      person.document,
+      person.id,
       person.name,
       person.phone,
-      person.status
+      person.state
     ]);
   
     doc.autoTable({

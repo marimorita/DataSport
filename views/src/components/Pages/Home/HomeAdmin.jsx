@@ -5,6 +5,7 @@ import Carrusel from "../../Carrusel/Datoscuriosos/carrusel1";
 import { Footer } from "../../Footer/Footer";
 import Principalcarrusel from "../../Carrusel/Principalcarrusel/carrusel0";
 
+
 export const HomeAdmin = () => {
   return (
     <div className="w-full h-auto bg-[#F0ECE3] flex flex-col gap-[5rem]">

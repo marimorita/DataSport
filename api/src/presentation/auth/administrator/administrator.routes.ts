@@ -16,6 +16,7 @@ export class AuthAdministratorRoutes {
         router.post('/login', controller.loginAdministrator);
         router.post('/register', controller.registerAdministrator)
         router.get('/administrator/:token', controller.getAdministratorById);
+        router.patch('/administrator/:id/img', controller.updateAdministratorImg);
 
         return router;
     }

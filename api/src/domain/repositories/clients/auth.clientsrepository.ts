@@ -11,4 +11,7 @@ export abstract class AuthClientsRepository {
     abstract updateClient(id: number, updatedData: Partial<ClientsEntity>): Promise<ClientsEntity | null>
     
     abstract updateClientStatus(id: number, state: string): Promise<ClientsEntity | null>
-}
+    
+    abstract updateClientImg(id: number, img: string): Promise<ClientsEntity | null>
+
+} 

@@ -49,9 +49,9 @@ function App() {
       setRouteAdmin(storedRouteA);
     }
   }, [routeAdmin]);
-  
-  console.log("esta en App",routeEmployee);
-  
+
+  console.log("esta en App", routeEmployee);
+
 
   return (
     <AuthProvider>
@@ -80,7 +80,7 @@ function App() {
                   <Clients Location={`/HJQL9823/${routeAdmin}/registeredlist`} />
                 </ProtectedRoute>
                 <ProtectedRoute path={`/HJQL9823/${routeAdmin}/register/employeed`} allowedRoles={['admin']}>
-                  <Employees Location={`/HJQL9823/${routeAdmin}/register/employeed`} />
+                  <Employees Location={`/HJQL9823/${routeAdmin}/registeredlist`} />
                 </ProtectedRoute>
               </>
             )}
@@ -90,10 +90,10 @@ function App() {
                   <HomeEmployee />
                 </ProtectedRoute>
                 <ProtectedRoute path={`/KQWJ7482/${routeEmployee}/profile/E`} allowedRoles={['employee']}>
-                  <ProfileEmployee />
+                  <ProfileEmployee Location={`/KQWJ7482/${routeEmployee}/home`} />
                 </ProtectedRoute>
                 <ProtectedRoute path={`/KQWJ7482/${routeEmployee}/registeredlist`} allowedRoles={['employee']}>
-                  <Registerlist Location={`/KQWJ7482/${routeEmployee}/home`} LocationProfile={`/KQWJ7482/${routeEmployee}/profile/U`} LocationRegisterUser={`/KQWJ7482/${routeEmployee}/register/user`} />
+                  <Registerlist notAccess={false} Location={`/KQWJ7482/${routeEmployee}/home`} LocationProfile={`/KQWJ7482/${routeEmployee}/profile/U`} LocationRegisterUser={`/KQWJ7482/${routeEmployee}/register/user`} />
                 </ProtectedRoute>
                 <ProtectedRoute path={`/KQWJ7482/${routeEmployee}/assistance`} allowedRoles={['employee']}>
                   <Asistence Location={`/KQWJ7482/${routeEmployee}/home`} />
@@ -111,16 +111,26 @@ function App() {
               <Registerlist />
             </ProtectedRoute> */}
             {/* <ProtectedRoute path="/asitencia" allowedRoles={['admin', 'employee']}>
-              <Asistence />
+              <Asistence /
             </ProtectedRoute> */}
 
             {/* Normal Routes */}
+
+            <Route path={`/assistance`}>
+              <Asistence Location={`/`} />
+            </Route>
+            <Route path={`/clients`}>
+              <Clients Location={`/`} />
+            </Route>
+            <Route path={`/u`}>
+              <Employees Location={`/`} />
+            </Route>
 
             <Route path="/">
               <Home />
             </Route>
             <Route path="/login/HJQL9823">
-              <LoginAdmin />
+              <LoginAdmin Location={'/'} />
             </Route>
             <Route path="/twoverific/HJQL9823">
               <TwoverificAdmin />
@@ -134,6 +144,13 @@ function App() {
             <Route path="/estonoseaccedeporfavor">
               <Admin />
             </Route>
+            <Route path="/estonoseaccedeporfavor">
+              <Admin />
+            </Route>
+            <Route path="/emple">
+              <Employees />
+            </Route>
+            
 
             <Route>
               <div>404: No such page</div>

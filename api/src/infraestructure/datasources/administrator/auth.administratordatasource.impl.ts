@@ -1,9 +1,11 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../../data/mysql/ormconfig";
 import { BcryptAdapter } from "../../../config";
-import { AuthAdministratorDataSource, CustomError, RegisterAdministratorDto} from "../../../domain";
+import { AuthAdministratorDataSource, CustomError, RegisterAdministratorDto, LoginAdministratorDto} from "../../../domain";
 import { AdministratorMapper } from "../../mappers/administrator/administrator.mappers";
 import { AdministratorEntity } from "../../../data";
+
+
 import { envs } from '../../../config';
 import jwt from 'jsonwebtoken';
 
@@ -15,7 +17,7 @@ export class AuthAdministratorDataSourceImpl implements AuthAdministratorDataSou
     }
     
     async register(registerAdministratorDto: RegisterAdministratorDto): Promise<{message: string}> {
-        const { id, name, email, phone, address, password, role, idCenter} = registerAdministratorDto;
+        const { id, name, lastName, email, phone, address, password, img, role, idCenter} = registerAdministratorDto;
 
         const hashedPassword = BcryptAdapter.hash(password);
         
@@ -27,10 +29,12 @@ export class AuthAdministratorDataSourceImpl implements AuthAdministratorDataSou
             const newAdministrator = this.administratorRepository.create({
                 id: id,
                 name: name,
+                lastName: lastName,
                 email: email,
                 phone: phone,
                 address: address,
                 password: hashedPassword,
+                img: img,
                 role: role,
                 idCenter: idCenter,
             });
@@ -48,15 +52,17 @@ export class AuthAdministratorDataSourceImpl implements AuthAdministratorDataSou
         }
     }
 
-    async login(email:string, password: string): Promise<{ token: string, role: string | undefined, message: string }> {
+    async login(loginAdministratorDto: LoginAdministratorDto): Promise<{ token: string, role: string | undefined, message: string }> {
+        const { email, password } = loginAdministratorDto
+
         try {
             const admin = await this.administratorRepository.findOne({ where: { email }});
-            if (!admin) throw CustomError.badRequest("Correo Invalido");
+            if (!admin) throw CustomError.badRequest("Este usuario no existe");
 
-            if (!admin.password) throw CustomError.unauthorized("Contraseña Invalida");
+            if (!admin.password) throw CustomError.unauthorized("Contraseña Incorrecta");
             
             const isPasswordValid = BcryptAdapter.compare(password, admin.password);
-            if (!isPasswordValid) throw CustomError.unauthorized("Contraseña Invalida");
+            if (!isPasswordValid) throw CustomError.unauthorized("Contraseña Incorrecta");
 
             const token = jwt.sign({ user: {email: admin.email, role: admin.role}}, envs.JWT_SECRET, {expiresIn: '1h',});
 
@@ -79,5 +85,20 @@ export class AuthAdministratorDataSourceImpl implements AuthAdministratorDataSou
         // Ejemplo usando TypeORM:
         const admin = await this.administratorRepository.findOne({ where: { email } });
         return admin || null;
+    }
+
+    async updateAdministratorImg(id: number, img: string): Promise<AdministratorEntity | null> {
+        try {
+            const admin = await this.administratorRepository.findOneBy({ id });
+            if (!admin) {
+                return null;
+            }
+    
+            await this.administratorRepository.update(id, { img });
+            return admin;
+        } catch (error) {
+            console.error('Error updating admin img:', error);
+            throw new Error('Error updating admin img');
+        }
     }
 }

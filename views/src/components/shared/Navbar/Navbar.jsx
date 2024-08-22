@@ -2,8 +2,10 @@ import React, { useContext, useRef, useState, useEffect } from 'react'
 import { FaUserCircle } from "react-icons/fa";
 import { useLocation } from 'wouter'
 import { StateContext } from '../../Context/Context';
+import { ProfileMenu } from '../../shared/DropDowns/RegisterDropDown/RegisterDropDown';
 
-export const Navbar = ({customClassName, login}) => {
+
+export const Navbar = ({customClassName, login, assistence, register, inventory, remarks}) => {
   const [location, setLocation] = useLocation();
 
   return (
@@ -15,10 +17,10 @@ export const Navbar = ({customClassName, login}) => {
             </div>
             <div className=''>
             <ul className='text-[25px] w-[40%] gap-[5rem] flex cursor-pointer'>
-                <li onClick={() => setLocation(`/`)}>Asistencia</li>
-                <li onClick={() => setLocation(`/`)}>Registros</li>
-                <li>Inventario</li>
-                <li>Observaciones</li>
+                <li onClick={assistence}>Asistencia</li>
+                <li onClick={register}>Registros</li>
+                <li onClick={inventory}>Inventario</li>
+                <li onClick={remarks}>Observaciones</li>
             </ul>
             </div>
             {login ? <FaUserCircle className={`${customClassName} w-[20%] text-[60px]`} /> : <div className='w-[20%] flex justify-center '><button onClick={() => setLocation("/login/HJQL9823")} className=' w-[50%] text-[25px] text-[#F0ECE3] flex justify-center cursor-pointer bg-[#2F2C37] shadow-xl rounded-[18px] ' >Login</button></div> }
@@ -54,7 +56,7 @@ export const NavbarAdmin = ({customClassName, login}) => {
                 <li>Observaciones</li>
             </ul>
             </div>
-            {login ? <FaUserCircle className={`${customClassName} w-[20%] text-[60px] cursor-pointer`} onClick={() => setLocation(`/HJQL9823/${routeAdmin}/profile/A`)}   /> : <div className='w-[20%] flex justify-center '><button onClick={() => setLocation("/login/HJQL9823")} className=' w-[50%] text-[25px] text-[#F0ECE3] flex justify-center cursor-pointer bg-[#2F2C37] shadow-xl rounded-[18px] ' >Login</button></div> }
+            {login ? <> <ProfileMenu customClassName={'text-[#692FDB]'} LocationProfile={`/HJQL9823/${routeAdmin}/profile/A`} LocationLogout={`/`} /> {/* <FaUserCircle className={`${customClassName} w-[20%] text-[60px] cursor-pointer`} onClick={() => setLocation(`/HJQL9823/${routeAdmin}/profile/A`)}   /> */} </> : <div className='w-[20%] flex justify-center '><button onClick={() => setLocation("/login/HJQL9823")} className=' w-[50%] text-[25px] text-[#F0ECE3] flex justify-center cursor-pointer bg-[#2F2C37] shadow-xl rounded-[18px] ' >Login</button></div> }
         </div>
     </div>
   )
@@ -87,7 +89,7 @@ export const NavbarEmployee = ({customClassName, login}) => {
                 <li>Observaciones</li>
             </ul>
             </div>
-            {login ? <FaUserCircle className={`${customClassName} w-[20%] text-[60px] cursor-pointer`}  onClick={() => setLocation(`/KQWJ7482/${routeEmployee}/profile/E`)} /> : <div className='w-[20%] flex justify-center '><button onClick={() => setLocation("/login/HJQL9823")} className=' w-[50%] text-[25px] text-[#F0ECE3] flex justify-center cursor-pointer bg-[#2F2C37] shadow-xl rounded-[18px] ' >Login</button></div> }
+            {login ? <> <ProfileMenu customClassName={'text-[#FE7A36]'} LocationProfile={`/KQWJ7482/${routeEmployee}/profile/E`} LocationLogout={`/`} /> {/* <FaUserCircle className={`${customClassName} w-[20%] text-[60px] cursor-pointer`}  onClick={() => setLocation(`/KQWJ7482/${routeEmployee}/profile/E`)} /> */} </> : <div className='w-[20%] flex justify-center '><button onClick={() => setLocation("/login/HJQL9823")} className=' w-[50%] text-[25px] text-[#F0ECE3] flex justify-center cursor-pointer bg-[#2F2C37] shadow-xl rounded-[18px] ' >Login</button></div> }
         </div>
     </div>
   )

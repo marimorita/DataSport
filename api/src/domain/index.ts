@@ -5,10 +5,10 @@ export * from './dto/auth/administrator/register-administrator.dto'
 export * from './dto/auth/products/register-productsdto'
 export * from './dto/auth/inventory/register-inventorydto'
 
+export * from './datasources/administrator/auth.administratordatasource'
 export * from './datasources/clients/auth.clientsdatasource'
 export * from './datasources/employees/auth.employeesdatasource'
 export * from './datasources/establishment/auth.establishmentdatasource'
-export * from './datasources/administrator/auth.administratordatasource'
 export * from './datasources/products/auth.productsdatasource'
 export * from './datasources/invetory/auth.invetorydatasource'
 

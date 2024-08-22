@@ -1,5 +1,5 @@
 import { AdministratorEntity } from "../../../data";
-import { AuthAdministratorDataSource, AuthAdministratorRepository, RegisterAdministratorDto } from "../../../domain";
+import { AuthAdministratorDataSource, AuthAdministratorRepository, RegisterAdministratorDto, LoginAdministratorDto } from "../../../domain";
 export class AuthAdministratorRepositoryImpl implements AuthAdministratorRepository {
 
     constructor(
@@ -10,11 +10,15 @@ export class AuthAdministratorRepositoryImpl implements AuthAdministratorReposit
         return this.authAdministratorDataSource.register(registerAdministratorDto);
     }
 
-    login(email: string, password: string): Promise<{ token: string, role: string | undefined, message: string }> {
-        return this.authAdministratorDataSource.login(email, password);
+    login(loginAdministratorDto: LoginAdministratorDto): Promise<{ token: string, role: string | undefined, message: string }> {
+        return this.authAdministratorDataSource.login(loginAdministratorDto);
     }
 
     getAdministratorByEmail(email: string): Promise<AdministratorEntity | null> {
         return this.authAdministratorDataSource.getAdministratorByEmail(email); // Implementa esta lógica en el DataSource
+    }
+
+    updateAdministratorImg(id: number, img: string): Promise<AdministratorEntity | null> {
+        return this.authAdministratorDataSource.updateAdministratorImg(id, img);
     }
 }

@@ -1,7 +1,7 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../../data/mysql/ormconfig";
 import { BcryptAdapter } from "../../../config";
-import { AuthEmployeesDataSource, CustomError, RegisterEmployeesDto} from "../../../domain";
+import { AuthEmployeesDataSource, CustomError, RegisterEmployeesDto, LoginEmployeesDto} from "../../../domain";
 import { EmployeesMapper } from "../../mappers/employees/employees.mappers";
 import { EmployeesEntity } from "../../../data";
 import { envs } from '../../../config';
@@ -23,7 +23,7 @@ export class AuthEmployeesDataSourceImpl implements AuthEmployeesDataSource {
 
     async register(payload: { [key: string]: any }): Promise<{ message: string }> {
         const dto = this.createEmployeeData(payload);
-        const { id, name, email, phone, address, password, role, idCenter } = dto;
+        const { id, name, lastName, email, phone, address, password, img, role, idCenter, state } = dto;
         const hashedPassword = BcryptAdapter.hash(password);
 
         try {
@@ -33,13 +33,15 @@ export class AuthEmployeesDataSourceImpl implements AuthEmployeesDataSource {
             const newEmployee = this.employeesRepository.create({
                 id,
                 name,
+                lastName,
                 email,
                 phone,
                 address,
                 password: hashedPassword,
-                // img,
+                img,
                 role,
                 idCenter,
+                state,
             });
 
             await this.employeesRepository.save(newEmployee);
@@ -55,15 +57,16 @@ export class AuthEmployeesDataSourceImpl implements AuthEmployeesDataSource {
         }
     }
 
-    async login(email:string, password: string): Promise<{ token: string, role: string | undefined, message: string  }> {
+    async login(loginEmployeesDto:LoginEmployeesDto): Promise<{ token: string, role: string | undefined, message: string  }> {
+        const { email, password } = loginEmployeesDto
         try {
             const employees = await this.employeesRepository.findOne({ where: { email }});
-            if (!employees) throw CustomError.badRequest("Correo invalido");
+            if (!employees) throw CustomError.badRequest("Este usuario no existe");
 
-            if (!employees.password) throw CustomError.unauthorized("Contraseña Invalida");
+            if (!employees.password) throw CustomError.unauthorized("Contraseña Incorrecta");
             
             const isPasswordValid = BcryptAdapter.compare(password, employees.password);
-            if (!isPasswordValid) throw CustomError.unauthorized("Contraseña Invalida");
+            if (!isPasswordValid) throw CustomError.unauthorized("Contraseña Incorrecta");
 
             const token = jwt.sign({ user: {email: employees.email, role: employees.role}}, envs.JWT_SECRET, {expiresIn: '1h',});
 
@@ -94,6 +97,21 @@ export class AuthEmployeesDataSourceImpl implements AuthEmployeesDataSource {
         // Ejemplo usando TypeORM:
         const admin = await this.employeesRepository.findOne({ where: { email } });
         return admin || null;
+    }
+
+    async updateEmployeeImg(id: number, img: string): Promise<EmployeesEntity | null> {
+        try {
+            const employee = await this.employeesRepository.findOneBy({ id });
+            if (!employee) {
+                return null;
+            }
+    
+            await this.employeesRepository.update(id, { img });
+            return employee;
+        } catch (error) {
+            console.error('Error updating employee img:', error);
+            throw new Error('Error updating employee img');
+        }
     }
 
 }

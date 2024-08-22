@@ -18,6 +18,7 @@ export class AuthEmployeesRoutes {
         router.post('/register', authenticateToken, authorizeRoles(['admin']), controller.registerEmployees)
         router.get('/employee/token/:token', controller.getEmployeeByToken)
         router.get('/employee/:id', controller.getEmployeeById)
+        router.patch('/employee/:id/img', controller.updateEmployeeImg);
 
         return router;
     }

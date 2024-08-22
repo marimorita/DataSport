@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState, useEffect } from 'react'
-import axios from '../../../../axiosConfig';
+import {axiosInstance} from '../../../../axiosConfig';
 import { InputFormsreg, InputFormslog, Inputrecuerdame, Inputolvi, InputFormsUsers, InputFormsEmployees, InputFormslog2, Perfilcontenedor, InputFormsAdmin } from '../InputForms/InputForms';
 import { Buttonlog, Buttonreg, ButtonUsers, ButtonEmployees, Buttonlog2, Buttonfilter, ButtonAdmin, ButtomHome } from '../Button/Buttons';
 import { FaUserCircle } from "react-icons/fa";
@@ -14,6 +14,7 @@ export const FormsAdmin = ({ }) => {
   const [location, setLocation] = useLocation();
   const inputIdRef = useRef()
   const inputNameRef = useRef()
+  const inputLastNameRef = useRef()
   const inputEmailRef = useRef()
   const inputPhoneRef = useRef()
   const inputAddressRef = useRef()
@@ -30,16 +31,18 @@ export const FormsAdmin = ({ }) => {
     const adminData = {
       id: inputIdRef.current.value,
       name: inputNameRef.current.value,
+      lastName: inputLastNameRef.current.value,
       email: inputEmailRef.current.value,
       phone: inputPhoneRef.current.value,
       address: inputAddressRef.current.value,
       password: inputPasswordRef.current.value,
+      img: '',
       role: "admin",
       idCenter: inputIdCenterRef.current.value,
     };
 
     try {
-      const response = await axios.post('/administrator/register', adminData);
+      const response = await axiosInstance.post('/administrator/register', adminData);
 
       if (response.status === 200 || response.status === 201) {
         setCreateAdmin(true);
@@ -75,6 +78,7 @@ export const FormsAdmin = ({ }) => {
           <label className='flex flex-wrap justify-between gap-y-[20px] '>
             <InputFormsAdmin type={'text'} placeholder='Pon tu Cedula' userRef={inputIdRef} />
             <InputFormsAdmin type={'text'} placeholder='Pon tu Nombre' userRef={inputNameRef} />
+            <InputFormsAdmin type={'text'} placeholder='Pon tu Apellido' userRef={inputLastNameRef} />
             <InputFormsAdmin type={'email'} placeholder='Pon tu Correo' userRef={inputEmailRef} />
             <InputFormsAdmin type={'text'} placeholder='Pon tu Telefono' userRef={inputPhoneRef} />
             <InputFormsAdmin type={'text'} placeholder='Pon tu Direccion' userRef={inputAddressRef} />
@@ -95,6 +99,7 @@ export const FormsEmployees = ({ Location }) => {
   const [location, setLocation] = useLocation();
   const inputIdRef = useRef()
   const inputNameRef = useRef()
+  const inputLastNameRef = useRef()
   const inputEmailRef = useRef()
   const inputPhoneRef = useRef()
   const inputAddressRef = useRef()
@@ -111,17 +116,20 @@ export const FormsEmployees = ({ Location }) => {
     const employeesData = {
       id: inputIdRef.current.value,
       name: inputNameRef.current.value,
+      lastName: inputLastNameRef.current.value,
       email: inputEmailRef.current.value,
       phone: inputPhoneRef.current.value,
       address: inputAddressRef.current.value,
       password: inputPasswordRef.current.value,
+      img: '',
       role: "employee",
       idCenter: inputIdCenterRef.current.value,
+      state: 'Activo',
     };
 
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post('/employees/register', employeesData, {
+      const response = await axiosInstance.post('/employees/register', employeesData, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -151,24 +159,25 @@ export const FormsEmployees = ({ Location }) => {
 
   return (
     <>
-      <form className='absolute w-[600px] flex flex-col justify-center top-[10%] right-[30%] gap-[60px] items-center '>
-        <div onClick={() => setLocation(Location)} >
-          <IoMdArrowRoundBack className='cursor-pointer text-[40px] text-[#1E1E1E] fixed left-[15rem] top-[6rem]' />
-        </div>
+      <div className='fixed' onClick={() => setLocation(Location)} >
+        <ButtomHome customClassName={'cursor-pointer text-[40px] text-[#1E1E1E] fixed right-[38rem] top-[0rem]'} />
+      </div>
+      <form className='w-[560px] flex flex-col gap-[60px] items-center '>
         <div className='flex flex-col items-center gap-[20px] '>
-          <h2 className='text-[#381975] font-medium text-[56px] '>Inscripción Empleado</h2>
+          <h2 className='text-[#1E1E1E] font-medium text-[56px] '>Inscripción Empleado</h2>
         </div>
         <div className='flex flex-col items-center gap-[40px]'>
-          <label className='flex flex-wrap justify-between gap-y-[20px] '>
-            <InputFormsEmployees type={'text'} placeholder='Pon tu Cedula' userRef={inputIdRef} />
+          <label className='flex flex-wrap justify-center  gap-y-[20px] gap-x-[15px] '>
+          <InputFormsEmployees type={'text'} placeholder='Pon tu Cedula' userRef={inputIdRef} />
             <InputFormsEmployees type={'text'} placeholder='Pon tu Nombre' userRef={inputNameRef} />
+            <InputFormsEmployees type={'text'} placeholder='Pon tu Apellido' userRef={inputLastNameRef} />
             <InputFormsEmployees type={'email'} placeholder='Pon tu Correo' userRef={inputEmailRef} />
             <InputFormsEmployees type={'text'} placeholder='Pon tu Telefono' userRef={inputPhoneRef} />
             <InputFormsEmployees type={'text'} placeholder='Pon tu Direccion' userRef={inputAddressRef} />
             <InputFormsEmployees type={'password'} placeholder='Pon tu Contraseña' userRef={inputPasswordRef} />
             <InputFormsEmployees type={'text'} placeholder='Pon tu Numero de Centro' userRef={inputIdCenterRef} />
           </label>
-          <ButtonEmployees Text={'Crear Empleado'} onClick={toggleCreateEmployees} />
+          <ButtonUsers Text={'Crear Empleado'} onClick={toggleCreateEmployees} />
         </div>
       </form>
       <ToastContainer position="top-center" autoClose={1500} pauseOnHover={false} />
@@ -187,7 +196,7 @@ export const FormsUsers = ({ Location }) => {
   const inputEmailRef = useRef()
   const inputPhoneRef = useRef()
   const inputAddressRef = useRef()
-  const inputAsistanceRef = useRef()
+  // const inputAsistanceRef = useRef()
   const inputIdCenterRef = useRef()
 
   const toggleCreateUser = async () => {
@@ -203,14 +212,15 @@ export const FormsUsers = ({ Location }) => {
       email: inputEmailRef.current.value,
       phone: inputPhoneRef.current.value,
       address: inputAddressRef.current.value,
-      assistance: inputAsistanceRef.current.value,
-      state: 'Activo',
+      // assistance: "Hoy",
       idCenter: inputIdCenterRef.current.value,
+      state: 'Activo',
+      img: '',
     };
 
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post('/clients/register', userData, {
+      const response = await axiosInstance.post('/clients/register', userData, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -227,6 +237,14 @@ export const FormsUsers = ({ Location }) => {
           },
         });
       }
+
+      inputIdRef.current.value = '';
+      inputNameRef.current.value = '';
+      inputLastNameRef.current.value = '';
+      inputEmailRef.current.value = '';
+      inputPhoneRef.current.value = '';
+      inputAddressRef.current.value = '';
+      inputIdCenterRef.current.value = '';
     } catch (error) {
       toast.error(error.response.data.error, {
         progressStyle: {
@@ -241,19 +259,22 @@ export const FormsUsers = ({ Location }) => {
 
   return (
     <>
-      <form className='w-[560px] flex flex-col  gap-[60px] items-center '>
-        <div onClick={() => setLocation(Location)} >
-          <ButtomHome customClassName={'cursor-pointer text-[40px] text-[#1E1E1E] fixed right-[55rem] top-[0rem]'} />
-        </div>
+      <div className='fixed' onClick={() => setLocation(Location)} >
+        <ButtomHome customClassName={'cursor-pointer text-[40px] text-[#1E1E1E] fixed right-[38rem] top-[0rem]'} />
+      </div>
+      <form className='w-[560px] flex flex-col gap-[60px] items-center '>
         <div className='flex flex-col items-center gap-[20px] '>
           <h2 className='text-[#1E1E1E] font-medium text-[56px] '>Inscripción Cliente</h2>
         </div>
         <div className='flex flex-col items-center gap-[40px]'>
-          <label className='flex flex-wrap justify-between gap-y-[20px] '>
+          <label className='flex flex-wrap justify-center  gap-y-[20px] gap-x-[15px] '>
+            <InputFormsUsers type={'text'} placeholder='Pon tu Numero de Cedula' userRef={inputIdRef} />
             <InputFormsUsers type={'text'} placeholder='Pon tu Nombre' userRef={inputNameRef} />
-            <InputFormsUsers type={'text'} placeholder='Pon tu Numero' userRef={inputIdCenterRef} />
-            <InputFormsUsers type={'text'} placeholder='Pon tu Documento' userRef={inputLastNameRef} />
-            <InputFormsUsers type={'email'} placeholder='Pon tu email' userRef={inputEmailRef} />
+            <InputFormsUsers type={'text'} placeholder='Pon tu Apellido' userRef={inputLastNameRef} />
+            <InputFormsUsers type={'text'} placeholder='Pon tu Correo' userRef={inputEmailRef} />
+            <InputFormsUsers type={'email'} placeholder='Pon tu Telefono' userRef={inputPhoneRef} />
+            <InputFormsUsers type={'text'} placeholder='Pon tu Direccion' userRef={inputAddressRef} />
+            <InputFormsUsers type={'email'} placeholder='Pon El numero de tu centro' userRef={inputIdCenterRef} />
           </label>
           <ButtonUsers Text={'Crear Usuario'} onClick={toggleCreateUser} />
         </div>
@@ -282,7 +303,7 @@ export const FormsTwoVerificAdmin = () => {
     const token = localStorage.getItem('token');
     if (token && code) {
       try {
-        const response = await axios.post(
+        const response = await axiosInstance.post(
           '/twoverific/verifycode',
           { code },
           { headers: { Authorization: `Bearer ${token}` } }
@@ -360,7 +381,7 @@ export const FormsTwoVerificEmployee = () => {
     if (token && code) {
       setLoading(true);
       try {
-        const response = await axios.post(
+        const response = await axiosInstance.post(
           '/twoverific/verifycode',
           { code },
           { headers: { Authorization: `Bearer ${token}` } }
@@ -449,7 +470,7 @@ export const Formslogempleado = () => {
     };
 
     try {
-      const response = await axios.post('/employees/login', employeeData);
+      const response = await axiosInstance.post('/employees/login', employeeData);
 
       if (response.status === 200 || response.status === 201) {
         const token = response.data.token;
@@ -495,7 +516,7 @@ export const Formslogempleado = () => {
   const sendVerificationCode = async (token) => {
     try {
       // console.log("Sending token:", token);
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         '/vr/veriftokenandsendcode',
         {}, // Cuerpo vacío para esta solicitud
         { headers: { Authorization: `Bearer ${token}` } }
@@ -614,7 +635,7 @@ export const Formslogadmin = () => {
     };
 
     try {
-      const response = await axios.post('/administrator/login', adminData);
+      const response = await axiosInstance.post('/administrator/login', adminData);
 
       if (response.status === 200 || response.status === 201) {
         const token = response.data.token;
@@ -660,7 +681,7 @@ export const Formslogadmin = () => {
   const sendVerificationCode = async (token) => {
     try {
       // console.log("Sending token:", token);
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         '/vr/veriftokenandsendcode',
         {}, // Cuerpo vacío para esta solicitud
         { headers: { Authorization: `Bearer ${token}` } }

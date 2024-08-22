@@ -3,7 +3,7 @@ import { CustomError } from "../../../domain";
 
 export class ClientMapper {
     public static toDomain(object: any): ClientsEntity {
-        const { id, name, lastName, email, phone, assistance, address, state, img, idCenter } = object;
+        const { id, name, lastName, email, address, phone, idCenter, state, img } = object;
 
         if (!id) {
             throw CustomError.badRequest("Falta id");
@@ -12,23 +12,25 @@ export class ClientMapper {
         if (!name) throw CustomError.badRequest("Falta");
         if (!lastName) throw CustomError.badRequest("Falta Apellido");
         if (!email) throw CustomError.badRequest("Falta Correo");
-        if (!phone) throw CustomError.badRequest("Falta Telefono");
-        if (!assistance) throw CustomError.badRequest("Falta Asistencia");
         if (!address) throw CustomError.badRequest("Falta direccion");
+        if (!phone) throw CustomError.badRequest("Falta Telefono");
+        // if (!assistance) throw CustomError.badRequest("Falta Asistencia");
         // if (!img) throw CustomError.badRequest("Falta Imagen");
         if (!idCenter) throw CustomError.badRequest("Falta id de Centro");
+        if (!state) throw CustomError.badRequest("Falta Estado");
+        if (!img) throw CustomError.badRequest("Falta Imagen");
 
         return {
             id,
             name,
             lastName,
             email,
-            phone,
-            assistance,
             address,
-            state,
-            // img,
+            phone,
+            // assistance,
             idCenter,
+            state,
+            img,
         };
     }
 
@@ -38,12 +40,12 @@ export class ClientMapper {
             name: entity.name,
             lastName: entity.lastName,
             email: entity.email,
-            phone: entity.phone,
-            assistance: entity.assistance,
             address: entity.address,
-            state: entity.state,
-            // img: entity.img,
+            phone: entity.phone,
+            // assistance: entity.assistance,
             idCenter: entity.idCenter,
+            state: entity.state,
+            img: entity.img,
         };
     }
 }

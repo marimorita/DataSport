@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { RegisterEmployeesDto, AuthEmployeesRepository, CustomError } from "../../../domain";
+import { RegisterEmployeesDto, LoginEmployeesDto, AuthEmployeesRepository, CustomError } from "../../../domain";
 import jwt from 'jsonwebtoken';
 import { envs } from "../../../config";
 import crypto from 'crypto';
@@ -50,15 +50,13 @@ export class AuthEmployeesController {
     }
 
     loginEmployees = async (req: Request, res: Response) => {
-        const { email, password } = req.body;
-        if (!email || !password) {
-            return res.status(400).json({ error: 'Correo y contraseña requeridos' })
-        }
+        const [error, loginEmployeesDto] = LoginEmployeesDto.create(req.body);
+        if (error) return res.status(400).json({ error });
 
-        const routeCode = generateVerificationCode();
+        const routeCode = generateVerificationCode();   
 
         try {
-            const { token, role, message } = await this.authEmployeesRepository.login(email, password)
+            const { token, role, message } = await this.authEmployeesRepository.login(loginEmployeesDto!)
             res.json({ token, role, routeCode, message })
         } catch (error) {
             this.handleError(error, res)
@@ -109,4 +107,20 @@ export class AuthEmployeesController {
             this.handleError(error, res);
         }
     }
+
+    updateEmployeeImg = async (req: Request, res: Response) => {
+        console.log('Received request to update employee img');
+        const id = parseInt(req.params.id, 10); // ID del cliente desde los parámetros de la URL
+        const { img } = req.body; // Estado actualizado desde el cuerpo de la solicitud
+
+        try {
+            const employee = await this.authEmployeesRepository.updateEmployeeImg(id, img);
+            if (!employee) {
+                return res.status(404).json({ error: 'Empleado no encontrado' });
+            }
+            res.status(200).json(employee);
+        } catch (error) {
+            this.handleError(error, res);
+        }
+    };
 }

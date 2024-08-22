@@ -104,4 +104,20 @@ export class AuthClientsController {
     //         this.handleError(error, res)
     //     }
     // }
+
+    updateClientImg = async (req: Request, res: Response) => {
+        console.log('Received request to update client img');
+        const id = parseInt(req.params.id, 10); // ID del cliente desde los parámetros de la URL
+        const { img } = req.body; // Estado actualizado desde el cuerpo de la solicitud
+
+        try {
+            const client = await this.authClientsRepository.updateClientImg(id, img);
+            if (!client) {
+                return res.status(404).json({ error: 'Cliente no encontrado' });
+            }
+            res.status(200).json(client);
+        } catch (error) {
+            this.handleError(error, res);
+        }
+    };
 }

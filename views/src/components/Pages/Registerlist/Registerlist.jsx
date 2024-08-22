@@ -6,10 +6,10 @@ import { ButtomHome } from '../../shared/Button/Buttons';
 import TableComponent from '../../shared/userTable/registerTable';
 import Buscador from '../../shared/InputForms/InputForms';
 import StatusDropdown from '../../shared/DropDowns/StatusFilter';
-import RegisterDropdown from '../../shared/DropDowns/RegisterDropDown/RegisterDropDown';
+import {RegisterMenu} from '../../shared/DropDowns/RegisterDropDown/RegisterDropDown';
 import StatusCard from '../../shared/utils/utils';
 import SearchVector from '../../../assets/Searching.png'
-import axios from '../../../../axiosConfig';
+import {axiosInstance} from '../../../../axiosConfig';
 import { StateContext } from '../../Context/Context';
 
 const SearchWithSuggestion = ({ onChange, value, possibleMatch, onSelectMatch }) => {
@@ -39,11 +39,12 @@ export const Registerlist = ({Location, LocationProfile, LocationRegisterUser, L
   const [possibleMatch, setPossibleMatch] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedStatus, setSelectedStatus] = useState('Filtrar');
+  const [hasAccess, setHasAccess] = useState(true); 
 
   useEffect(() => {
     const fetchClients = async () => {
       try {
-        const response = await axios.get('/clients/clients');
+        const response = await axiosInstance.get('/clients/clients');
         // console.log(response.data);
 
         setClientsView(response.data)
@@ -70,7 +71,7 @@ export const Registerlist = ({Location, LocationProfile, LocationRegisterUser, L
       setPossibleMatch(null);
     } else {
       const possibleMatch = clientsView.find(date =>
-        date.document.includes(value)
+        date.id.includes(value)
       );
       setPossibleMatch(possibleMatch);
     }
@@ -112,7 +113,7 @@ export const Registerlist = ({Location, LocationProfile, LocationRegisterUser, L
   
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.patch(`/clients/clients/${1218227381}/state`, userData, {
+        const response = await axiosInstance.patch(`/clients/clients/${1214656454}/state`, userData, {
           headers: {
               Authorization: `Bearer ${token}`
           }
@@ -141,6 +142,16 @@ export const Registerlist = ({Location, LocationProfile, LocationRegisterUser, L
   
     };
 
+    const handleNoAccess = () => {
+      setHasAccess(false); // Cambia el estado si no tiene acceso
+      toast.error('No tienes acceso a esta página', {
+        progressStyle: {
+          backgroundColor: '#692FDB',
+        },
+      });
+    };
+
+
   return (
     <>
     <div className='bg-[#F0ECE3] w-full h-full flex flex-col flex-1 items-center relative py-[2.5%]'>
@@ -151,12 +162,12 @@ export const Registerlist = ({Location, LocationProfile, LocationRegisterUser, L
       <div className="flex justify-between w-60% items-center">
         <SearchWithSuggestion 
           onChange={handleInputChange} 
-          value={inputValue} 
+          value={inputValue}  
           possibleMatch={possibleMatch}
           onSelectMatch={handleSelectMatch}
         />
         <StatusDropdown onStatusChange={handleStatusChange} />
-        <RegisterDropdown LocationRegisterUser={LocationRegisterUser} LocationRegisterEmployee={LocationRegisterEmployee} />
+        <RegisterMenu  LocationRegisterUser={LocationRegisterUser} LocationRegisterEmployee={LocationRegisterEmployee} />
       </div>
       <div className='w-[50%] flex h-[14rem] border border-[#3F3D56] m-6 rounded-md items-center shadow-xl'>
         <img src={SearchVector} alt="SearchingVector" className='w-[200px] p-1'/>

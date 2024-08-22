@@ -30,4 +30,8 @@ export class AuthClientsRepositoryImpl implements AuthClientsRepository {
     updateClientStatus(id: number, state: string): Promise<ClientsEntity | null> {
         return this.authClientsDataSource.updateClientStatus(id, state);
     }
+
+    updateClientImg(id: number, img: string): Promise<ClientsEntity | null> {
+        return this.authClientsDataSource.updateClientImg(id, img);
+    }
 }

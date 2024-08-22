@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { RegisterAdministratorDto, AuthAdministratorRepository, CustomError } from "../../../domain";
+import { RegisterAdministratorDto, LoginAdministratorDto, AuthAdministratorRepository, CustomError } from "../../../domain";
 import { AdministratorEntity } from "../../../data";
 import jwt from 'jsonwebtoken';
 import { envs } from "../../../config";
@@ -49,18 +49,16 @@ export class AuthAdministratorController {
     }
 
     loginAdministrator = async (req: Request, res: Response) => {
-        const { email, password } = req.body;
-        if (!email || !password) {
-            return res.status(400).json({ error: 'Email and password are required' })
-        }
-
+        const [error, loginAdministratorDto] = LoginAdministratorDto.create(req.body);
+        if (error) return res.status(400).json({ error });
+    
         const routeCode = generateVerificationCode();
-
+    
         try {
-            const { token, role, message } = await this.authAdministratorRepository.login(email, password)
-            res.json({ token, role, routeCode, message })
+            const { token, role, message } = await this.authAdministratorRepository.login(loginAdministratorDto!);
+            res.json({ token, role, routeCode, message });
         } catch (error) {
-            this.handleError(error, res)
+            this.handleError(error, res);
         }
     }
 
@@ -90,5 +88,21 @@ export class AuthAdministratorController {
             this.handleError(error, res);
         }
     }
+
+    updateAdministratorImg = async (req: Request, res: Response) => {
+        console.log('Received request to update admin img');
+        const id = parseInt(req.params.id, 10); // ID del cliente desde los parámetros de la URL
+        const { img } = req.body; // Estado actualizado desde el cuerpo de la solicitud
+
+        try {
+            const admin = await this.authAdministratorRepository.updateAdministratorImg(id, img);
+            if (!admin) {
+                return res.status(404).json({ error: 'Admin no encontrado' });
+            }
+            res.status(200).json(admin);
+        } catch (error) {
+            this.handleError(error, res);
+        }
+    };
 
 }

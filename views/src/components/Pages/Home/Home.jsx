@@ -4,12 +4,48 @@ import { Usertype } from "../../shared/Figures/Figures";
 import Carrusel from "../../Carrusel/Datoscuriosos/carrusel1";
 import { Footer } from "../../Footer/Footer";
 import Principalcarrusel from "../../Carrusel/Principalcarrusel/carrusel0";
+import { toast, ToastContainer } from "react-toastify";
+
 
 
 export const Home = () => {
+
+  const assistence = () => {
+    toast.error('No tienes acceso a esta pagina  inicia sesion', {
+      progressStyle: {
+        backgroundColor: '#692FDB', // Color de la barra de carga
+      },
+    });
+  }
+
+  const inventory = () => {
+    toast.error('No tienes acceso a esta pagina  inicia sesion', {
+      progressStyle: {
+        backgroundColor: '#692FDB', // Color de la barra de carga
+      },
+    });
+  }
+
+  const register = () => {
+    toast.error('No tienes acceso a esta pagina  inicia sesion', {
+      progressStyle: {
+        backgroundColor: '#692FDB', // Color de la barra de carga
+      },
+    });
+  }
+
+  const remarks = () => {
+    toast.error('No tienes acceso a esta pagina  inicia sesion', {
+      progressStyle: {
+        backgroundColor: '#692FDB', // Color de la barra de carga
+      },
+    });
+  }
+
   return (
+    <>
     <div className="w-full h-auto bg-[#F0ECE3] flex flex-col gap-[5rem]">
-      <Navbar login={false} />
+      <Navbar assistence={assistence} inventory={inventory} register={register} remarks={remarks} login={false} />
       <Usertype name={''} customClassName={'bg-gradient-to-r from-[#231F20]  to-[#3F3D56]'} />
       <div className="flex flex-col justify-end min-h-[35rem] relative overflow-hidden ">
         <section className="flex justify-between ">
@@ -647,5 +683,7 @@ export const Home = () => {
         </div>
 
     </div>
+    <ToastContainer position="top-center" autoClose={1000} pauseOnHover={false} />
+    </>
   );
 };

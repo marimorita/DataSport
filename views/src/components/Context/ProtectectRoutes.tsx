@@ -20,4 +20,4 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ path, allowedRol
     }
 
     return <Route path={path}>{children}</Route>;
-};
+};  

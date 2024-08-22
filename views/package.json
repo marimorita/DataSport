@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "proxy": "https://api.cloudinary.com",
   "scripts": {
     "dev": "vite",
     "start": "concurrently \"npm run start:api\" \"npm run dev\"",
@@ -10,6 +11,7 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+  
   "dependencies": {
     "@types/axios": "^0.14.0",
     "axios": "^1.7.3",

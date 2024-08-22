@@ -15,7 +15,7 @@ export class AuthClientsDataSourceImpl implements AuthClientsDataSource {
     }
     
     async register(registerClientDto: RegisterClientDto): Promise<ClientsEntity> {
-        const { id, name, lastName, email, phone, address, assistance, state, idCenter} = registerClientDto;
+        const { id, name, lastName, email, phone, address, idCenter, state, img } = registerClientDto;
 
         // const hashedPassword = BcryptAdapter.hash(password);
         
@@ -29,13 +29,13 @@ export class AuthClientsDataSourceImpl implements AuthClientsDataSource {
                 name: name,
                 lastName: lastName,
                 email: email,
-                phone: phone,
                 address: address,
-                assistance: assistance,
-                state: state,
-                // img: img,
+                phone: phone,
+                // assistance: assistance,
                 // password: hashedPassword,
                 idCenter: idCenter,
+                state: state,
+                img: img,
             });
            
             await this.clientRepository.save(newClient);
@@ -92,8 +92,7 @@ export class AuthClientsDataSourceImpl implements AuthClientsDataSource {
                 return null;
             }
     
-            client.state = state;
-            await this.clientRepository.save(client);
+            await this.clientRepository.update(id, { state });
             return client;
         } catch (error) {
             console.error('Error updating client status:', error);
@@ -126,5 +125,20 @@ export class AuthClientsDataSourceImpl implements AuthClientsDataSource {
     //         throw CustomError.internalServer();
     //     }
     // }
+
+    async updateClientImg(id: number, img: string): Promise<ClientsEntity | null> {
+        try {
+            const client = await this.clientRepository.findOneBy({ id });
+            if (!client) {
+                return null;
+            }
+    
+            await this.clientRepository.update(id, { img });
+            return client;
+        } catch (error) {
+            console.error('Error updating client img:', error);
+            throw new Error('Error updating client img');
+        }
+    }
 
 }
