@@ -28,6 +28,7 @@ import { Registerlist } from "./components/Pages/Registerlist/Registerlist"
 import { Clients } from "./components/Pages/Register/Clients"
 import { AuthProvider } from "./components/Context/AuthContext"
 import { ProtectedRoute } from "./components/Context/ProtectectRoutes"
+import { ModalEdit } from './components/Modals/ModalEdit/ModalEdit';
 
 
 
@@ -149,6 +150,9 @@ function App() {
             </Route>
             <Route path="/emple">
               <Employees />
+            </Route>
+            <Route path="/moedit/A">
+              <ModalEdit />
             </Route>
             
 

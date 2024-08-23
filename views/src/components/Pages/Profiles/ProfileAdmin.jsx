@@ -3,11 +3,18 @@ import { Buttonredirect } from "../../shared/Button/Buttons";
 import { cloudinaryAxios, axiosInstance } from '../../../../axiosConfig';
 import { StateContext } from '../../Context/Context';
 import { toast, ToastContainer } from "react-toastify";
+import { MdModeEdit } from "react-icons/md";
+import { useLocation } from 'wouter';
+import { ModalEdit } from '../../Modals/ModalEdit/ModalEdit';
+import { FaRegCheckCircle } from 'react-icons/fa';
+
 
 export const ProfileAdmin = () => {
   const { adminView, setAdminView } = useContext(StateContext);
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(false);
+  const [modalEdit, setModalEdit] = useState(false);
+
 
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
@@ -15,7 +22,7 @@ export const ProfileAdmin = () => {
 
   const uploadImage = async () => {
     if (!image) {
-      alert('Selecciona una imagen primero');
+      alert('Selecciona una imagen');
       return;
     }
 
@@ -110,12 +117,13 @@ export const ProfileAdmin = () => {
     const hasImage = adminView.some(admin => admin.img !== "");
     setImageUrl(hasImage);
   }, [adminView]);
+  const [location, setLocation] = useLocation();
 
   return (
     <>
       {adminView.map(admin => (
         <>
-          <div className="flex">
+          <div className="flex relative">
             <div>
               <div>
                 <svg
@@ -176,24 +184,27 @@ export const ProfileAdmin = () => {
                   {imageUrl ? (
                     <img src={admin.img} alt="Subida a Cloudinary" className="w-full h-full object-cover rounded" />
                   ) : (
-                    <div className="flex flex-col justify-center items-center text-center">
+                    <div className="flex flex-col justify-center items-center text-center tex-[15px] w-[10rem]">
                       <p className="mb-2   ">No has subido ninguna imagen</p>
                       <button
                         onClick={uploadImage}
-                        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 text-[10px]"
                       >
                         Agrega una foto
                       </button>
                       <input
                         type="file"
                         onChange={handleImageChange}
-                        className="mt-2 text-gray-600"
+                        className="mt-2 text-gray-600 text-[13px] w-[8.6rem] text-center "
                       />
                     </div>
                   )}
                 </div>
               </div>
-              <div className="mx-[6rem] mt-[-3rem] flex flex-col justify-start">
+              <div className="mx-[6rem] mt-[-2rem] flex flex-col ">
+                <div>
+                <MdModeEdit className='text-[27px] text-[#381975] absolute left-[25rem] hover:text-[30px] cursor-pointer ' onClick={() => setModalEdit(true)} />
+                </div>
                 <h1 className="text-[30px] text-start w-[15rem]">
                   <b>{admin.name}</b>
                 </h1><ul>
@@ -604,8 +615,10 @@ export const ProfileAdmin = () => {
                 </div>
               </div>
             </div>
+            <ModalEdit visibility={modalEdit} IconAlert={FaRegCheckCircle} closeButton={() => setModalEdit(false)} closeIcon={() => setModalEdit(false)} />
           </div>
           <ToastContainer position="top-center" autoClose={1500} pauseOnHover={false} />
+
         </>
       ))
       }
