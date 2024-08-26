@@ -2,7 +2,7 @@ import React from "react";
 
 export const CardsProducts = () => {
   return (
-      <div className="bg-[#F0ECE3] to-100% flex flex-col items-center gap-[20px] justify-center p-[15px] w-[18rem] h-[23rem] border-[5px] border-[#1E1E1E] rounded-[10px]">
+      <div className="bg-white to-100% flex flex-col items-center gap-[20px] justify-center p-[15px] w-[15rem] h-[20rem] shadow-2xl rounded-[10px]">
       <div className=" flex justify-center items-center w-[8rem] h-[8rem]">
         <svg
           width="128"
@@ -43,14 +43,14 @@ export const CardsProducts = () => {
         </p>
       </div>
       <div className=" w-[100%] gap-x-1.5 flex justify-end ">
-        <div className="w-[3rem] h-[3rem] bg-[#692FDB] rounded text-center align-middle ">
-          <p className="text-[#F0ECE3] text-[30px]">3</p>
+        <div className="w-[2rem] h-[2rem] bg-[#692FDB] rounded text-center align-middle ">
+          <p className="text-[#F0ECE3] text-[22px]">3</p>
         </div>
-        <div className="w-[3rem] h-[3rem] bg-[#FE7A36] rounded text-center align-middle ">
-          <p className="text-[#F0ECE3] text-[30px]">3</p>
+        <div className="w-[2rem] h-[2rem] bg-[#FE7A36] rounded text-center align-middle ">
+          <p className="text-[#F0ECE3] text-[22px]">3</p>
         </div>
-        <div className="w-[3rem] h-[3rem] bg-[#1E1E1E] rounded text-center align-middle ">
-          <p className="text-[#F0ECE3] text-[30px]">3</p>
+        <div className="w-[2rem] h-[2rem] bg-[#1E1E1E] rounded text-center align-middle ">
+          <p className="text-[#F0ECE3] text-[22px]">3</p>
         </div>
       </div>
     </div>

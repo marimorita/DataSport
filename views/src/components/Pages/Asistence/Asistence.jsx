@@ -10,6 +10,8 @@ import StatusCard from '../../shared/utils/utils';
 import generateAsistencePDF from '../../shared/GeneratePDF/AsistenceReport';
 import { StateContext } from '../../Context/Context';
 import {axiosInstance} from '../../../../axiosConfig';
+import { Navbar } from '../../shared/Navbar/Navbar';
+
 
 export const Asistence = ({ Location, LocationProfile }) => {
   const [location, setLocation] = useLocation();
@@ -79,9 +81,9 @@ export const Asistence = ({ Location, LocationProfile }) => {
 
   return (
     <div className='bg-[#F0ECE3] w-full h-full flex flex-col flex-1 items-center relative'>
+      <Navbar />
       <div className='flex items-center justify-center w-full h-[3.2rem] '>
         <div className='absolute left-[20%] top-[6%]' onClick={() => setLocation(Location)}>
-          <ButtomHome Text={'Regresar'} />
         </div>
       </div>
       <div className="flex flex-col items-center justify-evenly w-full  ">
@@ -93,7 +95,7 @@ export const Asistence = ({ Location, LocationProfile }) => {
           onRegisterAttendance={handleRegisterAttendance}
         />
       </div>
-      <div className='my-[3rem] w-[50%] flex-row justify-evenly border-2 border-[#444444] rounded-md shadow-xl'>
+      <div className='my-[2rem] w-[50%] flex-row justify-evenly bg-white rounded-xl shadow-2xl'>
         <AsistenceCarrusel />
       </div>
       
