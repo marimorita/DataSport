@@ -17,7 +17,7 @@ async function main() {
   // });
 
   try {
-    await AppDataSource.initialize();
+    // await AppDataSource.initialize();
     new Server({
       port: envs.PORT,
       routes: AppRoutes.routes,

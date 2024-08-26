@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from "react";
 import { Buttonredirect } from "../../shared/Button/Buttons";
-import { cloudinaryAxios, axiosInstance } from '../../../../axiosConfig';
-import { StateContext } from '../../Context/Context';
+import { cloudinaryAxios, axiosInstance } from "../../../../axiosConfig";
+import { StateContext } from "../../Context/Context";
 import { toast, ToastContainer } from "react-toastify";
 import { MdModeEdit } from "react-icons/md";
-import { useLocation } from 'wouter';
-import { ModalEdit } from '../../Modals/ModalEdit/ModalEdit';
-import { FaRegCheckCircle } from 'react-icons/fa';
-
+import { useLocation } from "wouter";
+import { ModalEdit } from "../../Modals/ModalEdit/ModalEdit";
+import { FaRegCheckCircle } from "react-icons/fa";
 
 export const ProfileAdmin = () => {
   const { adminView, setAdminView } = useContext(StateContext);
@@ -15,52 +14,49 @@ export const ProfileAdmin = () => {
   const [imageUrl, setImageUrl] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
 
-
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
   };
 
   const uploadImage = async () => {
     if (!image) {
-      alert('Selecciona una imagen');
+      alert("Selecciona una imagen");
       return;
     }
 
     const formData = new FormData();
-    formData.append('file', image);
-    formData.append('upload_preset', 'nzpngwr9'); // Tu upload_preset
+    formData.append("file", image);
+    formData.append("upload_preset", "nzpngwr9"); // Tu upload_preset
 
     try {
-      const response = await cloudinaryAxios.post('/image/upload', formData, {
+      const response = await cloudinaryAxios.post("/image/upload", formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          "Content-Type": "multipart/form-data",
+        },
       });
 
-
       // setImageUrl(response.data.secure_url); // URL segura de la imagen subida
-      toggleCreateImg(response.data.secure_url)
+      toggleCreateImg(response.data.secure_url);
     } catch (error) {
-      console.error('Error al subir la imagen:', error);
+      console.error("Error al subir la imagen:", error);
     }
   };
 
-
-
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchAdmin = async () => {
       try {
-        const response = await axiosInstance.get(`/administrator/administrator/${token}`);
+        const response = await axiosInstance.get(
+          `/administrator/administrator/${token}`
+        );
         // console.log(response.data);
 
-        setAdminView([response.data])
-
+        setAdminView([response.data]);
       } catch (error) {
         toast.error(error.response.data.error, {
           progressStyle: {
-            backgroundColor: '#692FDB', // Color de la barra de carga
+            backgroundColor: "#692FDB", // Color de la barra de carga
           },
         });
       }
@@ -73,55 +69,57 @@ export const ProfileAdmin = () => {
 
   const toggleCreateImg = async (img) => {
     // const img = imageUrl
-    const id = adminView.map(adminView => adminView.id)
+    const id = adminView.map((adminView) => adminView.id);
 
     console.log(img);
     console.log(id);
-    
+
     const userData = {
       img: img,
     };
 
     try {
       // const token = localStorage.getItem('token');
-      const response = await axiosInstance.patch(`/administrator/administrator/${id}/img`, userData/* , {
+      const response = await axiosInstance.patch(
+        `/administrator/administrator/${id}/img`,
+        userData /* , {
         headers: {
             Authorization: `Bearer ${token}`
         }
-    } */);
+    } */
+      );
 
       if (response.status === 200 || response.status === 201) {
-        toast.success('se cambio', {
+        toast.success("se cambio", {
           progressStyle: {
-            backgroundColor: '#692FDB', // Color de la barra de carga
+            backgroundColor: "#692FDB", // Color de la barra de carga
           },
         });
       } else {
         toast.error(error.response.data.error, {
           progressStyle: {
-            backgroundColor: '#692FDB', // Color de la barra de carga
+            backgroundColor: "#692FDB", // Color de la barra de carga
           },
         });
       }
     } catch (error) {
       toast.error(error.response.data.error, {
         progressStyle: {
-          backgroundColor: '#692FDB', // Color de la barra de carga
+          backgroundColor: "#692FDB", // Color de la barra de carga
         },
       });
     }
-
   };
 
   useEffect(() => {
-    const hasImage = adminView.some(admin => admin.img !== "");
+    const hasImage = adminView.some((admin) => admin.img !== "");
     setImageUrl(hasImage);
   }, [adminView]);
   const [location, setLocation] = useLocation();
 
   return (
     <>
-      {adminView.map(admin => (
+      {adminView.map((admin) => (
         <>
           <div className="flex relative">
             <div>
@@ -182,7 +180,11 @@ export const ProfileAdmin = () => {
                 </svg>
                 <div className="absolute top-[5rem] left-[8rem] w-[12rem] h-[16rem] rounded bg-[#CCCCCC] flex justify-center items-center">
                   {imageUrl ? (
-                    <img src={admin.img} alt="Subida a Cloudinary" className="w-full h-full object-cover rounded" />
+                    <img
+                      src={admin.img}
+                      alt="Subida a Cloudinary"
+                      className="w-full h-full object-cover rounded"
+                    />
                   ) : (
                     <div className="flex flex-col justify-center items-center text-center tex-[15px] w-[10rem]">
                       <p className="mb-2   ">No has subido ninguna imagen</p>
@@ -203,11 +205,15 @@ export const ProfileAdmin = () => {
               </div>
               <div className="mx-[6rem] mt-[-2rem] flex flex-col ">
                 <div>
-                <MdModeEdit className='text-[27px] text-[#381975] absolute left-[25rem] hover:text-[30px] cursor-pointer ' onClick={() => setModalEdit(true)} />
+                  <MdModeEdit
+                    className="text-[27px] text-[#381975] absolute left-[25rem] hover:text-[30px] cursor-pointer "
+                    onClick={() => setModalEdit(true)}
+                  />
                 </div>
                 <h1 className="text-[30px] text-start w-[15rem]">
                   <b>{admin.name}</b>
-                </h1><ul>
+                </h1>
+                <ul>
                   <li className="text-[20px] text-start w-[20rem]">
                     Documento: {admin.id}
                   </li>
@@ -602,26 +608,35 @@ export const ProfileAdmin = () => {
                 <div className="flex flex-col w-[20rem] items-center ">
                   <div className="flex w-[25rem] ">
                     <h1 className="text-[#F0ECE3] text-[25px] mr-[4rem] text-center">
-                      Aqui puedes analizar y darle un vistaso a tus empleados y su
-                      infoirmacion{" "}
+                      Aqui puedes analizar y darle un vistaso a tus empleados y
+                      su infoirmacion{" "}
                     </h1>
                   </div>
                   <div className="mt-[1rem] mr-[4rem] ">
                     <Buttonredirect
-                      customClassName={"bg-[#F0ECE3] text-[#000001] text-[20px] text-center w-[15rem] text-[22px] rounded-[10px] py-[0.5rem]"}
+                      customClassName={
+                        "bg-[#F0ECE3] text-[#000001] text-[20px] text-center w-[15rem] text-[22px] rounded-[10px] py-[0.5rem]"
+                      }
                       Text={"Equipo de trabajo"}
                     />
                   </div>
                 </div>
               </div>
             </div>
-            <ModalEdit visibility={modalEdit} IconAlert={FaRegCheckCircle} closeButton={() => setModalEdit(false)} closeIcon={() => setModalEdit(false)} />
+            <ModalEdit
+              visibility={modalEdit}
+              IconAlert={FaRegCheckCircle}
+              closeButton={() => setModalEdit(false)}
+              closeIcon={() => setModalEdit(false)}
+            />
           </div>
-          <ToastContainer position="top-center" autoClose={1500} pauseOnHover={false} />
-
+          <ToastContainer
+            position="top-center"
+            autoClose={1500}
+            pauseOnHover={false}
+          />
         </>
-      ))
-      }
+      ))}
     </>
   );
 };
