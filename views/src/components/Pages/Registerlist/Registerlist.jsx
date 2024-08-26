@@ -11,6 +11,8 @@ import StatusCard from '../../shared/utils/utils';
 import SearchVector from '../../../assets/Searching.png'
 import {axiosInstance} from '../../../../axiosConfig';
 import { StateContext } from '../../Context/Context';
+import { Navbar } from '../../shared/Navbar/Navbar';
+
 
 const SearchWithSuggestion = ({ onChange, value, possibleMatch, onSelectMatch }) => {
   return (
@@ -154,9 +156,9 @@ export const Registerlist = ({Location, LocationProfile, LocationRegisterUser, L
 
   return (
     <>
-    <div className='bg-[#F0ECE3] w-full h-full flex flex-col flex-1 items-center relative py-[2.5%]'>
+    <div className='bg-[#F0ECE3] w-full h-full flex flex-col flex-1 items-center relative  gap-[2rem]'>
+    <Navbar/>
       <div className='absolute left-[5%] ' onClick={() => setLocation(Location)}>
-        <ButtomHome customClassName={''} />
         <IoMdArrowRoundBack className="hidden sm:inline-block sm:text-[3rem] sm:top-[1%] text-[#000000] bg-[#F0ECE3] p-[0.5rem] rounded-[10px] shadow-xl border-2 border-transparent" />
       </div>
       <div className="flex justify-between w-60% items-center">
@@ -169,7 +171,7 @@ export const Registerlist = ({Location, LocationProfile, LocationRegisterUser, L
         <StatusDropdown onStatusChange={handleStatusChange} />
         <RegisterMenu  LocationRegisterUser={LocationRegisterUser} LocationRegisterEmployee={LocationRegisterEmployee} />
       </div>
-      <div className='w-[50%] flex h-[14rem] border border-[#3F3D56] m-6 rounded-md items-center shadow-xl'>
+      <div className='w-[50%] flex h-[14rem] border bg-white m-6 rounded-xl items-center shadow-2xl'>
         <img src={SearchVector} alt="SearchingVector" className='w-[200px] p-1'/>
         <p className='text-center m-[0.5rem]'>Aquí, podrás encontrar todos los usuarios registrados del establecimiento. Además, tendrás la opción de registrar nuevos usuarios de manera sencilla y rápida. ¡Explora y gestiona tu lista de usuarios con facilidad!</p>
       </div>

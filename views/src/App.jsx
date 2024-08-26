@@ -28,6 +28,8 @@ import { Registerlist } from "./components/Pages/Registerlist/Registerlist"
 import { Clients } from "./components/Pages/Register/Clients"
 import { AuthProvider } from "./components/Context/AuthContext"
 import { ProtectedRoute } from "./components/Context/ProtectectRoutes"
+import { ModalEdit } from './components/Modals/ModalEdit/ModalEdit';
+import { Inventory } from './components/Pages/Inventory/Inventory';
 
 
 
@@ -150,7 +152,12 @@ function App() {
             <Route path="/emple">
               <Employees />
             </Route>
-            
+            <Route path="/moedit/A">
+              <ModalEdit />
+            </Route>
+            <Route path="/inventory/A">
+              <Inventory />
+            </Route>
 
             <Route>
               <div>404: No such page</div>
