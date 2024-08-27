@@ -2,7 +2,7 @@ import React, { useContext, useRef, useState, useEffect } from 'react'
 import { FaUserCircle } from "react-icons/fa";
 import { useLocation } from 'wouter'
 import { StateContext } from '../../Context/Context';
-import { ProfileMenu } from '../../shared/DropDowns/RegisterDropDown/RegisterDropDown';
+import { ProfileMenu } from '../DropDowns/RegisterDropDown/RegisterDropDown';
 
 
 export const Navbar = ({customClassName, login, assistence, register, inventory, remarks}) => {
