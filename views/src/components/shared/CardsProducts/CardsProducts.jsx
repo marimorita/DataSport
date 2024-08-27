@@ -2,8 +2,8 @@ import React from "react";
 
 export const CardsProducts = () => {
   return (
-      <div className="bg-white to-100% flex flex-col items-center gap-[20px] justify-center p-[15px] w-[15rem] h-[20rem] shadow-2xl rounded-[10px]">
-      <div className=" flex justify-center items-center w-[8rem] h-[8rem]">
+      <div className=" cursor-pointer bg-white to-100% flex flex-col items-center gap-[20px] justify-center p-[15px] w-[14rem] h-[19rem] shadow-2xl rounded-[10px]">
+      <div className=" flex justify-center items-center w-[7rem] h-[7rem]">
         <svg
           width="128"
           height="92"
