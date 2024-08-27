@@ -119,7 +119,7 @@ function App() {
             {/* Normal Routes */}
 
             <Route path={`/assistance`}>
-              <Asistence Location={`/`} />
+              <Asistence Location={`/`} /
             </Route>
             <Route path={`/clients`}>
               <Clients Location={`/`} />
