@@ -30,6 +30,7 @@ import { AuthProvider } from "./components/Context/AuthContext"
 import { ProtectedRoute } from "./components/Context/ProtectectRoutes"
 import { ModalEdit } from './components/Modals/ModalEdit/ModalEdit';
 import { Inventory } from './components/Pages/Inventory/Inventory';
+import { CreateBien1 } from './components/Modals/ModalAggregate/CreateBien';
 
 
 
@@ -157,6 +158,9 @@ function App() {
             </Route>
             <Route path="/inventory/A">
               <Inventory />
+            </Route>
+            <Route path="/createbien/A">
+              <CreateBien1 />
             </Route>
 
             <Route>
