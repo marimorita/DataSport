@@ -5,7 +5,7 @@ import { useComponentCycle } from "../../../hooks/useComponentCycle";
 import {
   InventorySelectorBienes,
   InventorySelectorEspacios,
-  InventorySelectorProducts,
+  InventorySelectorProductos,
 } from "../../shared/inventorySelector/inventorySelector";
 import { FaPlus } from "react-icons/fa";
 import { FaOldRepublic } from "react-icons/fa";
@@ -25,8 +25,9 @@ export const Inventory = () => {
   const { component, next } = useComponentCycle(
     [
       <InventorySelectorBienes onNext={handleNextAction} key="Bienes" />,
-      <InventorySelectorProducts onNext={handleNextAction} key="Productos" />,
+      <InventorySelectorProductos onNext={handleNextAction} key="Productos" />,
       <InventorySelectorEspacios onNext={handleNextAction} key="Espacios" />,
+
     ],
     {
       onComponentChange: (c) => {
@@ -58,9 +59,6 @@ export const Inventory = () => {
         <CardsProducts />
         <CardsProducts />
         <CardsProducts />
-      </div>
-      <div className=" cursor-pointer flex justify-center items-center bg-[#692FDB] size-[4rem] rounded-lg fixed right-[3rem] bottom-[3rem]">
-      <FaPlus className="text-[2.5rem] text-white" />
       </div>
     </div>
   );
