@@ -10,10 +10,10 @@ import StatusCard from '../../shared/utils/utils';
 import generateAsistencePDF from '../../shared/GeneratePDF/AsistenceReport';
 import { StateContext } from '../../Context/Context';
 import {axiosInstance} from '../../../../axiosConfig';
-import { Navbar } from '../../shared/Navbar/Navbar';
+import { NavbarType } from '../../shared/Navbar/Navbar';
 
 
-export const Asistence = ({ Location, LocationProfile }) => {
+export const Asistence = ({ Location, LocationProfile, nabvar }) => {
   const [location, setLocation] = useLocation();
   const { clientsView, setClientsView } = useContext(StateContext);
   const [asistencia, setAsistencia] = useState([]);
@@ -79,9 +79,13 @@ export const Asistence = ({ Location, LocationProfile }) => {
     generateAsistencePDF(asistencia);
   };
 
+  const userType = nabvar; 
+
   return (
     <div className='bg-[#F0ECE3] w-full h-full flex flex-col flex-1 items-center relative'>
-      <Navbar />
+      <div className="w-full h-auto bg-[#F0ECE3] flex flex-col gap-[5rem]">
+      <NavbarType type={userType} />
+      </div>
       <div className='flex items-center justify-center w-full h-[3.2rem] '>
         <div className='absolute left-[20%] top-[6%]' onClick={() => setLocation(Location)}>
         </div>

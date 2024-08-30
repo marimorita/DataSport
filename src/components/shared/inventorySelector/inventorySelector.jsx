@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { CiSearch } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa";
 import { LiaExchangeAltSolid } from "react-icons/lia";
 import { CreateBien1 } from "../../Modals/ModalAggregate/CreateBien";
+import { StateContext } from '../../Context/Context'
 
 
 const NextInventory = () => {
@@ -22,10 +23,10 @@ const NextInventory = () => {
 };
 
 export const InventorySelectorBienes = ({ onNext, onSearch }) => {
-  const [modalCreateBienes, setmodalCreateBienes] = useState(false);
+  const { modalCreateBienes, setmodalCreateBienes  } = useContext(StateContext);
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center ">
       <div className="flex justify-between w-[50%] h-[5rem] items-center text-white bg-gradient-to-r from-[#381975]  to-[#692FDB] px-9 py-1 rounded-[10px] shadow-md ">
         <CiSearch onClick={onSearch} className="text-[2.5rem] cursor-pointer" />
         <h1 className="select-none text-[3rem]">Bienes</h1>
@@ -35,14 +36,19 @@ export const InventorySelectorBienes = ({ onNext, onSearch }) => {
         />
       </div>
 
-      <div className=" cursor-pointer flex justify-center items-center bg-[#692FDB] size-[4rem] rounded-lg fixed right-[3rem] bottom-[3rem]">
-        <FaPlus className="text-[2.5rem] text-white" onClick={() => setmodalCreateBienes(false)} />
-
-        <CreateBien1
+      <div className=" flex justify-center items-center bg-[#692FDB] size-[4rem] rounded-lg fixed right-[3rem] bottom-[3rem]">
+        <FaPlus className=" cursor-pointer text-[2.5rem] text-white" onClick={() => 
+          
+            setmodalCreateBienes(true)
+            // console.log("hola");
+          
+        }
+           />
+      </div>
+      <CreateBien1
           visibility={modalCreateBienes}
           closeIcon={() => setmodalCreateBienes(false)}
         />
-      </div>
     </div>
   );
 };

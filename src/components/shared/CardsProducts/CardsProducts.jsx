@@ -1,6 +1,6 @@
 import React from "react";
 
-export const CardsProducts = () => {
+export const CardsProducts = ({name,description}) => {
   return (
       <div className=" cursor-pointer bg-white to-100% flex flex-col items-center gap-[20px] justify-center p-[15px] w-[14rem] h-[19rem] shadow-2xl rounded-[10px]">
       <div className=" flex justify-center items-center w-[7rem] h-[7rem]">
@@ -33,13 +33,12 @@ export const CardsProducts = () => {
           />
         </svg>
       </div>
-      <div className="flex flex-wrap justify-center ">
+      <div className="flex flex-col flex-wrap justify-center ">
         <h1 className="text-[25px] text-[#1E1E1E]">
-          <b>Mancuerna 15kg</b>
+          <b>{name}</b>
         </h1>
         <p className="text-[13px] text-[#3F3F3F]">
-          Mancuerna muy grande y poderosa para crecer tus fibras musculares por
-          metodos de repeticiones
+          {description}
         </p>
       </div>
       <div className=" w-[100%] gap-x-1.5 flex justify-end ">

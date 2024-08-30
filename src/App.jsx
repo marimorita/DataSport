@@ -70,11 +70,16 @@ function App() {
                   <ProfileAdmin />
                 </ProtectedRoute>
                 <ProtectedRoute path={`/HJQL9823/${routeAdmin}/registeredlist`} allowedRoles={['admin']}>
-                  <Registerlist Location={`/HJQL9823/${routeAdmin}/home`} LocationProfile={`/HJQL9823/${routeAdmin}/profile/U`} LocationRegisterUser={`/HJQL9823/${routeAdmin}/register/user`} LocationRegisterEmployee={`/HJQL9823/${routeAdmin}/register/employeed`} />
+                  <Registerlist nabvar={'admin'} Location={`/HJQL9823/${routeAdmin}/home`} LocationProfile={`/HJQL9823/${routeAdmin}/profile/U`} LocationRegisterUser={`/HJQL9823/${routeAdmin}/register/user`} LocationRegisterEmployee={`/HJQL9823/${routeAdmin}/register/employeed`} />
                 </ProtectedRoute>
                 <ProtectedRoute path={`/HJQL9823/${routeAdmin}/assistance`} allowedRoles={['admin']}>
-                  <Asistence Location={`/HJQL9823/${routeAdmin}/home`} />
+                  <Asistence nabvar={'admin'} Location={`/HJQL9823/${routeAdmin}/home`} />
                 </ProtectedRoute>
+
+                <ProtectedRoute path={`/HJQL9823/${routeAdmin}/inventory`} allowedRoles={['admin']}>
+                  <Inventory nabvar={'admin'} />
+                </ProtectedRoute>
+
                 <ProtectedRoute path={`/HJQL9823/${routeAdmin}/profile/U`} allowedRoles={['admin']}>
                   <ProfileUsers Location={`/HJQL9823/${routeAdmin}/profile/U`} />
                 </ProtectedRoute>
@@ -95,10 +100,13 @@ function App() {
                   <ProfileEmployee Location={`/KQWJ7482/${routeEmployee}/home`} />
                 </ProtectedRoute>
                 <ProtectedRoute path={`/KQWJ7482/${routeEmployee}/registeredlist`} allowedRoles={['employee']}>
-                  <Registerlist notAccess={false} Location={`/KQWJ7482/${routeEmployee}/home`} LocationProfile={`/KQWJ7482/${routeEmployee}/profile/U`} LocationRegisterUser={`/KQWJ7482/${routeEmployee}/register/user`} />
+                  <Registerlist nabvar={'employee'} notAccess={false} Location={`/KQWJ7482/${routeEmployee}/home`} LocationProfile={`/KQWJ7482/${routeEmployee}/profile/U`} LocationRegisterUser={`/KQWJ7482/${routeEmployee}/register/user`} />
                 </ProtectedRoute>
                 <ProtectedRoute path={`/KQWJ7482/${routeEmployee}/assistance`} allowedRoles={['employee']}>
-                  <Asistence Location={`/KQWJ7482/${routeEmployee}/home`} />
+                  <Asistence nabvar={'employee'} Location={`/KQWJ7482/${routeEmployee}/home`} />
+                </ProtectedRoute>
+                <ProtectedRoute path={`/KQWJ7482/${routeEmployee}/inventory`} allowedRoles={['employee']}>
+                  <Inventory nabvar={'employee'} />
                 </ProtectedRoute>
                 <ProtectedRoute path={`/KQWJ7482/${routeEmployee}/profile/U`} allowedRoles={['employee']}>
                   <ProfileUsers Location={`/KQWJ7482/${routeEmployee}/profile/U`} />
@@ -142,9 +150,6 @@ function App() {
             </Route>
             <Route path="/twoverific/KQWJ7482">
               <TwoverificEmployee />
-            </Route>
-            <Route path="/estonoseaccedeporfavor">
-              <Admin />
             </Route>
             <Route path="/estonoseaccedeporfavor">
               <Admin />
