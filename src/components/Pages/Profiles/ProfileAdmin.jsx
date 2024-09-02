@@ -95,6 +95,9 @@ export const ProfileAdmin = () => {
             backgroundColor: "#692FDB", // Color de la barra de carga
           },
         });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       } else {
         toast.error(error.response.data.error, {
           progressStyle: {
