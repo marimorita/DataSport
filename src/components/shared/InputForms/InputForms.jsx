@@ -192,3 +192,82 @@ export const AsistenceBuscador = ({ value, onChange, possibleMatch, onSelectMatc
   );
 };
 export default AsistenceBuscador;
+
+// CustomInput Component
+export const CustomInput = ({ label, type = "text", inputProps, inputRef }) => {
+  const [used, setUsed] = useState(false);
+  const [focused, setFocused] = useState(false);
+
+  const validateActive = (focused) => {
+    if (!inputRef.current) return;
+    const { value } = inputRef.current;
+    setUsed(value.length !== 0 || focused);
+  };
+
+  const labelClasses = () => {
+    const actived = used
+      ? "text-[20px] left-5 -translate-y-8 bg-white px-3"
+      : "text-[25px] left-5";
+    return `absolute text-[#692FDB] transition-[transform_font-size_padding] duration-[250ms] ${actived}`;
+  };
+  return (
+    <span className="relative flex items-center w-full">
+      <label className={labelClasses()}>{label}</label>
+      <input
+        ref={inputRef}
+        type={type}
+        className="w-full h-[4rem] border-[4px] rounded-xl outline-[#381975] outline-offset-2 border-[#692FDB] px-4 placeholder:text-[#692FDB] text-[25px]  "
+        onFocus={() => {
+          setFocused(true);
+          validateActive(true);
+        }}
+        onBlur={() => {
+          setFocused(false);
+          validateActive(false);
+        }}
+        {...inputProps}
+      />
+    </span>
+  );
+};
+
+// CustomTextArea Component
+export const CustomTextArea = ({ label, type = "text", inputProps, inputRef }) => {
+  const [used, setUsed] = useState(false);
+  const [focused, setFocused] = useState(false);
+
+  const validateActive = (focused) => {
+    if (!inputRef.current) return;
+    const { value } = inputRef.current;
+    setUsed(value.length !== 0 || focused);
+  };
+
+  const labelClasses = () => {
+    const actived = used
+      ? "text-[20px] left-5 -translate-y-8 bg-white px-3"
+      : "text-[25px] left-5";
+    return `absolute text-[#692FDB] transition-[transform_font-size_padding] duration-[250ms] ${actived}`;
+  };
+  return (
+    <span className="relative flex items-center w-full">
+      <label className={labelClasses()}>{label}</label>
+      <input
+        ref={inputRef}
+        placeholder={label}
+        className="w-full py-1 border-[4px] rounded-xl outline-[#381975] outline-offset-2 border-[#692FDB] px-4 placeholder:text-[#692FDB] text-[25px]"
+        onFocus={() => {
+          setFocused(true);
+          validateActive(true);
+        }}
+        onBlur={() => {
+          setFocused(false);
+          validateActive(false);
+        }}
+        {...inputProps}
+      />
+    </span>
+  );
+  ref = { inputRef }
+  placeholder = { label }
+  className = "w-full py-1 border-[4px] rounded-xl outline-[#381975] outline-offset-2 border-[#692FDB] px-4 placeholder:text-[#692FDB] text-[25px]"
+};
