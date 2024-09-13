@@ -7,7 +7,7 @@ import {
   CustomTextArea,
 } from "../../shared/InputForms/InputForms";
 
-export const CreateBien1 = ({ closeIcon, visibility }) => {
+export const CreateProducts = ({ closeIcon, visibility }) => {
   const inputIdRef = useRef();
   const inputNameRef = useRef();
   const inputDescriptionRef = useRef();
@@ -77,7 +77,6 @@ export const CreateBien1 = ({ closeIcon, visibility }) => {
       );
       if (response.status === 200 || response.status === 201) {
         // Manejo exitoso
-        
       } else {
         toast.error(response.data.error, {
           progressStyle: {
@@ -103,7 +102,7 @@ export const CreateBien1 = ({ closeIcon, visibility }) => {
       }
     >
       <div className="w-[40rem] h-[85%] bg-white flex flex-col justify-center items-center  rounded-lg gap-12 m-[5rem] shadow-2xl p-[4rem] animate-modal relative">
-        <section className="h-8 pb-8 w-full flex justify-end items-center">
+        <section className="h-8 pb-12 w-full flex justify-end items-center">
           <IoCloseOutline
             fontSize={50}
             onClick={closeIcon}
@@ -112,7 +111,7 @@ export const CreateBien1 = ({ closeIcon, visibility }) => {
         </section>
         <section className="flex gap-8">
           <div className="flex flex-col justify-center h-[80%] items-center gap-4">
-            <h1 className="text-[50px]">Crea tu Bien</h1>
+            <h1 className="text-[50px]">Crea tu Productos</h1>
             <section className="flex flex-col gap-4 w-full lg:max-w-[30rem]">
               <CustomInput label="Titulo" inputRef={inputNameRef} />
               <CustomTextArea label="Description" inputRef={inputDescriptionRef} />

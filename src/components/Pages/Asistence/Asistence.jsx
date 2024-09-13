@@ -79,6 +79,26 @@ export const Asistence = ({ Location, LocationProfile, nabvar }) => {
     generateAsistencePDF(asistencia);
   };
 
+  useEffect(() => {
+    const checkMidnight = () => {
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+
+      if (hours === 0 && minutes === 0) {
+        localStorage.removeItem("asistencia");
+        console.log("Dato eliminado de localStorage a la medianoche");
+      }
+    };
+
+    // Configura un intervalo para verificar la hora cada minuto (60000 ms)
+    const intervalId = setInterval(checkMidnight, 60000);
+
+    // Limpia el intervalo si el componente se desmonta
+    return () => clearInterval(intervalId);
+  }, []);
+
+
   const userType = nabvar; 
 
   return (

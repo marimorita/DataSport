@@ -30,7 +30,8 @@ import { AuthProvider } from "./components/Context/AuthContext"
 import { ProtectedRoute } from "./components/Context/ProtectectRoutes"
 import { ModalEdit } from './components/Modals/ModalEdit/ModalEdit';
 import { Inventory } from './components/Pages/Inventory/Inventory';
-
+import { Observations } from './components/Pages/Observations/Observations';
+// import { ModalTestPage } from './components/Pages/WorkingTeam/WorkingTeam';
 
 
 function App() {
@@ -162,6 +163,10 @@ function App() {
             </Route>
             <Route path="/inventory/A">
               <Inventory />
+            </Route>
+            <div></div>
+            <Route path="/Observations/A">
+              <Observations />
             </Route>
 
             <Route>

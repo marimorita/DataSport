@@ -7,13 +7,14 @@ import { MdModeEdit } from "react-icons/md";
 import { useLocation } from "wouter";
 import { ModalEdit } from "../../Modals/ModalEdit/ModalEdit";
 import { FaRegCheckCircle } from "react-icons/fa";
+import { WorkingTeamModal } from "../WorkingTeam/WorkingTeam";
 
 export const ProfileAdmin = () => {
   const { adminView, setAdminView } = useContext(StateContext);
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
   };
@@ -616,12 +617,14 @@ export const ProfileAdmin = () => {
                     </h1>
                   </div>
                   <div className="mt-[1rem] mr-[4rem] ">
-                    <Buttonredirect
-                      customClassName={
-                        "bg-[#F0ECE3] text-[#000001] text-[20px] text-center w-[15rem] text-[22px] rounded-[10px] py-[0.5rem]"
-                      }
-                      Text={"Equipo de trabajo"}
-                    />
+                  <Buttonredirect
+        customClassName={
+          'bg-[#F0ECE3] text-[#000001] text-[20px] text-center w-[15rem] text-[22px] rounded-[10px] py-[0.5rem]'
+        }
+        Text="Equipo de trabajo"
+        onClick={() => setIsModalOpen(true)}
+      />
+      <WorkingTeamModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
                   </div>
                 </div>
               </div>

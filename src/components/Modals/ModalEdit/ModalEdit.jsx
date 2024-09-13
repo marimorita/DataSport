@@ -149,52 +149,6 @@ export const ModalEdit = ({ closeIcon, closeButton, visibility }) => {
       console.log("no se hizo actualizacion de nombre");
     }
 
-    const document = inputIdRef.current.value
-
-    if (document !== "") {
-
-      // const userData = {
-      //   id: inputIdRef.current.value,
-      // };
-
-      // try {
-      //   // const token = localStorage.getItem('token');
-      //   const response = await axiosInstance.patch(
-      //     `/administrator/administrator/update/id`,
-      //     userData /* , {
-      //     headers: {
-      //         Authorization: `Bearer ${token}`
-      //     }
-      // } */
-      //   );
-
-      //   if (response.status === 200 || response.status === 201) {
-      //     toast.success("se cambio", {
-      //       progressStyle: {
-      //         backgroundColor: "#692FDB", // Color de la barra de carga
-      //       },
-      //     });
-      //     // setTimeout(() => {
-      //     //   window.location.reload();
-      //     // }, 1000);
-      //   } else {
-      //     toast.error(error.response.data.error, {
-      //       progressStyle: {
-      //         backgroundColor: "#692FDB", // Color de la barra de carga
-      //       },
-      //     });
-      //   }
-      // } catch (error) {
-      //   toast.error(error.response.data.error, {
-      //     progressStyle: {
-      //       backgroundColor: "#692FDB", // Color de la barra de carga
-      //     },
-      //   });
-      // }
-
-    } else {
-      console.log("no se hizo actualizacion de documento");
-    }
 
     const phone = inputPhoneRef.current.value
 
@@ -298,14 +252,13 @@ export const ModalEdit = ({ closeIcon, closeButton, visibility }) => {
   };
 
   return (
-    <div className={visibility ? ' w-screen h-screen flex justify-center items-center fixed top-0 left-0 bg-[#00000080] z-[999] ' : 'hidden'}>
-      <div className='w-[40%] h-[85%] bg-[#F0ECE3] flex flex-col justify-center items-center rounded-[10px] pb-[10px] animate-modal relative'>
+    <div className={visibility ? ' w-screen h-screen flex justify-center items-center fixed top-0 left-0 bg-[#00000080] z-[100] ' : 'hidden'}>
+      <div className='w-[40%] h-[85%] bg-[#F0ECE3] flex flex-col justify-center items-center rounded-[10px] pb-[10px] animate-modal relative z-[110]'>
         <IoCloseOutline fontSize={50} onClick={closeIcon} className='cursor-pointer absolute right-4 top-3 text-[#2F2E41] ' />
         <div className='w-[30rem] h-[25rem] flex justify-center'  >
           <div className='flex flex-col w-[25rem] gap-[1rem]'>
             <h1 className='text-[28px] text-center'>Edita los campos deseados</h1>
             <input className='bg-[#f1ede4] text-[#1E1E1E] rounded-[5px] h-[2.5rem] shadow-2xl border-[3px] border-[#1E1E1E] px-[10px]' type="text" placeholder='Actualiza tu Nombre...' ref={inputNameRef} />
-            <input className='bg-[#f1ede4] text-[#1E1E1E] rounded-[5px] h-[2.5rem] shadow-2xl border-[3px] border-[#1E1E1E] px-[10px]' type="text" placeholder='Actualiza tu documento...' ref={inputIdRef} />
             <input className='bg-[#f1ede4] text-[#1E1E1E] rounded-[5px] h-[2.5rem] shadow-2xl border-[3px] border-[#1E1E1E] px-[10px]' type="tetx" placeholder='Actualiza tu numero...' ref={inputPhoneRef} />
             <input className='bg-[#f1ede4] text-[#1E1E1E] rounded-[5px] h-[2.5rem] shadow-2xl border-[3px] border-[#1E1E1E] px-[10px]' type="email" placeholder='Actualiza tu email...' ref={inputEmailRef} />
             <input

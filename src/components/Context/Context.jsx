@@ -9,6 +9,7 @@ export const StateProvider = ({ children }) => {
   const [loginEmpleyees, setLoginEmpleyees] = useState(false);
   const [loginAdmin, setLoginAdmin] = useState(false);
   const [modalCreateBienes, setmodalCreateBienes] = useState(false);
+  const [modalCreatePoducts, setModalCreatePoducts] = useState(false);
   const [clientsView, setClientsView] = useState([]);
   const [adminView, setAdminView] = useState([]);
   const [employeeView, setEmployeeView] = useState([]);
@@ -19,7 +20,7 @@ export const StateProvider = ({ children }) => {
 
 
   return (
-    <StateContext.Provider value={{ createUser, setCreateUser, createEmpleyees, setCreateEmpleyees, loginEmpleyees, setLoginEmpleyees, clientsView, setClientsView, loginAdmin, setLoginAdmin, createAdmin, setCreateAdmin, adminView, setAdminView, employeeView, setEmployeeView, userView, setUserView, userDocument, setUserDocument, modalCreateBienes, setmodalCreateBienes}}>
+    <StateContext.Provider value={{ createUser, setCreateUser, createEmpleyees, setCreateEmpleyees, loginEmpleyees, setLoginEmpleyees, clientsView, setClientsView, loginAdmin, setLoginAdmin, createAdmin, setCreateAdmin, adminView, setAdminView, employeeView, setEmployeeView, userView, setUserView, userDocument, setUserDocument, modalCreateBienes, setmodalCreateBienes, modalCreatePoducts, setModalCreatePoducts}}>
       {children}
     </StateContext.Provider>
   );

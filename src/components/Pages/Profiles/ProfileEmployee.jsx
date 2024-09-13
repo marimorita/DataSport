@@ -5,12 +5,14 @@ import { toast, ToastContainer } from "react-toastify";
 import { cloudinaryAxios, axiosInstance } from '../../../../axiosConfig';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { useLocation } from 'wouter';
+import { WorkingTeamModal } from '../WorkingTeam/WorkingTeam';
 
-export const ProfileEmployee = ({Location}) => {
+export const ProfileEmployee = ({ Location }) => {
   const { employeeView, setEmployeeView } = useContext(StateContext);
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(false);
   const [location, setLocation] = useLocation();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
@@ -109,9 +111,9 @@ export const ProfileEmployee = ({Location}) => {
 
   return (
     <>
-        <div className='absolute right-[3%] top-[6%] z-20 ' onClick={() => setLocation(Location)}>
-          <ButtomHome customClassNameTwo={'bg-[#F35A05] '} Text={'Regresar'} />
-        </div>
+      <div className='absolute right-[3%] top-[6%] z-20 ' onClick={() => setLocation(Location)}>
+        <ButtomHome customClassNameTwo={'bg-[#F35A05] '} Text={'Regresar'} />
+      </div>
       {employeeView.map(employee => (
         <>
           <div className="flex">
@@ -601,9 +603,13 @@ export const ProfileEmployee = ({Location}) => {
                   </div>
                   <div className="mt-[1rem]  mr-[4rem]">
                     <Buttonredirect
-                      customClassName={"bg-[#F0ECE3] text-[#000001] text-[20px] text-center w-[15rem] text-[22px] rounded-[10px] py-[0.5rem]"}
-                      Text={"Equipo de trabajo"}
+                      customClassName={
+                        'bg-[#F0ECE3] text-[#000001] text-[20px] text-center w-[15rem] text-[22px] rounded-[10px] py-[0.5rem]'
+                      }
+                      Text="Equipo de trabajo"
+                      onClick={() => setIsModalOpen(true)}
                     />
+                    <WorkingTeamModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
                   </div>
                 </div>
               </div>
