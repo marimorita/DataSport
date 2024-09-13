@@ -54,7 +54,7 @@ export const NavbarAdmin = ({customClassName, login}) => {
                 <li onClick={() => setLocation(`/HJQL9823/${routeAdmin}/assistance`)}>Asistencia</li>
                 <li onClick={() => setLocation(`/HJQL9823/${routeAdmin}/registeredlist`)}>Registros</li>
                 <li onClick={() => setLocation(`/HJQL9823/${routeAdmin}/inventory`)}>Inventario</li>
-                <li>Observaciones</li>
+                <li onClick={() => setLocation(`/HJQL9823/${routeAdmin}/observation`)}>Observaciones</li>
             </ul>
             </div>
             {login ? <> <ProfileMenu customClassName={'text-[#692FDB]'} LocationProfile={`/HJQL9823/${routeAdmin}/profile/A`} LocationLogout={`/`} /> {/* <FaUserCircle className={`${customClassName} w-[20%] text-[60px] cursor-pointer`} onClick={() => setLocation(`/HJQL9823/${routeAdmin}/profile/A`)}   /> */} </> : <div className='w-[20%] flex justify-center '><button onClick={() => setLocation("/login/HJQL9823")} className=' w-[50%] text-[25px] text-[#F0ECE3] flex justify-center cursor-pointer bg-[#2F2C37] shadow-xl rounded-[18px] ' >Login</button></div> }
@@ -88,7 +88,7 @@ export const NavbarEmployee = ({customClassName, login}) => {
                 <li onClick={() => setLocation(`/KQWJ7482/${routeEmployee}/assistance`)}>Asistencia</li>
                 <li onClick={() => setLocation(`/KQWJ7482/${routeEmployee}/registeredlist`)}>Registros</li>
                 <li onClick={() => setLocation(`/KQWJ7482/${routeEmployee}/inventory`)}>Inventario</li>
-                <li>Observaciones</li>
+                <li onClick={() => setLocation(`/KQWJ7482/${routeEmployee}/observation`)}>Observaciones</li>
             </ul>
             </div>
             {login ? <> <ProfileMenu customClassName={'text-[#FE7A36]'} LocationProfile={`/KQWJ7482/${routeEmployee}/profile/E`} LocationLogout={`/`} /> {/* <FaUserCircle className={`${customClassName} w-[20%] text-[60px] cursor-pointer`}  onClick={() => setLocation(`/KQWJ7482/${routeEmployee}/profile/E`)} /> */} </> : <div className='w-[20%] flex justify-center '><button onClick={() => setLocation("/login/HJQL9823")} className=' w-[50%] text-[25px] text-[#F0ECE3] flex justify-center cursor-pointer bg-[#2F2C37] shadow-xl rounded-[18px] ' >Login</button></div> }

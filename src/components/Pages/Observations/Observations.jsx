@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { NavbarType } from '../../shared/Navbar/Navbar';
 import { X } from 'lucide-react';
+import { StateContext } from "../../Context/Context";
+import { toast, ToastContainer } from "react-toastify";
+
 const ObservationCard = ({ nombre, motivo, detalles, esAdmin }) => {
   const bgColor = esAdmin ? 'bg-[#5023A7]' : 'bg-[#ff8f33]';
   
@@ -66,6 +69,7 @@ const AddObservationModal = ({ isOpen, onClose, onAdd }) => {
 
 export const Observations = ({ nabvar }) => {
   const userType = nabvar;
+  const { adminView, setAdminView } = useContext(StateContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [observaciones, setObservaciones] = useState([
     
@@ -75,8 +79,33 @@ export const Observations = ({ nabvar }) => {
     setObservaciones([...observaciones, { ...newObservation, id: observaciones.length + 1 }]);
   };
 
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    const fetchAdmin = async () => {
+      try {
+        const response = await axiosInstance.get(
+          `/administrator/administrator/${token}`
+        );
+        // console.log(response.data);
+
+        setAdminView([response.data]);
+      } catch (error) {
+        toast.error(error.response.data.error, {
+          progressStyle: {
+            backgroundColor: "#692FDB", // Color de la barra de carga
+          },
+        });
+      }
+    };
+
+    fetchAdmin();
+  }, [setAdminView]);
+
   return (
     <>
+    {
+      <>
       <div className="w-full bg-[#F0ECE3] flex flex-col justify-center gap-[3rem] pb-12">
         <div className="w-full h-auto bg-[#F0ECE3] flex flex-col gap-[5rem]">
           <NavbarType type={userType} />
@@ -107,6 +136,8 @@ export const Observations = ({ nabvar }) => {
         onClose={() => setIsModalOpen(false)}
         onAdd={handleAddObservation}
       />
+      </>
+          }
     </>
   );
 };

@@ -47,10 +47,10 @@ export const Buttonlog2 = ({onClick,Text, width}) => {
     </div>
   )
 }
-export const Buttonredirect = ({Text,customClassName}) => {
+export const Buttonredirect = ({Text,customClassName,Onclick}) => {
   return (
     <div>
-      <button className={`${customClassName}`}>{Text}</button>
+      <button onClick={Onclick} className={`${customClassName}`}>{Text}</button>
     </div>
   )
 }

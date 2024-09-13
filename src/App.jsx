@@ -1,5 +1,6 @@
 import React, { useContext, useRef, useState, useEffect } from 'react'
 import { StateContext } from './components/Context/Context';
+import { toast, ToastContainer } from "react-toastify";
 // import { Login } from "./components/Pages/Login/Login"
 // import { Register } from "./components/Pages/Register/Register"
 import { Employees } from "./components/Pages/Register/Employees"
@@ -35,6 +36,7 @@ import { Observations } from './components/Pages/Observations/Observations';
 
 
 function App() {
+  const { adminView, setAdminView } = useContext(StateContext);
   const [routeEmployee, setRouteEmployee] = useState(localStorage.getItem('routeE') || '');
   const [routeAdmin, setRouteAdmin] = useState(localStorage.getItem('routeA') || '');
   const [location, setLocation] = useLocation();
@@ -55,7 +57,31 @@ function App() {
 
   console.log("esta en App", routeEmployee);
 
+  const token = localStorage.getItem("token");
 
+  useEffect(() => {
+    const fetchAdmin = async () => {
+      try {
+        const response = await axiosInstance.get(
+          `/administrator/administrator/${token}`
+        );
+        // console.log(response.data);
+
+        setAdminView([response.data]);
+      } catch (error) {
+        toast.error(error.response, {
+          progressStyle: {
+            backgroundColor: "#692FDB", // Color de la barra de carga
+          },
+        });
+      }
+    };
+
+    fetchAdmin();
+  }, [setAdminView]);
+
+  console.log("hola",adminView);
+  
   return (
     <AuthProvider>
       <AppContextProvider>
@@ -79,6 +105,10 @@ function App() {
 
                 <ProtectedRoute path={`/HJQL9823/${routeAdmin}/inventory`} allowedRoles={['admin']}>
                   <Inventory nabvar={'admin'} />
+                </ProtectedRoute>
+
+                <ProtectedRoute path={`/HJQL9823/${routeAdmin}/observation`} allowedRoles={['admin']}>
+                  <Observations nabvar={'admin'} />
                 </ProtectedRoute>
 
                 <ProtectedRoute path={`/HJQL9823/${routeAdmin}/profile/U`} allowedRoles={['admin']}>
@@ -106,9 +136,15 @@ function App() {
                 <ProtectedRoute path={`/KQWJ7482/${routeEmployee}/assistance`} allowedRoles={['employee']}>
                   <Asistence nabvar={'employee'} Location={`/KQWJ7482/${routeEmployee}/home`} />
                 </ProtectedRoute>
+
                 <ProtectedRoute path={`/KQWJ7482/${routeEmployee}/inventory`} allowedRoles={['employee']}>
                   <Inventory nabvar={'employee'} />
                 </ProtectedRoute>
+
+                <ProtectedRoute path={`/KQWJ7482/${routeEmployee}/observation`} allowedRoles={['employee']}>
+                  <Observations nabvar={'employee'} />
+                </ProtectedRoute>
+
                 <ProtectedRoute path={`/KQWJ7482/${routeEmployee}/profile/U`} allowedRoles={['employee']}>
                   <ProfileUsers Location={`/KQWJ7482/${routeEmployee}/profile/U`} />
                 </ProtectedRoute>

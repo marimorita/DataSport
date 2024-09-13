@@ -14,7 +14,7 @@ export const ProfileAdmin = () => {
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isModalOpen, setIsModalOpen } = useContext(StateContext);
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
   };
@@ -42,7 +42,7 @@ export const ProfileAdmin = () => {
       console.error("Error al subir la imagen:", error);
     }
   };
-
+ 
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -622,7 +622,10 @@ export const ProfileAdmin = () => {
           'bg-[#F0ECE3] text-[#000001] text-[20px] text-center w-[15rem] text-[22px] rounded-[10px] py-[0.5rem]'
         }
         Text="Equipo de trabajo"
-        onClick={() => setIsModalOpen(true)}
+        Onclick={() => {
+          console.log("Modal abierto");
+          setIsModalOpen(true);
+        }}
       />
       <WorkingTeamModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
                   </div>

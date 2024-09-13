@@ -1,5 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { StateContext } from "../../Context/Context";
+import { toast, ToastContainer } from "react-toastify";
+import { cloudinaryAxios, axiosInstance } from '../../../../axiosConfig';
 
 const teamMembers = [
   { name: 'Juan Pérez', document: '1234567890', role: 'admin' },
@@ -10,12 +12,12 @@ const teamMembers = [
 
 const roleColors = {
   admin: 'bg-[#5023A7]',
-  empleado: 'bg-[#FE8D32]',
+  employee: 'bg-[#FE8D32]',
 };
 
 const roleLabels = {
-  admin: 'Admin',
-  empleado: 'Empleado',
+  admin: 'admin',
+  employee: 'employee',
 };
 
 const CustomTooltip = ({ content, children }) => {
@@ -31,7 +33,7 @@ const CustomTooltip = ({ content, children }) => {
       {isVisible && (
         <div
           className={`absolute z-10 px-2 py-1 text-sm text-white rounded ${
-            content.toLowerCase() === 'admin' ? 'bg-[#5023A7]' : 'bg-[#FE8D32]'
+            content === 'admin' ? 'bg-[#5023A7]' : 'bg-[#FE8D32]'
           }`}
           style={{ top: '-30px', left: '50%', transform: 'translateX(-50%)' }}
         >
@@ -58,6 +60,26 @@ const Modal = ({ isOpen, onClose, children }) => {
 };
 
 export const WorkingTeamModal = ({ isOpen, onClose }) => {
+  const { employeeView, setEmployeeView } = useContext(StateContext);
+  useEffect(() => {
+    const fetchClients = async () => {
+      try {
+        const response = await axiosInstance.get('/employees/employee');
+        // console.log(response.data);
+
+        setEmployeeView(response.data)
+
+      } catch (error) {
+        console.error("Error getting clients", error);
+      }
+    };
+
+    fetchClients();
+  }, [setEmployeeView]);
+
+  console.log(employeeView);
+  
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="w-full flex flex-col items-center gap-6">
@@ -74,7 +96,7 @@ export const WorkingTeamModal = ({ isOpen, onClose }) => {
               </tr>
             </thead>
             <tbody>
-              {teamMembers.map((member, index) => (
+              {employeeView.map((member, index) => (
                 <tr key={index} className="border-b">
                   <td className="px-4 py-2">
                     <CustomTooltip content={roleLabels[member.role]}>
@@ -84,7 +106,7 @@ export const WorkingTeamModal = ({ isOpen, onClose }) => {
                     </CustomTooltip>
                   </td>
                   <td className="px-4 py-2">{member.name}</td>
-                  <td className="px-4 py-2">{member.document}</td>
+                  <td className="px-4 py-2">{member.id}</td>
                 </tr>
               ))}
             </tbody>
@@ -109,7 +131,7 @@ export const OpenWorkingTeamModalButton = ({ openModal }) => (
 
 // Ejemplo de uso en una vista
 const SomeView = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isModalOpen, setIsModalOpen } = useContext(StateContext);
 
   return (
     <div className="flex justify-center items-center h-screen">

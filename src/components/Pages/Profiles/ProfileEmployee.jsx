@@ -12,7 +12,8 @@ export const ProfileEmployee = ({ Location }) => {
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(false);
   const [location, setLocation] = useLocation();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isModalOpen, setIsModalOpen } = useContext(StateContext);
+  
 
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
