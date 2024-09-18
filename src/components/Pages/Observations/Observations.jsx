@@ -1,19 +1,26 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { NavbarType } from '../../shared/Navbar/Navbar';
-import { X } from 'lucide-react';
+import { X, Eye } from 'lucide-react';
 import { StateContext } from "../../Context/Context";
 import { toast, ToastContainer } from "react-toastify";
 
-const ObservationCard = ({ nombre, motivo, detalles, esAdmin }) => {
-  const bgColor = esAdmin ? 'bg-[#5023A7]' : 'bg-[#ff8f33]';
-  
+const ObservationModal = ({ observation, isOpen, onClose }) => {
+  if (!isOpen) return null;
+
+  const bgColor = observation.esAdmin ? 'bg-[#5023A7]' : 'bg-[#ff8f33]';
+
   return (
-    <div className="w-[30%]  h-max border rounded-lg overflow-hidden shadow-lg mb-4 ">
-      <div className={`${bgColor} text-white p-3 flex justify-center`}>
-        <p className="font-bold text-2xl text-center">{nombre}: {motivo}</p>
-      </div>
-      <div className="bg-white p-3 flex justify-center text-xl text-center">
-        <p>{detalles}</p>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+      <div className="w-[80%] max-w-md bg-white rounded-lg overflow-hidden shadow-lg">
+        <div className={`${bgColor} text-white p-3 flex justify-between items-center`}>
+          <p className="font-bold text-2xl">{observation.nombre}: {observation.motivo}</p>
+          <button onClick={onClose} className="text-white">
+            <X size={24} />
+          </button>
+        </div>
+        <div className="p-3">
+          <p className="text-xl">{observation.detalles}</p>
+        </div>
       </div>
     </div>
   );
@@ -46,6 +53,13 @@ const AddObservationModal = ({ isOpen, onClose, onAdd }) => {
         <form className='p-8' onSubmit={handleSubmit}>
           <input
             className="w-full mb-2 p-2 border-2 border-[#000000] rounded-md text-center"
+            placeholder="Nombre"
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
+            required
+          />
+          <input
+            className="w-full mb-2 p-2 border-2 border-[#000000] rounded-md text-center"
             placeholder="Motivo"
             value={motivo}
             onChange={(e) => setMotivo(e.target.value)}
@@ -58,6 +72,16 @@ const AddObservationModal = ({ isOpen, onClose, onAdd }) => {
             onChange={(e) => setDetalles(e.target.value)}
             required
           />
+          <div className="flex items-center mb-2">
+            <input
+              type="checkbox"
+              id="esAdmin"
+              checked={esAdmin}
+              onChange={(e) => setEsAdmin(e.target.checked)}
+              className="mr-2"
+            />
+            <label htmlFor="esAdmin">Es administrador</label>
+          </div>
           <div className="flex justify-center">
             <button type="submit" className="px-4 py-2 bg-[#2a2933] text-white rounded">Crear</button>
           </div>
@@ -67,61 +91,87 @@ const AddObservationModal = ({ isOpen, onClose, onAdd }) => {
   );
 };
 
+const RoleTooltip = ({ children, role, color }) => {
+  return (
+    <div className="group relative flex justify-center">
+      {children}
+      <span className={`absolute bottom-full mb-2 hidden group-hover:flex justify-center items-center py-1 px-2 text-sm text-white ${color} rounded-md whitespace-nowrap`}>
+        {role}
+      </span>
+    </div>
+  );
+};
+
 export const Observations = ({ nabvar }) => {
   const userType = nabvar;
   const { adminView, setAdminView } = useContext(StateContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedObservation, setSelectedObservation] = useState(null);
   const [observaciones, setObservaciones] = useState([
-    
+    // Example data
+    { id: 1, nombre: 'Juan', motivo: 'Reporte diario', detalles: 'Completado el informe de ventas del día', esAdmin: true },
+    { id: 2, nombre: 'María', motivo: 'Solicitud', detalles: 'Necesito permiso para salir temprano mañana', esAdmin: false },
   ]);
 
   const handleAddObservation = (newObservation) => {
     setObservaciones([...observaciones, { ...newObservation, id: observaciones.length + 1 }]);
   };
 
-  const token = localStorage.getItem("token");
-
-  useEffect(() => {
-    const fetchAdmin = async () => {
-      try {
-        const response = await axiosInstance.get(
-          `/administrator/administrator/${token}`
-        );
-        // console.log(response.data);
-
-        setAdminView([response.data]);
-      } catch (error) {
-        toast.error(error.response.data.error, {
-          progressStyle: {
-            backgroundColor: "#692FDB", // Color de la barra de carga
-          },
-        });
-      }
-    };
-
-    fetchAdmin();
-  }, [setAdminView]);
+  const openObservationModal = (observation) => {
+    setSelectedObservation(observation);
+  };
 
   return (
     <>
-    {
-      <>
       <div className="w-full bg-[#F0ECE3] flex flex-col justify-center gap-[3rem] pb-12">
         <div className="w-full h-auto bg-[#F0ECE3] flex flex-col gap-[5rem]">
           <NavbarType type={userType} />
         </div>
-        <div className="container mx-auto px-4">
-          <h1 className="text-[2rem] font-bold mb-4 text-center">Observaciones</h1>
-          <div className="flex flex-wrap justify-evenly gap-4">
-            {observaciones.map(obs => (
-              <ObservationCard
-                key={obs.id}
-                nombre={obs.nombre}
-                motivo={obs.motivo}
-                detalles={obs.detalles}
-                esAdmin={obs.esAdmin}
-              />
-            ))}
+        <div className="container mx-auto px-4 flex justify-center">
+          <div className="w-full max-w-[65%]">
+            <h1 className="text-[2rem] font-bold mb-4 text-center">Observaciones</h1>
+            <div className="w-full overflow-x-auto">
+              <table className="w-full text-center border-collapse">
+                <thead>
+                  <tr>
+                    <th className="px-4 py-2 border border-gray-500">Rol</th>
+                    <th className="px-4 py-2 border border-gray-500">Nombre</th>
+                    <th className="px-4 py-2 border border-gray-500">Motivo</th>
+                    <th className="px-4 py-2 border border-gray-500">Descripción</th>
+                    <th className="px-4 py-2 border border-gray-500">Detalles</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {observaciones.map((obs) => (
+                    <tr key={obs.id}>
+                      <td className="px-4 py-2 border border-gray-500">
+                        <RoleTooltip 
+                          role={obs.esAdmin ? "Administrador" : "Empleado"} 
+                          color={obs.esAdmin ? "bg-[#5023A7]" : "bg-[#FF9F2E]"}
+                        >
+                          <div 
+                            className={`w-3 h-8 rounded-full ${obs.esAdmin ? 'bg-[#5023A7]' : 'bg-[#FF9F2E]'} mx-auto`}
+                          />
+                        </RoleTooltip>
+                      </td>
+                      <td className="px-4 py-2 border border-gray-500">{obs.nombre}</td>
+                      <td className="px-4 py-2 border border-gray-500">{obs.motivo}</td>
+                      <td className="px-4 py-2 border border-gray-500">
+                        {obs.detalles.length > 10 ? `${obs.detalles.substring(0, 10)}...` : obs.detalles}
+                      </td>
+                      <td className="px-4 py-2 border border-gray-500">
+                        <button
+                          onClick={() => openObservationModal(obs)}
+                          className="px-2 py-1 bg-[#2a2933] text-white rounded flex items-center justify-center mx-auto"
+                        >
+                          <Eye size={16} className="mr-1" /> Ver detalles
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -136,8 +186,11 @@ export const Observations = ({ nabvar }) => {
         onClose={() => setIsModalOpen(false)}
         onAdd={handleAddObservation}
       />
-      </>
-          }
+      <ObservationModal
+        observation={selectedObservation}
+        isOpen={!!selectedObservation}
+        onClose={() => setSelectedObservation(null)}
+      />
     </>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useContext, useRef, useState, useEffect } from 'react'
 import { StateContext } from './components/Context/Context';
 import { toast, ToastContainer } from "react-toastify";
+import { axiosInstance } from "../axiosConfig";
 // import { Login } from "./components/Pages/Login/Login"
 // import { Register } from "./components/Pages/Register/Register"
 import { Employees } from "./components/Pages/Register/Employees"
@@ -29,14 +30,13 @@ import { Registerlist } from "./components/Pages/Registerlist/Registerlist"
 import { Clients } from "./components/Pages/Register/Clients"
 import { AuthProvider } from "./components/Context/AuthContext"
 import { ProtectedRoute } from "./components/Context/ProtectectRoutes"
-import { ModalEdit } from './components/Modals/ModalEdit/ModalEdit';
 import { Inventory } from './components/Pages/Inventory/Inventory';
 import { Observations } from './components/Pages/Observations/Observations';
 // import { ModalTestPage } from './components/Pages/WorkingTeam/WorkingTeam';
 
 
 function App() {
-  const { adminView, setAdminView } = useContext(StateContext);
+  const { userObservation, setUserObservation } = useContext(StateContext);
   const [routeEmployee, setRouteEmployee] = useState(localStorage.getItem('routeE') || '');
   const [routeAdmin, setRouteAdmin] = useState(localStorage.getItem('routeA') || '');
   const [location, setLocation] = useLocation();
@@ -58,6 +58,7 @@ function App() {
   console.log("esta en App", routeEmployee);
 
   const token = localStorage.getItem("token");
+  console.log("token",token);
 
   useEffect(() => {
     const fetchAdmin = async () => {
@@ -67,7 +68,7 @@ function App() {
         );
         // console.log(response.data);
 
-        setAdminView([response.data]);
+        setUserObservation([response.data]);
       } catch (error) {
         toast.error(error.response, {
           progressStyle: {
@@ -78,10 +79,34 @@ function App() {
     };
 
     fetchAdmin();
-  }, [setAdminView]);
-
-  console.log("hola",adminView);
+  }, [setUserObservation]);
   
+
+  useEffect(() => {
+    const fetchAdmin = async () => {
+      try {
+        const response = await axiosInstance.get(
+          `/employees/employee/token/${token}`
+        );
+        // console.log(response.data);
+
+        setUserObservation([response.data]);
+      } catch (error) {
+        toast.error(error.response, {
+          progressStyle: {
+            backgroundColor: "#692FDB", // Color de la barra de carga
+          },
+        });
+      }
+    };
+
+    fetchAdmin();
+  }, [setUserObservation]);
+  
+
+  
+
+  console.log("hola",userObservation);
   return (
     <AuthProvider>
       <AppContextProvider>
@@ -193,9 +218,6 @@ function App() {
             </Route>
             <Route path="/emple">
               <Employees />
-            </Route>
-            <Route path="/moedit/A">
-              <ModalEdit />
             </Route>
             <Route path="/inventory/A">
               <Inventory />

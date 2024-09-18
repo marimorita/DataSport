@@ -3,7 +3,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { useLocation } from 'wouter'
 import { StateContext } from '../../Context/Context';
 import { ProfileMenu } from '../DropDowns/RegisterDropDown/RegisterDropDown';
-
+import img from '../../../assets/logodataspor.png'
 
 export const Navbar = ({customClassName, login, assistence, register, inventory, remarks}) => {
   const [location, setLocation] = useLocation();
@@ -12,8 +12,10 @@ export const Navbar = ({customClassName, login, assistence, register, inventory,
     <div className='w-full flex items-center justify-center'>
         <div className='w-[80%] h-[5.5rem] rounded-[20px] flex items-center justify-between  bg-white gap-[2rem] mt-[2rem] shadow-2xl'>
             <div className='w-[20%] flex items-center justify-center'>
-            <div className='w-[3.5rem] h-[3.5rem] bg-[#FE7A36] rounded-full'>
-            </div>
+{/*             <div className=' bg-[#FE7A36] rounded-full'>
+              
+            </div> */}
+            <img src={img} alt="" className='w-[3.5rem] h-[3.5rem]' />
             </div>
             <div className=''>
             <ul className='text-[25px] w-[40%] gap-[5rem] flex cursor-pointer'>
@@ -44,10 +46,11 @@ export const NavbarAdmin = ({customClassName, login}) => {
   return (
     <div className='w-full flex items-center justify-center '>
         <div className='w-[80%] h-[5.5rem] rounded-[20px] flex items-center justify-between  bg-white gap-[2rem] mt-[2rem] shadow-2xl'>
-            <div className='w-[20%] flex items-center justify-center'>
-            <div onClick={() => setLocation(`/HJQL9823/${routeAdmin}/home`)} className='w-[3.5rem] h-[3.5rem] text-white bg-[#FE7A36] flex justify-center items-center rounded-full cursor-pointer'>
-              <b>Home</b>
-            </div>
+            <div className='w-[20%] h-full flex items-center justify-center'>
+{/*             <div onClick={() => setLocation(`/HJQL9823/${routeAdmin}/home`)} className='w-[3.5rem] h-[3.5rem] text-white bg-[#FE7A36] flex justify-center items-center rounded-full cursor-pointer'>
+              <b>Inicio</b>
+            </div> */}
+            <img src={img} alt="DataSport" onClick={() => setLocation(`/HJQL9823/${routeAdmin}/home`)} className='w-[90px] h-[90px] cursor-pointer' />
             </div>
             <div className=''>
             <ul className='text-[25px] w-[40%] gap-[5rem] flex cursor-pointer'>
@@ -79,9 +82,10 @@ export const NavbarEmployee = ({customClassName, login}) => {
     <div className='w-full flex items-center justify-center'>
         <div className='w-[80%] h-[5.5rem] rounded-[20px] flex items-center justify-between  bg-white gap-[2rem] mt-[2rem] shadow-2xl'>
             <div className='w-[20%] flex items-center justify-center'>
-            <div onClick={() => setLocation(`/KQWJ7482/${routeEmployee}/home`)} className='w-[3.5rem] h-[3.5rem] text-white bg-[#FE7A36] flex justify-center items-center rounded-full cursor-pointer'>
-              <b>Home</b>
-            </div>
+{/*             <div onClick={() => setLocation(`/KQWJ7482/${routeEmployee}/home`)} className='w-[3.5rem] h-[3.5rem] text-white bg-[#FE7A36] flex justify-center items-center rounded-full cursor-pointer'>
+              <b>Inicio</b>
+            </div> */}
+            <img src={img} alt="DataSport" onClick={() => setLocation(`/KQWJ7482/${routeEmployee}/home`)} className='w-[90px] h-[90px] cursor-pointer' />
             </div>
             <div className=''>
             <ul className='text-[25px] w-[40%] gap-[5rem] flex cursor-pointer'>

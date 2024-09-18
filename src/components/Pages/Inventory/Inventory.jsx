@@ -16,6 +16,7 @@ import { Footer } from "../../Footer/Footer";
 
 export const Inventory = ({ nabvar }) => {
   const [viewAssets, setViewAssets] = useState([]);
+  const [viewProducts, setViewProducts] = useState([]);
   const [nose, setNose] = useState([]);
   const handleNextAction = () => next();
   const [key, setKey] = useState(undefined);
@@ -148,6 +149,22 @@ export const Inventory = ({ nabvar }) => {
     fetchAssets();
   }, [setViewAssets]);
 
+  useEffect(() => {
+    const fetchAssets = async () => {
+      try {
+        const response = await axiosInstance.get(`/products/products`);
+        // console.log(response.data);
+
+        setViewProducts(response.data)
+
+      } catch (error) {
+        console.error("Error getting products", error);
+      }
+    };
+
+    fetchAssets();
+  }, [setViewProducts]);  
+
 
   console.log(viewAssets.length);
 
@@ -221,9 +238,13 @@ export const Inventory = ({ nabvar }) => {
         )}
       {key === "Productos" && (
         <>
-          <CardsProducts />
-          <CardsProductSize />
-          <CardsProducts />
+        {viewProducts.map((product, index) => (
+          <CardsProducts 
+          title={product.name}
+          description={product.description}
+          price={product.price}
+          />
+        ))}
         </>
       )}
     </div>

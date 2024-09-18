@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 // Definir los colores para cada estado
 const statusColors = {
   Active: '#FE8D32',
-  Pending: '#5023A7',
+  Reportado: '#5023A7',
   Inactive: '#3F3D56',
 };
 
@@ -50,14 +50,14 @@ const StatusDropdown = ({ onStatusChange }) => {
             <span className="ml-2">Activo</span>
           </div>
           <div
-            onClick={() => handleChange('Pendiente')}
+            onClick={() => handleChange('Reportado')}
             className="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-100"
           >
             <div
               className="w-4 h-4 rounded-full"
-              style={{ backgroundColor: statusColors.Pending }} // Color para "Pending"
+              style={{ backgroundColor: statusColors.Reportado }} // Color para "Pending"
             ></div>
-            <span className="ml-2">Pendiente</span>
+            <span className="ml-2">Reportado</span>
           </div>
           <div
             onClick={() => handleChange('Inactivo')}

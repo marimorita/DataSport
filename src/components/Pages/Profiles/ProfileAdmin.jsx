@@ -5,15 +5,17 @@ import { StateContext } from "../../Context/Context";
 import { toast, ToastContainer } from "react-toastify";
 import { MdModeEdit } from "react-icons/md";
 import { useLocation } from "wouter";
-import { ModalEdit } from "../../Modals/ModalEdit/ModalEdit";
+import { ModalEditAdmin } from "../../Modals/ModalEdit/ModalEdit";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { WorkingTeamModal } from "../WorkingTeam/WorkingTeam";
+import { ModalConfirmation } from "../../Modals/ModalConfirmation/ModalConfirmation";
 
 export const ProfileAdmin = () => {
   const { adminView, setAdminView } = useContext(StateContext);
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
+  
   const { isModalOpen, setIsModalOpen } = useContext(StateContext);
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
@@ -613,7 +615,7 @@ export const ProfileAdmin = () => {
                   <div className="flex w-[25rem] ">
                     <h1 className="text-[#F0ECE3] text-[25px] mr-[4rem] text-center">
                       Aqui puedes analizar y darle un vistaso a tus empleados y
-                      su infoirmacion{" "}
+                      su informacion{" "}
                     </h1>
                   </div>
                   <div className="mt-[1rem] mr-[4rem] ">
@@ -632,7 +634,7 @@ export const ProfileAdmin = () => {
                 </div>
               </div>
             </div>
-            <ModalEdit
+            <ModalEditAdmin
               visibility={modalEdit}
               IconAlert={FaRegCheckCircle}
               closeButton={() => setModalEdit(false)}

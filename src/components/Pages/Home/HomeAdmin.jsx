@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useContext, useRef, useState, useEffect } from 'react'
 import { NavbarAdmin } from "../../shared/Navbar/Navbar";
 import { Usertype } from "../../shared/Figures/Figures";
 import Carrusel from "../../Carrusel/Datoscuriosos/carrusel1";
 import { Footer } from "../../Footer/Footer";
 import Principalcarrusel from "../../Carrusel/Principalcarrusel/carrusel0";
-
+import { StateContext } from '../../Context/Context';
+import { toast, ToastContainer } from "react-toastify";
+import { axiosInstance } from "../../../../axiosConfig";
 
 export const HomeAdmin = () => {
+  const { adminView, setAdminView } = useContext(StateContext);
+
+
   return (
     <div className="w-full h-auto bg-[#F0ECE3] flex flex-col gap-[5rem]">
       <NavbarAdmin login={true} customClassName={'text-[#692FDB]'} />
@@ -15,7 +20,7 @@ export const HomeAdmin = () => {
         <section className="flex justify-between ">
           <span className="mb-[20rem]">
             <h1 className="text-[50px] px-[8rem] py-[1rem] text-[#3F3D56] ">
-              <b>Que es Data Sport??</b>
+              <b>¿Qué es Data Sport?</b>
             </h1>
             <p className=" text-[25px] w-[45rem] px-[8rem] text-[#1E1E1E]">
               En Data Sport optimizamos la gestión de centros deportivos

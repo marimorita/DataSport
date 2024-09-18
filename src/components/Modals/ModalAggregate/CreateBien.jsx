@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import { IoCloseOutline } from 'react-icons/io5'
 import { axiosInstance } from '../../../../axiosConfig';
 import { toast, ToastContainer } from "react-toastify";
@@ -6,8 +6,13 @@ import {
   CustomInput,
   CustomTextArea,
 } from "../../shared/InputForms/InputForms";
+import { StateContext } from '../../Context/Context'
+import { ModalCreate } from '../../Modals/ModalCreate/ModalCreate'
+import { FaRegCheckCircle } from 'react-icons/fa'
+
 
 export const CreateBien1 = ({ closeIcon, visibility }) => {
+  const { createEmpleyees, setCreateEmpleyees  } = useContext(StateContext);
   const inputIdRef = useRef();
   const inputNameRef = useRef();
   const inputDescriptionRef = useRef();
@@ -25,7 +30,7 @@ export const CreateBien1 = ({ closeIcon, visibility }) => {
     try {
       const response = await axiosInstance.post("/assets/register", adminData);
       if (response.status === 200 || response.status === 201) {
-        alert("Successfully registered");
+        setCreateEmpleyees(true);
 
         const assetData = response.data;
         const stock = assetData.stock;
@@ -137,6 +142,13 @@ export const CreateBien1 = ({ closeIcon, visibility }) => {
         </section>
       </div>
 <ToastContainer position="top-center" autoClose={1000} pauseOnHover={false} />
+<ModalCreate
+        visibility={createEmpleyees}
+        IconAlert={FaRegCheckCircle}
+        closeButton={() => setCreateEmpleyees(false)}
+        closeIcon={() => setCreateEmpleyees(false)}
+        text={`Your login was successful, Welcome ${name}.`}
+      />
     </div>
   );
 };

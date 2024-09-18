@@ -1,10 +1,11 @@
 import React from 'react'
 import { IoCloseOutline } from "react-icons/io5";
+import logo from "../../../assets/logodataspor.png"
 
 export const ModalCreate = ({ text, closeIcon, closeButton, visibility }) => {
     return (
         <div className={visibility ? ' w-screen h-screen flex justify-center items-center fixed top-0 left-0 bg-[#00000080] z-[9999999999] ' : 'hidden'}>
-            <div className='w-[40%] h-[85%] bg-[#F0ECE3] flex flex-col justify-center items-center rounded-[10px] pb-[10px] animate-modal relative'>
+            <div className='w-[40%] h-[85%] bg-[#F0ECE3] flex flex-col justify-center items-center rounded-[10px] pb-[10px] animate-jump animate-fill-forwards relative'>
                 <IoCloseOutline fontSize={50} onClick={closeIcon} className='cursor-pointer absolute right-4 top-3 text-[#2F2E41] ' />
                 <div className='w-[90%] h-[85%] flex flex-col items-center justify-between relative '>
                     <div className='w-[100%] h-[25%] flex flex-col items-center justify-end pr-[5px] pl-[5px] relative'>
@@ -61,7 +62,7 @@ export const ModalCreate = ({ text, closeIcon, closeButton, visibility }) => {
                         </svg>
 
                     </div>
-                    <svg className='absolute w-[410px] h-[410px] top-[15%] ' width="1000" height="923" viewBox="0 0 1000 923" fill="none" xmlns="http://www.w3.org/2000/svg">
+{/*                     <svg className=' ' width="1000" height="923" viewBox="0 0 1000 923" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path opacity="0.18" d="M881.499 588.874C847.639 627.972 802.239 680.436 743.739 726.586C685.239 772.736 612.939 812.905 526.099 826.621C503.059 830.257 479.699 831.937 456.319 831.66C443.119 831.512 223.519 825.864 114.319 667.495C51.7392 576.672 36.7392 478.834 116.979 394.564C155.559 353.952 202.379 317.863 224.479 267.929C233.699 247.124 238.159 224.714 247.859 204.076C270.679 155.71 320.679 121.467 374.939 105.536C429.199 89.6051 487.759 90.1219 544.379 96.306C616.079 104.133 693.699 125.362 731.959 181.868C756.259 217.754 760.659 262.464 783.139 299.329C801.139 328.736 829.579 351.497 859.959 370.234C884.619 385.445 911.959 399.512 926.599 423.362C932.019 432.204 935.699 441.859 937.499 451.883C946.279 500.451 912.039 553.616 881.499 588.874Z" fill="#FE7A36" />
                         <path d="M743.742 726.586C684.962 772.921 612.942 812.905 526.102 826.621C532.582 779.714 553.102 693.58 553.102 693.58L718.042 667.034L743.742 726.586Z" fill="#473F47" />
                         <path d="M592.902 511.434C589.363 533.272 577.643 553.228 565.342 572.186C557.322 584.443 547.662 595.686 536.542 605.673C526.642 614.607 518.062 621.327 503.062 619.739C492.322 618.595 482.462 613.629 473.942 607.482C466.922 602.737 461.202 596.553 457.222 589.428C454.202 583.484 453.002 576.893 453.782 570.377C456.162 550.533 474.622 536.891 483.562 519.686C493.842 499.915 494.382 476.434 507.402 457.383C521.082 437.317 552.902 436.173 572.002 450.978C584.362 460.595 591.162 474.754 593.182 489.744C594.162 496.943 594.062 504.253 592.902 511.434Z" fill="#FE7A36" />
@@ -144,7 +145,8 @@ export const ModalCreate = ({ text, closeIcon, closeButton, visibility }) => {
                                 <stop offset="1" stop-color="#F4F2F4" />
                             </linearGradient>
                         </defs>
-                    </svg>
+                    </svg> */}
+                    <img src={logo} className='absolute w-[410px] h-[410px] top-[20%]' alt="" />
                     <div className=' w-[35%] h-[15%] z-10'>
                         <button className='w-[100%] h-[100%] bg-gradient-to-r from-[#692FDB]  to-[#381975] rounded-[10px] text-white text-[50px] z-10 ' onClick={closeButton} >Ok</button>
                     </div>

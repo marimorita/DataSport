@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect,useContext } from "react";
 import { IoCloseOutline } from 'react-icons/io5'
 import { axiosInstance } from '../../../../axiosConfig';
 import { toast, ToastContainer } from "react-toastify";
@@ -6,33 +6,33 @@ import {
   CustomInput,
   CustomTextArea,
 } from "../../shared/InputForms/InputForms";
+import { ModalCreate } from '../../Modals/ModalCreate/ModalCreate'
+import { FaRegCheckCircle } from "react-icons/fa";
+import { StateContext } from "../../Context/Context";
 
 export const CreateProducts = ({ closeIcon, visibility }) => {
+  const { createEmpleyees, setCreateEmpleyees  } = useContext(StateContext);
   const inputIdRef = useRef();
   const inputNameRef = useRef();
   const inputDescriptionRef = useRef();
   const inputStockRef = useRef();
+  const inputPriceRef = useRef();
 
   const toggleRegisterAsset = async () => {
     const adminData = {
-      id: inputIdRef.current.value,
+      idCenter: inputIdRef.current.value,
       name: inputNameRef.current.value,
       description: inputDescriptionRef.current.value,
-      img: "a", // Cambia esto para manejar la imagen correctamente
+      state: "En venta", 
       stock: inputStockRef.current.value,
+      img: "a", 
+      price: inputPriceRef.current.value,
     };
 
     try {
-      const response = await axiosInstance.post("/assets/register", adminData);
+      const response = await axiosInstance.post("/products/register", adminData);
       if (response.status === 200 || response.status === 201) {
-        alert("Successfully registered");
-
-        const assetData = response.data;
-        const stock = assetData.stock;
-
-        for (let index = 0; index < stock; index++) {
-          await createRegisterIndivdualAsset(assetData);
-        }
+        setCreateEmpleyees(true);
       } else {
         toast.error(response.data.error, {
           progressStyle: {
@@ -49,49 +49,6 @@ export const CreateProducts = ({ closeIcon, visibility }) => {
     }
   };
 
-  const createRegisterIndivdualAsset = async (assetData) => {
-    const getCurrentDate = () => {
-      const today = new Date();
-      const year = today.getFullYear();
-      const month = String(today.getMonth() + 1).padStart(2, "0");
-      const day = String(today.getDate()).padStart(2, "0");
-      return `${year}-${month}-${day}`;
-    };
-
-    const adminData = {
-      name: assetData.name,
-      description: assetData.description,
-      adquisitionDate: getCurrentDate(),
-      state: "Activo",
-      condition: "Nuevo",
-      img: assetData.img,
-      lastMaintenance: getCurrentDate(),
-      nextMaintenance: getCurrentDate(),
-      idAssets: assetData.id,
-    };
-
-    try {
-      const response = await axiosInstance.post(
-        "/individualassets/register",
-        adminData
-      );
-      if (response.status === 200 || response.status === 201) {
-        // Manejo exitoso
-      } else {
-        toast.error(response.data.error, {
-          progressStyle: {
-            backgroundColor: "#692FDB",
-          },
-        });
-      }
-    } catch (error) {
-      toast.error(error.response?.data?.error || "An error occurred", {
-        progressStyle: {
-          backgroundColor: "#692FDB",
-        },
-      });
-    }
-  };
 
   return (
     <div
@@ -124,6 +81,7 @@ export const CreateProducts = ({ closeIcon, visibility }) => {
                 />
                 <CustomInput label="imagen" type="file" />
               </span>
+              <CustomInput label="Precio" type="number" inputProps={{ min: 0 }} inputRef={inputPriceRef} />
               <CustomInput label="Referencia" inputRef={inputIdRef} />
             </section>
             <button
@@ -135,7 +93,14 @@ export const CreateProducts = ({ closeIcon, visibility }) => {
           </div>
         </section>
       </div>
-<ToastContainer position="top-center" autoClose={1000} pauseOnHover={false} />
+      <ToastContainer position="top-center" autoClose={1000} pauseOnHover={false} />
+      <ModalCreate
+        visibility={createEmpleyees}
+        IconAlert={FaRegCheckCircle}
+        closeButton={() => setCreateEmpleyees(false)}
+        closeIcon={() => setCreateEmpleyees(false)}
+        text={`Your login was successful, Welcome ${name}.`}
+      />
     </div>
   );
 };

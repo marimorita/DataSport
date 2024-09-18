@@ -2,7 +2,7 @@ import React from 'react'
 import { ButtonInventory } from '../Button/Buttons';
 
 
-export const CardsProducts = () => {
+export const CardsProducts = ({title,description,price}) => {
     return (
         <div className=" cursor-pointer bg-white to-100% flex flex-col items-center gap-[20px] justify-center p-[15px] w-[14rem] h-[19rem] shadow-2xl rounded-[10px]">
         <div className=" flex justify-center items-center w-[7rem] h-[7rem]">
@@ -37,15 +37,14 @@ export const CardsProducts = () => {
         </div>
         <div className="flex flex-wrap justify-center ">
           <h1 className="text-[25px] text-[#1E1E1E]">
-            <b>Mancuerna 15kg</b>
+            <b>{title}</b>
           </h1>
           <p className="text-[13px] text-[#3F3F3F]">
-            Mancuerna muy grande y poderosa para crecer tus fibras musculares por
-            metodos de repeticiones
+            {description}
           </p>
         </div>
         <div className=" w-[100%] gap-x-1.5 flex justify-between ">
-            <h1 className='text-[1.3rem]'><b>$ 3000</b></h1>
+            <h1 className='text-[1.3rem]'><b>$ {price}</b></h1>
               <ButtonInventory customClassName={''} width={'5rem'} Text={'Gestionar'}/>
         </div>
       </div>
