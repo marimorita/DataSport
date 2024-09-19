@@ -5,12 +5,23 @@ import { toast, ToastContainer } from "react-toastify";
 import { cloudinaryAxios, axiosInstance } from '../../../../axiosConfig';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { useLocation } from 'wouter';
+import { WorkingTeamModal } from '../WorkingTeam/WorkingTeam';
+import { FaRegCheckCircle } from 'react-icons/fa';
+import { MdModeEdit } from 'react-icons/md';
+import { ModalEditEmployee } from '../../Modals/ModalEdit/ModalEdit';
 
-export const ProfileEmployee = ({Location}) => {
+const statusColors = {
+  'Funcionamiento': 'bg-[#FE8D32]',
+  'Despedido': 'bg-[#3F3D56]',
+};
+
+export const ProfileEmployee = ({ Location }) => {
   const { employeeView, setEmployeeView } = useContext(StateContext);
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(false);
   const [location, setLocation] = useLocation();
+  const { isModalOpen, setIsModalOpen } = useContext(StateContext);
+  const [modalEdit, setModalEdit] = useState(false);
 
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
@@ -109,9 +120,9 @@ export const ProfileEmployee = ({Location}) => {
 
   return (
     <>
-        <div className='absolute right-[3%] top-[6%] z-20 ' onClick={() => setLocation(Location)}>
-          <ButtomHome customClassNameTwo={'bg-[#F35A05] '} Text={'Regresar'} />
-        </div>
+      <div className='absolute right-[3%] top-[6%] z-20 ' onClick={() => setLocation(Location)}>
+        <ButtomHome customClassNameTwo={'bg-[#F35A05] '} Text={'Regresar'} />
+      </div>
       {employeeView.map(employee => (
         <>
           <div className="flex">
@@ -174,26 +185,38 @@ export const ProfileEmployee = ({Location}) => {
                 </svg>
                 <div className="absolute top-[5rem] left-[8rem] w-[12rem] h-[16rem] rounded bg-[#CCCCCC] flex justify-center items-center">
                   {imageUrl ? (
-                    <img src={employee.img} alt="Subida a Cloudinary" className="w-full h-full object-cover rounded" />
+
+                    <img
+                      src={employee.img}
+                      alt="Subida a Cloudinary"
+                      className="w-full h-full object-cover rounded"
+                    />
                   ) : (
-                    <div className="flex flex-col justify-center items-center text-center">
+                    <div className="flex flex-col justify-center items-center text-center tex-[15px] w-[10rem]">
                       <p className="mb-2   ">No has subido ninguna imagen</p>
                       <button
                         onClick={uploadImage}
-                        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 text-[10px]"
                       >
                         Agrega una foto
                       </button>
                       <input
                         type="file"
                         onChange={handleImageChange}
-                        className="mt-2 text-gray-600"
+
+                        className="mt-2 text-gray-600 text-[13px] w-[8.6rem] text-center "
                       />
                     </div>
                   )}
                 </div>
               </div>
-              <div className="mx-[6rem] mt-[-3rem] flex flex-col justify-start">
+              <div className="mx-[6rem] mt-[-2rem] flex flex-col justify-start">
+                <div>
+                  <MdModeEdit
+                    className="text-[27px] text-[#381975] absolute left-[25rem] hover:text-[30px] cursor-pointer "
+                    onClick={() => setModalEdit(true)}
+                  />
+                </div>
                 <h1 className="text-[30px] text-start w-[15rem] flex gap-2">
                   <b>{employee.name}</b>
                   <b>{employee.lastName}</b>
@@ -206,6 +229,12 @@ export const ProfileEmployee = ({Location}) => {
                   </li>
                   <li className="text-[20px] text-start w-[20rem]">
                     Email: {employee.email}
+                  </li>
+                  <li className="felx text-[20px] text-start w-[20rem] ">
+                    Estado:{" "}
+                    <b className={` text-white ${statusColors[employee.state]} px-[2rem] py-[0.2rem] rounded-md `}>
+                      {employee.state}
+                    </b>
                   </li>
                 </ul>
               </div>
@@ -601,13 +630,23 @@ export const ProfileEmployee = ({Location}) => {
                   </div>
                   <div className="mt-[1rem]  mr-[4rem]">
                     <Buttonredirect
-                      customClassName={"bg-[#F0ECE3] text-[#000001] text-[20px] text-center w-[15rem] text-[22px] rounded-[10px] py-[0.5rem]"}
-                      Text={"Equipo de trabajo"}
+                      customClassName={
+                        'bg-[#F0ECE3] text-[#000001] text-[20px] text-center w-[15rem] text-[22px] rounded-[10px] py-[0.5rem]'
+                      }
+                      Text="Equipo de trabajo"
+                      onClick={() => setIsModalOpen(true)}
                     />
+                    {/* <WorkingTeamModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} /> */}
                   </div>
                 </div>
               </div>
             </div>
+            <ModalEditEmployee
+              visibility={modalEdit}
+              IconAlert={FaRegCheckCircle}
+              closeButton={() => setModalEdit(false)}
+              closeIcon={() => setModalEdit(false)}
+            />
           </div >
           <ToastContainer position="top-center" autoClose={1500} pauseOnHover={false} />
         </>

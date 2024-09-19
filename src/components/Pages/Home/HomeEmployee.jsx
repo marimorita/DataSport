@@ -15,7 +15,8 @@ export const HomeEmployee = () => {
         <section className="flex justify-between ">
           <span className="mb-[20rem]">
             <h1 className="text-[50px] px-[8rem] py-[1rem] text-[#3F3D56] ">
-              <b>Que es Data Sport??</b>
+
+              <b>¿Qué es Data Sport?</b>
             </h1>
             <p className=" text-[25px] w-[45rem] px-[8rem] text-[#1E1E1E]">
               En Data Sport optimizamos la gestión de centros deportivos

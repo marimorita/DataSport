@@ -47,10 +47,10 @@ export const Buttonlog2 = ({onClick,Text, width}) => {
     </div>
   )
 }
-export const Buttonredirect = ({Text,customClassName}) => {
+export const Buttonredirect = ({Text,customClassName,Onclick}) => {
   return (
     <div>
-      <button className={`${customClassName}`}>{Text}</button>
+      <button onClick={Onclick} className={`${customClassName}`}>{Text}</button>
     </div>
   )
 }
@@ -89,6 +89,14 @@ export const Buttonfilter = ({Text, width, customClassName }) => {
   return (
     <>
     <button className={`${customClassName} w-[${width}] mb-[2rem] mt-[1rem] text-[30px] text-white px-[3rem] py-[0.5rem] rounded-[10px] shadow-md `}>{Text}</button>
+    </>
+  )
+}
+
+export const ButtonInventory = ({Text, width,  }) => {
+  return (
+    <>
+    <button className={` w-[${width}] bg-gradient-to-r from-[#381975]  to-[#692FDB] text-white px-[0.8rem] py-[0.2rem] rounded-[5px] shadow-md `}>{Text}</button>
     </>
   )
 }

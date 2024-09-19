@@ -5,7 +5,7 @@ import { StateContext } from '../../Context/Context';
 const statusColors = {
   'Activo': 'bg-[#FE8D32]',
   'Inactivo': 'bg-[#3F3D56]',
-  'Pendiente': 'bg-[#5023A7]'
+  'Reportado': 'bg-[#5023A7]'
 };
 
 const TableComponent = ({ users, LocationProfile }) => {

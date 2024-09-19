@@ -3,11 +3,10 @@ import { IoCloseOutline } from "react-icons/io5";
 
 export const Modalverificate = ({ closeIcon, closeButton, visibility }) => {
     return (
-        <div className={visibility ? ' w-screen h-screen flex justify-center items-center fixed top-0 left-0 bg-[#00000080] z-[9999999999] ' : 'hidden'}>
+        <div  className={visibility ? ' w-screen h-screen flex justify-center items-center fixed top-0 left-0 bg-[#00000080] z-[9999999999] ' : 'hidden'}>
             <div className='w-[40%] h-[85%] bg-[#F0ECE3] flex flex-col justify-center items-center rounded-[10px] pb-[10px] animate-modal relative'>
                 <IoCloseOutline fontSize={50} onClick={closeIcon} className='cursor-pointer absolute right-4 top-3 text-[#2F2E41] ' />
                 <div className='w-[90%] h-[85%] flex flex-col items-center justify-between relative '>
-
                 <svg className='mt-[3rem] ml-[2.5rem]' width="495" height="453" viewBox="0 0 495 453" fill="none" xmlns="http://www.w3.org/2000/svg">
 
                 <path
@@ -35,15 +34,7 @@ export const Modalverificate = ({ closeIcon, closeButton, visibility }) => {
 </svg>
 
 <p className='text-[20px] text-[#F0ECE3] '> <b className='text-[35px] w-[15rem] fixed top-[13rem] left-[40rem] text-center'>Ya nos comunicaremos contigo</b> <p className=' w-[15rem] fixed top-[23rem] text-center left-[40rem] text-[#c2c1c0]'>gracias por confiar en nuestros servicios.</p></p>
-
-
-
-
-
-
                     </div>
-
-
                 </div>
             </div>
     )

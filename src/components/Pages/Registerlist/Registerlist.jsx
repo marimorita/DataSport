@@ -11,7 +11,7 @@ import StatusCard from '../../shared/utils/utils';
 import SearchVector from '../../../assets/Searching.png'
 import {axiosInstance} from '../../../../axiosConfig';
 import { StateContext } from '../../Context/Context';
-import { Navbar } from '../../shared/Navbar/Navbar';
+import { NavbarType } from '../../shared/Navbar/Navbar';
 
 
 const SearchWithSuggestion = ({ onChange, value, possibleMatch, onSelectMatch }) => {
@@ -33,7 +33,8 @@ const SearchWithSuggestion = ({ onChange, value, possibleMatch, onSelectMatch })
   );
 };
 
-export const Registerlist = ({Location, LocationProfile, LocationRegisterUser, LocationRegisterEmployee}) => {
+
+export const Registerlist = ({Location, LocationProfile, LocationRegisterUser, LocationRegisterEmployee, nabvar}) => {
   const [location, setLocation] = useLocation();
   const { clientsView, setClientsView } = useContext(StateContext);
   const [inputValue, setInputValue] = useState('');
@@ -153,11 +154,14 @@ export const Registerlist = ({Location, LocationProfile, LocationRegisterUser, L
       });
     };
 
+    const userType = nabvar; 
 
   return (
     <>
     <div className='bg-[#F0ECE3] w-full h-full flex flex-col flex-1 items-center relative  gap-[2rem]'>
-    <Navbar/>
+    <div className="w-full h-auto bg-[#F0ECE3] flex flex-col gap-[5rem]">
+      <NavbarType type={userType} />
+      </div>
       <div className='absolute left-[5%] ' onClick={() => setLocation(Location)}>
         <IoMdArrowRoundBack className="hidden sm:inline-block sm:text-[3rem] sm:top-[1%] text-[#000000] bg-[#F0ECE3] p-[0.5rem] rounded-[10px] shadow-xl border-2 border-transparent" />
       </div>

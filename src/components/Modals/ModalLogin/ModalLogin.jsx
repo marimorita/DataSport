@@ -2,9 +2,9 @@ import React from 'react'
 import { IoCloseOutline } from "react-icons/io5";
 
 export const ModalLogin = ({ text, closeIcon, closeButton, visibility }) => {
-    
+     
   return (
-    <div className={visibility ? ' w-screen h-screen flex justify-center items-center fixed top-0 left-0 bg-[#00000080] z-[9999999999] ' : 'hidden'}>
+    <div  className={visibility ? ' w-screen h-screen flex justify-center items-center fixed top-0 left-0 bg-[#00000080] z-[9999999999] ' : 'hidden'}>
     <div className='w-[40%] h-[85%] bg-[#F0ECE3] flex flex-col justify-center items-center rounded-[10px] pb-[10px] animate-modal opacity-0 relative'>
         <IoCloseOutline fontSize={50} onClick={closeIcon} className='cursor-pointer absolute right-4 top-3 text-[#2F2E41] ' />
         <div className='w-[90%] h-[85%] flex flex-col items-center justify-between relative '>

@@ -75,7 +75,10 @@ export const ProfileMenu = ({ LocationProfile, LocationLogout, customClassName }
       setLocation(LocationProfile);
     } else if (option === 'Cerrar Sesion') {
       setLocation(LocationLogout);
-      localStorage.clear();
+      localStorage.removeItem('role');
+      localStorage.removeItem('routeA');
+      localStorage.removeItem('routeE');
+      localStorage.removeItem('token');
     }
     setSelectedOption(option);
     setIsOpen(false);

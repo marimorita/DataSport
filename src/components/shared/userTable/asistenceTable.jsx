@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useLocation } from 'wouter';
 
 const statusColors = {
-  'Activo': 'bg-[#5023A7]',
-  'Pendiente': 'bg-[#5023A7]',
-  'Inactivo': 'bg-[#3F3D56]'
+  'Activo': 'bg-[#FE8D32]',
+  'Inactivo': 'bg-[#3F3D56]',
+  'Pendiente': 'bg-[#5023A7]'
 };
-
+ 
 const AsistenceTable = ({ users, LocationProfile }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [, setLocation] = useLocation();

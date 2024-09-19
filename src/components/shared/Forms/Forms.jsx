@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState, useEffect } from 'react'
-import {axiosInstance} from '../../../../axiosConfig';
+import { axiosInstance } from '../../../../axiosConfig';
 import { InputFormsreg, InputFormslog, Inputrecuerdame, Inputolvi, InputFormsUsers, InputFormsEmployees, InputFormslog2, Perfilcontenedor, InputFormsAdmin } from '../InputForms/InputForms';
 import { Buttonlog, Buttonreg, ButtonUsers, ButtonEmployees, Buttonlog2, Buttonfilter, ButtonAdmin, ButtomHome } from '../Button/Buttons';
 import { FaUserCircle } from "react-icons/fa";
@@ -7,6 +7,8 @@ import { useLocation } from 'wouter'
 import { StateContext } from '../../Context/Context';
 import { toast, ToastContainer } from "react-toastify";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import CircularProgressBar from '../ProgressBar/CircularProgressBar';
+
 
 export const FormsAdmin = ({ }) => {
   const { setCreateAdmin } = useContext(StateContext);
@@ -85,7 +87,7 @@ export const FormsAdmin = ({ }) => {
             <InputFormsAdmin type={'password'} placeholder='Pon tu Contraseña' userRef={inputPasswordRef} />
             <InputFormsAdmin type={'text'} placeholder='Pon tu Numero de Centro' userRef={inputIdCenterRef} />
           </label>
-          <ButtonAdmin Text={'Crear Empleado'} onClick={toggleCreateAdmin} />
+          <ButtonAdmin width='' Text={'Crear Empleado'} onClick={toggleCreateAdmin} />
         </div>
       </form>
       <ToastContainer position="top-center" autoClose={1500} pauseOnHover={false} />
@@ -168,7 +170,7 @@ export const FormsEmployees = ({ Location }) => {
         </div>
         <div className='flex flex-col items-center gap-[40px]'>
           <label className='flex flex-wrap justify-center  gap-y-[20px] gap-x-[15px] '>
-          <InputFormsEmployees type={'text'} placeholder='Pon tu Cedula' userRef={inputIdRef} />
+            <InputFormsEmployees type={'text'} placeholder='Pon tu Cedula' userRef={inputIdRef} />
             <InputFormsEmployees type={'text'} placeholder='Pon tu Nombre' userRef={inputNameRef} />
             <InputFormsEmployees type={'text'} placeholder='Pon tu Apellido' userRef={inputLastNameRef} />
             <InputFormsEmployees type={'email'} placeholder='Pon tu Correo' userRef={inputEmailRef} />
@@ -177,7 +179,7 @@ export const FormsEmployees = ({ Location }) => {
             <InputFormsEmployees type={'password'} placeholder='Pon tu Contraseña' userRef={inputPasswordRef} />
             <InputFormsEmployees type={'text'} placeholder='Pon tu Numero de Centro' userRef={inputIdCenterRef} />
           </label>
-          <ButtonUsers Text={'Crear Empleado'} onClick={toggleCreateEmployees} />
+          <ButtonUsers width='' Text={'Crear Empleado'} onClick={toggleCreateEmployees} />
         </div>
       </form>
       <ToastContainer position="top-center" autoClose={1500} pauseOnHover={false} />
@@ -276,7 +278,7 @@ export const FormsUsers = ({ Location }) => {
             <InputFormsUsers type={'text'} placeholder='Pon tu Direccion' userRef={inputAddressRef} />
             <InputFormsUsers type={'email'} placeholder='Pon El numero de tu centro' userRef={inputIdCenterRef} />
           </label>
-          <ButtonUsers Text={'Crear Usuario'} onClick={toggleCreateUser} />
+          <ButtonUsers width='' Text={'Crear Usuario'} onClick={toggleCreateUser} />
         </div>
       </form>
       <ToastContainer position="top-center" autoClose={1500} pauseOnHover={false} />
@@ -358,7 +360,7 @@ export const FormsTwoVerificAdmin = () => {
             />
           </div>
           <div >
-            <Buttonlog Text={"Enviar"} onClick={toggleTwoVerific} />
+            <Buttonlog Text={"Enviar"} width='' onClick={toggleTwoVerific} />
           </div>
         </div>
       </form>
@@ -440,7 +442,7 @@ export const FormsTwoVerificEmployee = () => {
             />
           </div>
           <div >
-            <Buttonlog Text={"Enviar"} onClick={toggleTwoVerific} />
+            <Buttonlog width='' Text={"Enviar"} onClick={toggleTwoVerific} />
           </div>
         </div>
       </form>
@@ -454,7 +456,9 @@ export const Formslogempleado = () => {
   const { setLoginEmpleyees } = useContext(StateContext);
   const inputEmailRef = useRef()
   const inputPasswordRef = useRef()
-
+  const [animate, setAnimate] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const { animateProgress, setAnimateProgress } = useContext(StateContext);
 
   const toggleLoginEmployee = async () => {
 
@@ -472,6 +476,11 @@ export const Formslogempleado = () => {
     try {
       const response = await axiosInstance.post('/employees/login', employeeData);
 
+      setAnimate(true);
+      setTimeout(() => {
+        setAnimateProgress(true)
+      }, 1000);
+
       if (response.status === 200 || response.status === 201) {
         const token = response.data.token;
         const role = response.data.role;
@@ -483,18 +492,9 @@ export const Formslogempleado = () => {
         localStorage.setItem('routeE', route);
 
         await sendVerificationCode(token);
-        toast.success("Redireccion en curso", {
-          progressStyle: {
-            backgroundColor: '#692FDB', // Color de la barra de carga
-          },
-        });
         // console.log(token);
         // const data = await response.json();
         // console.log('User registered:', data);
-        setTimeout(() => {
-          // Redirigir a /twoverific
-          setLocation("/twoverific/KQWJ7482");
-        }, 2000);
       } else {
         // console.log(response.data);
         toast.error(error.response.data.error, {
@@ -514,31 +514,59 @@ export const Formslogempleado = () => {
   };
 
   const sendVerificationCode = async (token) => {
-    try {
-      // console.log("Sending token:", token);
-      const response = await axiosInstance.post(
-        '/vr/veriftokenandsendcode',
-        {}, // Cuerpo vacío para esta solicitud
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      // console.log(response.data); // 'Verification code sent'
-      toast.success(response.data.message, {
-        progressStyle: {
-          backgroundColor: '#692FDB', // Color de la barra de carga
-        },
-      });
+
+      let simulateProgress;
+      try {
+        const totalDuration = 5000; // Duración simulada de 5 segundos
+  
+        // Inicializa un intervalo para simular el progreso mientras se descarga la data
+        simulateProgress = setInterval(() => {
+          setProgress(prev => {
+            if (prev >= 100) {
+              clearInterval(simulateProgress);
+              return 100;
+            }
+            return prev + 1; // Incremento del progreso
+          });
+        }, totalDuration / 100); // Divide la duración total en 100 partes
+  
+        // Envía la solicitud de verificación del token
+        const response = await axiosInstance.post(
+          '/vr/veriftokenandsendcode',
+          {}, // Cuerpo vacío para esta solicitud
+          {
+            headers: { Authorization: `Bearer ${token}` },
+            onDownloadProgress: (progressEvent) => {
+              const total = progressEvent.total || totalDuration; // Usa el tamaño total o simulado
+              const currentProgress = Math.round((progressEvent.loaded * 100) / total);
+              setProgress(currentProgress);
+            }
+          }
+        );
     } catch (error) {
       toast.error(error.response.data.error, {
         progressStyle: {
           backgroundColor: '#692FDB', // Color de la barra de carga
         },
       });
+    }finally {
+      // Asegúrate de que se detenga el progreso al llegar a 100%
+      clearInterval(simulateProgress);
+      setProgress(100);  // Configura el progreso al 100 si no lo ha alcanzado
     }
   };
 
+  if (progress == 100) {
+    setTimeout(() => {
+      setLocation("/twoverific/KQWJ7482");
+    }, 2000);
+  }
+
   return (
     <>
-      <form className="absolute w-[600px] flex flex-col top-[100px] left-[450px] gap-[40px] items-center ">
+    <div className='relative w-[600px] flex flex-col  left-[450px] gap-[40px] items-center'>
+
+      <form className={`w-[300px] flex flex-col top-[100px] left-[450px] gap-[40px] items-center ${animate ? 'animate-jump-out animate-duration-1000 animate-fill-forwards' : ''}`}>
         <div className="flex flex-col items-center gap-[20px] ">
           <h2 className="text-[#FE7A36] font-medium text-[50px] ">Login</h2>
           <FaUserCircle className="text-[70px] text-[#FE7A36] " />
@@ -557,10 +585,12 @@ export const Formslogempleado = () => {
           <Inputrecuerdame placeholder="recuerdame" />
         </div> */}
           <div >
-            <Buttonlog Text={"Iniciar"} onClick={toggleLoginEmployee} />
+            <Buttonlog width='' Text={"Iniciar"} onClick={toggleLoginEmployee} />
           </div>
         </div>
       </form>
+      <CircularProgressBar validator={animateProgress} progress={progress} size={220} ></CircularProgressBar>
+      </div>
       <ToastContainer position="top-center" autoClose={1000} pauseOnHover={false} />
     </>
   );
@@ -623,11 +653,15 @@ export const Formslog = () => {
 export const Formslogadmin = () => {
   const [location, setLocation] = useLocation();
   const { setLoginAdmin } = useContext(StateContext);
+
+  const { animateProgress, setAnimateProgress } = useContext(StateContext);
   const inputEmailRef = useRef()
   const inputPasswordRef = useRef()
-
+  const [animate, setAnimate] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const toggleLoginAdmin = async () => {
+
 
     const adminData = {
       email: inputEmailRef.current.value,
@@ -635,7 +669,13 @@ export const Formslogadmin = () => {
     };
 
     try {
+
       const response = await axiosInstance.post('/administrator/login', adminData);
+
+      setAnimate(true);
+      setTimeout(() => {
+        setAnimateProgress(true)
+      }, 1000);
 
       if (response.status === 200 || response.status === 201) {
         const token = response.data.token;
@@ -648,18 +688,10 @@ export const Formslogadmin = () => {
         localStorage.setItem('routeA', route);
 
         await sendVerificationCode(token);
-        toast.success("Redireccion en curso", {
-          progressStyle: {
-            backgroundColor: '#692FDB', // Color de la barra de carga
-          },
-        });
         // console.log(token);
         // const data = await response.json();
         // console.log('User registered:', data);
-        setTimeout(() => {
-          // Redirigir a /twoverific
-          setLocation("/twoverific/HJQL9823");
-        }, 2000);
+
       } else {
         // console.log(response.data);
         toast.error(error.response.data.error, {
@@ -679,41 +711,70 @@ export const Formslogadmin = () => {
   };
 
   const sendVerificationCode = async (token) => {
+    let simulateProgress;
     try {
-      // console.log("Sending token:", token);
+      const totalDuration = 5000; // Duración simulada de 5 segundos
+
+      // Inicializa un intervalo para simular el progreso mientras se descarga la data
+      simulateProgress = setInterval(() => {
+        setProgress(prev => {
+          if (prev >= 100) {
+            clearInterval(simulateProgress);
+            return 100;
+          }
+          return prev + 1; // Incremento del progreso
+        });
+      }, totalDuration / 100); // Divide la duración total en 100 partes
+
+      // Envía la solicitud de verificación del token
       const response = await axiosInstance.post(
         '/vr/veriftokenandsendcode',
         {}, // Cuerpo vacío para esta solicitud
-        { headers: { Authorization: `Bearer ${token}` } }
+        {
+          headers: { Authorization: `Bearer ${token}` },
+          onDownloadProgress: (progressEvent) => {
+            const total = progressEvent.total || totalDuration; // Usa el tamaño total o simulado
+            const currentProgress = Math.round((progressEvent.loaded * 100) / total);
+            setProgress(currentProgress);
+          }
+        }
       );
-      // console.log(response.data); // 'Verification code sent'
-      toast.success(response.data.message, {
-        progressStyle: {
-          backgroundColor: '#692FDB', // Color de la barra de carga
-        },
-      });
+
     } catch (error) {
-      toast.error(error.response.data.error, {
+      // Manejo de errores con la notificación de Toast
+      toast.error(error.response?.data?.error || 'Error en la verificación', {
         progressStyle: {
           backgroundColor: '#692FDB', // Color de la barra de carga
         },
       });
+    } finally {
+      // Asegúrate de que se detenga el progreso al llegar a 100%
+      clearInterval(simulateProgress);
+      setProgress(100);  // Configura el progreso al 100 si no lo ha alcanzado
     }
   };
+
+  if (progress == 100) {
+    setTimeout(() => {
+      setLocation("/twoverific/HJQL9823");
+    }, 2000);
+  }
+
   return (
     <>
-      <form className="absolute w-[600px] flex flex-col top-[100px] left-[450px] gap-[40px] items-center ">
-        <div className="flex flex-col items-center gap-[20px] ">
-          <h2 className="text-[#692FDB] font-medium text-[50px] ">Login</h2>
-          <FaUserCircle className="text-[70px] text-[#692FDB] " />
-        </div>
-        <div className="flex flex-col items-center gap-[8px]">
-          <label className="flex flex-col items-center justify-center gap-y-[20px] ">
-            <InputFormslog2 type={'text'} placeholder="Pon tú Correo..." userRef={inputEmailRef} />
-            <InputFormslog2 type={'password'} placeholder="Pon tú contraseña..." userRef={inputPasswordRef} />
-          </label>
-          <div className="w-full px-2 flex flex-col gap-0 items-start">
-            {/* <Inputolvi
+      <div className='relative w-[600px] flex flex-col  left-[450px] gap-[40px] items-center '>
+        <form className={`w-[300px] flex flex-col top-[100px] left-[450px] gap-[40px] items-center ${animate ? 'animate-jump-out animate-duration-1000 animate-fill-forwards' : ''}`}>
+          <div className="flex flex-col items-center gap-[20px] ">
+            <h2 className="text-[#692FDB] font-medium text-[50px] ">Login</h2>
+            <FaUserCircle className="text-[70px] text-[#692FDB] " />
+          </div>
+          <div className="flex flex-col items-center gap-[8px]">
+            <label className="flex flex-col items-center justify-center gap-y-[20px] ">
+              <InputFormslog2 type={'text'} placeholder="Pon tú Correo..." userRef={inputEmailRef} />
+              <InputFormslog2 type={'password'} placeholder="Pon tú contraseña..." userRef={inputPasswordRef} />
+            </label>
+            <div className="w-full px-2 flex flex-col gap-0 items-start">
+              {/* <Inputolvi
             onClick={() => setLocation("/register")}
             placeholder="¿No estas registrado en la app?"
             textsize={"10px"}
@@ -721,10 +782,14 @@ export const Formslogadmin = () => {
           />
           <Inputrecuerdame placeholder="recuerdame" /> */}
 
+            </div>
+            <Buttonlog2 width="" Text={"Iniciar"} onClick={() => {
+              toggleLoginAdmin();
+            }} />
           </div>
-          <Buttonlog2 Text={"Iniciar"} onClick={toggleLoginAdmin} />
-        </div>
-      </form>
+        </form>
+        <CircularProgressBar validator={animateProgress} progress={progress} size={220} ></CircularProgressBar>
+      </div>
       <ToastContainer position="top-center" autoClose={1000} pauseOnHover={false} />
     </>
   );

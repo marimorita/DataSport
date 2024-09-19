@@ -4,14 +4,18 @@ import { cloudinaryAxios, axiosInstance } from '../../../../axiosConfig';
 import { StateContext } from '../../Context/Context';
 import { toast, ToastContainer } from "react-toastify";
 import { useLocation } from 'wouter';
-
+import { MdModeEdit } from 'react-icons/md';
+import { ModalEdiClient } from '../../Modals/ModalEdit/ModalEdit';
+import { FaRegCheckCircle } from 'react-icons/fa';
 const statusColors = {
   'Activo': 'bg-[#FE8D32]',
   'Inactivo': 'bg-[#3F3D56]',
-  'Pendiente': 'bg-[#5023A7]'
+  'Reportado': 'bg-[#5023A7]'
 };
 
 export const ProfileUsers = ({ Location }) => {
+
+  const [modalEdit, setModalEdit] = useState(false);
   const [location] = useLocation();
   const { userView, setUserView } = useContext(StateContext)
   const [image, setImage] = useState(null);
@@ -171,32 +175,42 @@ export const ProfileUsers = ({ Location }) => {
                   </defs>
                 </svg>
                 <div className="absolute top-[5rem] left-[8rem] w-[12rem] h-[16rem] rounded bg-[#CCCCCC] flex justify-center items-center">
-                {imageUrl ? (
-                    <img src={user.img} alt="Subida a Cloudinary" className="w-full h-full object-cover rounded" />
+                  {imageUrl ? (
+                    <img
+                      src={user.img}
+                      alt="Subida a Cloudinary"
+                      className="w-full h-full object-cover rounded"
+                    />
                   ) : (
-                    <div className="flex flex-col justify-center items-center text-center">
+                    <div className="flex flex-col justify-center items-center text-center tex-[15px] w-[10rem]">
                       <p className="mb-2   ">No has subido ninguna imagen</p>
                       <button
                         onClick={uploadImage}
-                        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 text-[10px]"
                       >
                         Agrega una foto
                       </button>
                       <input
                         type="file"
                         onChange={handleImageChange}
-                        className="mt-2 text-gray-600"
+                        className="mt-2 text-gray-600 text-[13px] w-[8.6rem] text-center "
                       />
                     </div>
                   )}
                 </div>
               </div>
-              <div className="mx-[6rem] mt-[-3rem] flex flex-col justify-start">
+              <div className="mx-[6rem] mt-[-2rem] flex flex-col justify-start">
+                <div>
+                  <MdModeEdit
+                    className="text-[27px] text-[#381975] absolute left-[25rem] hover:text-[30px] cursor-pointer "
+                    onClick={() => setModalEdit(true)}
+                  />
+                </div>
                 <h1 className="text-[30px] text-start w-[15rem]">
-                  <b>{user.name}</b>
+                  <b>{user.name}  {user.lastName}</b>
                 </h1><ul>
                   <li className="text-[20px] text-start w-[20rem]">
-                    Nombre: {user.name} {user.lastName}
+                    Documento: {user.id}
                   </li>
                   <li className="text-[20px] text-start w-[20rem]">
                     Numero: {user.phone}
@@ -611,8 +625,15 @@ export const ProfileUsers = ({ Location }) => {
                 </div>
               </div>
             </div>
+            <ModalEdiClient
+              visibility={modalEdit}
+              IconAlert={FaRegCheckCircle}
+              closeButton={() => setModalEdit(false)}
+              closeIcon={() => setModalEdit(false)}
+              id={user.id}
+            />
           </div>
-          <ToastContainer position="top-center" autoClose={1500} pauseOnHover={false} />  
+          <ToastContainer position="top-center" autoClose={1500} pauseOnHover={false} />
         </>
       ))
       }

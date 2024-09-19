@@ -1,5 +1,7 @@
 import React, { useContext, useRef, useState, useEffect } from 'react'
 import { StateContext } from './components/Context/Context';
+import { toast, ToastContainer } from "react-toastify";
+import { axiosInstance } from "../axiosConfig";
 // import { Login } from "./components/Pages/Login/Login"
 // import { Register } from "./components/Pages/Register/Register"
 import { Employees } from "./components/Pages/Register/Employees"
@@ -28,12 +30,13 @@ import { Registerlist } from "./components/Pages/Registerlist/Registerlist"
 import { Clients } from "./components/Pages/Register/Clients"
 import { AuthProvider } from "./components/Context/AuthContext"
 import { ProtectedRoute } from "./components/Context/ProtectectRoutes"
-import { ModalEdit } from './components/Modals/ModalEdit/ModalEdit';
 import { Inventory } from './components/Pages/Inventory/Inventory';
-
+import { Observations } from './components/Pages/Observations/Observations';
+// import { ModalTestPage } from './components/Pages/WorkingTeam/WorkingTeam';
 
 
 function App() {
+  const { userObservation, setUserObservation } = useContext(StateContext);
   const [routeEmployee, setRouteEmployee] = useState(localStorage.getItem('routeE') || '');
   const [routeAdmin, setRouteAdmin] = useState(localStorage.getItem('routeA') || '');
   const [location, setLocation] = useLocation();
@@ -54,7 +57,56 @@ function App() {
 
   console.log("esta en App", routeEmployee);
 
+  const token = localStorage.getItem("token");
+  console.log("token",token);
 
+  useEffect(() => {
+    const fetchAdmin = async () => {
+      try {
+        const response = await axiosInstance.get(
+          `/administrator/administrator/${token}`
+        );
+        // console.log(response.data);
+
+        setUserObservation([response.data]);
+      } catch (error) {
+        toast.error(error.response, {
+          progressStyle: {
+            backgroundColor: "#692FDB", // Color de la barra de carga
+          },
+        });
+      }
+    };
+
+    fetchAdmin();
+  }, [setUserObservation]);
+  
+
+  useEffect(() => {
+    const fetchAdmin = async () => {
+      try {
+        const response = await axiosInstance.get(
+          `/employees/employee/token/${token}`
+        );
+        // console.log(response.data);
+
+        setUserObservation([response.data]);
+      } catch (error) {
+        toast.error(error.response, {
+          progressStyle: {
+            backgroundColor: "#692FDB", // Color de la barra de carga
+          },
+        });
+      }
+    };
+
+    fetchAdmin();
+  }, [setUserObservation]);
+  
+
+  
+
+  console.log("hola",userObservation);
   return (
     <AuthProvider>
       <AppContextProvider>
@@ -70,11 +122,20 @@ function App() {
                   <ProfileAdmin />
                 </ProtectedRoute>
                 <ProtectedRoute path={`/HJQL9823/${routeAdmin}/registeredlist`} allowedRoles={['admin']}>
-                  <Registerlist Location={`/HJQL9823/${routeAdmin}/home`} LocationProfile={`/HJQL9823/${routeAdmin}/profile/U`} LocationRegisterUser={`/HJQL9823/${routeAdmin}/register/user`} LocationRegisterEmployee={`/HJQL9823/${routeAdmin}/register/employeed`} />
+                  <Registerlist nabvar={'admin'} Location={`/HJQL9823/${routeAdmin}/home`} LocationProfile={`/HJQL9823/${routeAdmin}/profile/U`} LocationRegisterUser={`/HJQL9823/${routeAdmin}/register/user`} LocationRegisterEmployee={`/HJQL9823/${routeAdmin}/register/employeed`} />
                 </ProtectedRoute>
                 <ProtectedRoute path={`/HJQL9823/${routeAdmin}/assistance`} allowedRoles={['admin']}>
-                  <Asistence Location={`/HJQL9823/${routeAdmin}/home`} />
+                  <Asistence nabvar={'admin'} Location={`/HJQL9823/${routeAdmin}/home`} />
                 </ProtectedRoute>
+
+                <ProtectedRoute path={`/HJQL9823/${routeAdmin}/inventory`} allowedRoles={['admin']}>
+                  <Inventory nabvar={'admin'} />
+                </ProtectedRoute>
+
+                <ProtectedRoute path={`/HJQL9823/${routeAdmin}/observation`} allowedRoles={['admin']}>
+                  <Observations nabvar={'admin'} />
+                </ProtectedRoute>
+
                 <ProtectedRoute path={`/HJQL9823/${routeAdmin}/profile/U`} allowedRoles={['admin']}>
                   <ProfileUsers Location={`/HJQL9823/${routeAdmin}/profile/U`} />
                 </ProtectedRoute>
@@ -95,11 +156,20 @@ function App() {
                   <ProfileEmployee Location={`/KQWJ7482/${routeEmployee}/home`} />
                 </ProtectedRoute>
                 <ProtectedRoute path={`/KQWJ7482/${routeEmployee}/registeredlist`} allowedRoles={['employee']}>
-                  <Registerlist notAccess={false} Location={`/KQWJ7482/${routeEmployee}/home`} LocationProfile={`/KQWJ7482/${routeEmployee}/profile/U`} LocationRegisterUser={`/KQWJ7482/${routeEmployee}/register/user`} />
+                  <Registerlist nabvar={'employee'} notAccess={false} Location={`/KQWJ7482/${routeEmployee}/home`} LocationProfile={`/KQWJ7482/${routeEmployee}/profile/U`} LocationRegisterUser={`/KQWJ7482/${routeEmployee}/register/user`} />
                 </ProtectedRoute>
                 <ProtectedRoute path={`/KQWJ7482/${routeEmployee}/assistance`} allowedRoles={['employee']}>
-                  <Asistence Location={`/KQWJ7482/${routeEmployee}/home`} />
+                  <Asistence nabvar={'employee'} Location={`/KQWJ7482/${routeEmployee}/home`} />
                 </ProtectedRoute>
+
+                <ProtectedRoute path={`/KQWJ7482/${routeEmployee}/inventory`} allowedRoles={['employee']}>
+                  <Inventory nabvar={'employee'} />
+                </ProtectedRoute>
+
+                <ProtectedRoute path={`/KQWJ7482/${routeEmployee}/observation`} allowedRoles={['employee']}>
+                  <Observations nabvar={'employee'} />
+                </ProtectedRoute>
+
                 <ProtectedRoute path={`/KQWJ7482/${routeEmployee}/profile/U`} allowedRoles={['employee']}>
                   <ProfileUsers Location={`/KQWJ7482/${routeEmployee}/profile/U`} />
                 </ProtectedRoute>
@@ -146,17 +216,15 @@ function App() {
             <Route path="/estonoseaccedeporfavor">
               <Admin />
             </Route>
-            <Route path="/estonoseaccedeporfavor">
-              <Admin />
-            </Route>
             <Route path="/emple">
               <Employees />
             </Route>
-            <Route path="/moedit/A">
-              <ModalEdit />
-            </Route>
             <Route path="/inventory/A">
               <Inventory />
+            </Route>
+            <div></div>
+            <Route path="/Observations/A">
+              <Observations />
             </Route>
 
             <Route>
