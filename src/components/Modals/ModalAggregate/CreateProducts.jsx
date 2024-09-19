@@ -71,7 +71,7 @@ export const CreateProducts = ({ closeIcon, visibility }) => {
             <h1 className="text-[50px]">Crea tu Productos</h1>
             <section className="flex flex-col gap-4 w-full lg:max-w-[30rem]">
               <CustomInput label="Titulo" inputRef={inputNameRef} />
-              <CustomTextArea label="Description" inputRef={inputDescriptionRef} />
+              <CustomTextArea label="Descripcion" inputRef={inputDescriptionRef} />
               <span className="grid grid-cols-2 gap-4">
                 <CustomInput
                   label="Cantidad"

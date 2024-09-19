@@ -76,6 +76,9 @@ export const ProductModal = ({ isOpen, onClose, id }) => {
 
     console.log(viewAssets.length);
 
+    const hola = (id) => {
+        console.log("se dio click al bien dsasdsdasd",id);
+    }
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70">
@@ -113,8 +116,9 @@ export const ProductModal = ({ isOpen, onClose, id }) => {
                                     <div className="ml-2">
                                         {editingIndex === index ? (
                                             <select
-                                                value={item.state.toLowerCase()}
-                                                onChange={(e) => handleStateChange(index, e.target.value)}
+                                                key={item.id}
+                                                onClick={() => hola(item.id)}
+                                                onChange={() => hola(item.id)}
                                                 className="p-1 rounded border"
                                                 onBlur={() => setEditingIndex(null)}
                                             >
