@@ -1,0 +1,25 @@
+{
+    "rewrites": [
+      {
+        "source": "/login/HJQL9823",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/twoverific/HJQL9823",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/login/KQWJ7482",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/twoverific/KQWJ7482",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/(.*)",
+        "destination": "/index.html"
+      }
+    ]
+  }
+  
