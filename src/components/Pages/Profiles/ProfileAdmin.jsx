@@ -64,17 +64,9 @@ export const ProfileAdmin = () => {
         });
       }
     };
-<<<<<<< HEAD
-    useEffect(() => {
-      const hasImage = adminView.some((admin) => admin.img !== "");
-      setImageUrl(hasImage);
-    }, [adminView]);
-    const [location, setLocation] = useLocation();
-=======
 
     fetchAdmin();
   }, [setAdminView]);
->>>>>>> testFront
 
   console.log(adminView);
 
@@ -648,13 +640,6 @@ export const ProfileAdmin = () => {
               closeButton={() => setModalEdit(false)}
               closeIcon={() => setModalEdit(false)}
             />
-<<<<<<< HEAD
-          </>
-        ))}
-      </>
-    );
-  };
-=======
           </div>
           <ToastContainer
             position="top-center"
@@ -665,5 +650,4 @@ export const ProfileAdmin = () => {
       ))}
     </>
   );
-};
->>>>>>> testFront
+}
