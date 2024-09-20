@@ -205,6 +205,7 @@ export const Register = () => {
 </linearGradient>
 </defs>
 </svg>
+
 </div>
 
       <Formsreg />

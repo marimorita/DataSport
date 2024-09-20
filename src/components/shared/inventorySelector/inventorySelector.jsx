@@ -29,7 +29,7 @@ export const InventorySelectorBienes = ({ onNext, onSearch }) => {
   return (
     <div className="flex justify-center ">
       <div className="flex justify-between w-[50%] h-[5rem] items-center text-white bg-gradient-to-r from-[#381975]  to-[#692FDB] px-9 py-1 rounded-[10px] shadow-md ">
-        <CiSearch onClick={onSearch} className="text-[2.5rem] cursor-pointer" />
+        <CiSearch onClick={onSearch} className="text-[2.5rem] cursor-pointer invisible" />
         <h1 className="select-none text-[3rem]">Bienes</h1>
         <LiaExchangeAltSolid
           onClick={onNext}
@@ -60,7 +60,7 @@ export const InventorySelectorProductos = ({ onNext }) => {
   return (
     <div className="flex justify-center">
       <div className="flex justify-between w-[50%] h-[5rem] items-center text-white bg-gradient-to-r from-[#FE7A36]  to-[#FF9F2E] px-9 py-1 rounded-[10px] shadow-md ">
-        <CiSearch className="text-[2.5rem] cursor-pointer" />
+        <CiSearch className="text-[2.5rem] cursor-pointer invisible" />
         <h1 className="select-none text-[3rem]">Productos</h1>
         <LiaExchangeAltSolid
           onClick={onNext}
