@@ -90,7 +90,7 @@ export const FormsAdmin = ({}) => {
   return (
     <>
       <form className="absolute w-[600px] flex flex-col justify-center top-[10%] right-[30%] gap-[60px] items-center ">
-        <div onClick={() => setLocation("/registeredlist")}>
+        <div onClick={() => setLocation("/")}>
           <IoMdArrowRoundBack className="cursor-pointer text-[40px] text-[#1E1E1E] fixed left-[15rem] top-[6rem]" />
         </div>
         <div className="flex flex-col items-center gap-[20px] ">

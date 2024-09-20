@@ -57,7 +57,7 @@ export const ModalEditAdmin = ({ closeIcon, closeButton, visibility }) => {
     if (name !== "") {
       const userData = { id, name };
       try {
-        const response = await axiosInstance.patch(`/clients/clients/update/name`, userData);
+        const response = await axiosInstance.patch(`/administrator/administrator/update/name`, userData);
         if (!(response.status === 200 || response.status === 201)) allSuccess = false;
       } catch (error) {
         allSuccess = false;
@@ -69,7 +69,7 @@ export const ModalEditAdmin = ({ closeIcon, closeButton, visibility }) => {
     if (phone !== "") {
       const userData = { id, phone };
       try {
-        const response = await axiosInstance.patch(`/clients/clients/update/phone`, userData);
+        const response = await axiosInstance.patch(`/administrator/administrator/update/phone`, userData);
         if (!(response.status === 200 || response.status === 201)) allSuccess = false;
       } catch (error) {
         allSuccess = false;
@@ -81,7 +81,7 @@ export const ModalEditAdmin = ({ closeIcon, closeButton, visibility }) => {
     if (email !== "") {
       const userData = { id, email };
       try {
-        const response = await axiosInstance.patch(`/clients/clients/update/email`, userData);
+        const response = await axiosInstance.patch(`/administrator/administrator/update/email`, userData);
         if (!(response.status === 200 || response.status === 201)) allSuccess = false;
       } catch (error) {
         allSuccess = false;
@@ -93,7 +93,7 @@ export const ModalEditAdmin = ({ closeIcon, closeButton, visibility }) => {
     if (imgUrl) {
       const userData = { id, img: imgUrl };
       try {
-        const response = await axiosInstance.patch(`/clients/clients/${id}/img`, userData);
+        const response = await axiosInstance.patch(`/administrator/administrator/${id}/img`, userData);
         if (!(response.status === 200 || response.status === 201)) allSuccess = false;
       } catch (error) {
         allSuccess = false;
@@ -157,7 +157,7 @@ export const ModalEditAdmin = ({ closeIcon, closeButton, visibility }) => {
 }
 
 export const ModalEdiClient = ({ closeIcon, closeButton, visibility, id }) => {
-  const { clientsView, setClientsView } = useContext(StateContext);
+  const { administratorView, setadministratorView } = useContext(StateContext);
   const inputNameRef = useRef();
   const inputLastNameRef = useRef();
   const inputPhoneRef = useRef();
