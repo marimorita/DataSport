@@ -49,16 +49,16 @@ export const FormsAdmin = ({}) => {
     setIsSubmitting(true);
 
     const adminData = {
-      id: inputIdRef.current.value,
-      name: inputNameRef.current.value,
-      lastName: inputLastNameRef.current.value,
-      email: inputEmailRef.current.value,
-      phone: inputPhoneRef.current.value,
-      address: inputAddressRef.current.value,
-      password: inputPasswordRef.current.value,
-      img: "",
-      role: "admin",
-      idCenter: inputIdCenterRef.current.value,
+      id: inputIdRef.current?.value || '',
+      name: inputNameRef.current?.value || '',
+      lastName: inputLastNameRef.current?.value || '',
+      email: inputEmailRef.current?.value || '',
+      phone: inputPhoneRef.current?.value || '',
+      address: inputAddressRef.current?.value || '',
+      password: inputPasswordRef.current?.value || '',
+      img: '',
+      role: 'admin',
+      idCenter: inputIdCenterRef.current?.value || '',
     };
 
     try {
@@ -90,62 +90,24 @@ export const FormsAdmin = ({}) => {
   return (
     <>
       <form className="absolute w-[600px] flex flex-col justify-center top-[10%] right-[30%] gap-[60px] items-center ">
-        <div onClick={() => setLocation("/registeredlist")}>
+        <div onClick={() => setLocation("/")}>
           <IoMdArrowRoundBack className="cursor-pointer text-[40px] text-[#1E1E1E] fixed left-[15rem] top-[6rem]" />
         </div>
         <div className="flex flex-col items-center gap-[20px] ">
-          <h2 className="text-[#381975] font-medium text-[46px] ">
-            Inscripción Administrador
-          </h2>
+        <h2 className='text-[#1e1e1e] font-medium text-[46px] '>Inscripción Administrador</h2>
         </div>
-        <div className="flex flex-col items-center gap-[40px]">
-          <label className="flex flex-wrap justify-between gap-y-[20px] ">
-            <InputFormsAdmin
-              type={"text"}
-              placeholder="Pon tu Cedula"
-              userRef={inputIdRef}
-            />
-            <InputFormsAdmin
-              type={"text"}
-              placeholder="Pon tu Nombre"
-              userRef={inputNameRef}
-            />
-            <InputFormsAdmin
-              type={"text"}
-              placeholder="Pon tu Apellido"
-              userRef={inputLastNameRef}
-            />
-            <InputFormsAdmin
-              type={"email"}
-              placeholder="Pon tu Correo"
-              userRef={inputEmailRef}
-            />
-            <InputFormsAdmin
-              type={"text"}
-              placeholder="Pon tu Telefono"
-              userRef={inputPhoneRef}
-            />
-            <InputFormsAdmin
-              type={"text"}
-              placeholder="Pon tu Direccion"
-              userRef={inputAddressRef}
-            />
-            <InputFormsAdmin
-              type={"password"}
-              placeholder="Pon tu Contraseña"
-              userRef={inputPasswordRef}
-            />
-            <InputFormsAdmin
-              type={"text"}
-              placeholder="Pon tu Numero de Centro"
-              userRef={inputIdCenterRef}
-            />
+        <div className='flex flex-col items-center gap-[40px]'>
+          <label className='flex flex-wrap justify-between gap-y-[20px] '>
+            <CustomInputregister label={'Cedula'} userRef={inputIdRef} color={'#1e1e1e'}/>
+            <CustomInputregister label={'Nombre'} userRef={inputNameRef} color={'#1e1e1e'}/>
+            <CustomInputregister label={'Apellido'} userRef={inputLastNameRef} color={'#1e1e1e'}/>
+            <CustomInputregister type={'email'}  label={'Correo'} userRef={inputEmailRef} color={'#1e1e1e'}/>
+            <CustomInputregister label={'Numero'} userRef={inputPhoneRef} color={'#1e1e1e'}/>
+            <CustomInputregister label={'Direccion'} userRef={inputAddressRef} color={'#1e1e1e'}/>
+            <CustomInputregister type={'password'}  label={'Contraseña'} userRef={inputPasswordRef} color={'#1e1e1e'}/>
+            <CustomInputregister label={'N° Estab'} userRef={inputIdCenterRef} color={'#1e1e1e'}/>
           </label>
-          <ButtonAdmin
-            width=""
-            Text={"Crear Empleado"}
-            onClick={toggleCreateAdmin}
-          />
+          <ButtonUsers width='' Text={'Crear Admin'} onClick={toggleCreateAdmin} />
         </div>
       </form>
       <ToastContainer

@@ -298,10 +298,10 @@ export const CustomInputregister = ({ label, type = "text", color, inputProps, i
   const [used, setUsed] = useState(false);
   const [focused, setFocused] = useState(false);
 
-  const validateActive = (isFocused) => {
+  const validateActive = (focused) => {
     if (!inputRef.current) return;
     const { value } = inputRef.current;
-    setUsed(value.length !== 0 || isFocused);
+    setUsed(value.length !== 0 || focused);
   };
 
   const labelClasses = () => {

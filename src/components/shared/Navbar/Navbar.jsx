@@ -25,7 +25,7 @@ export const Navbar = ({customClassName, login, assistence, register, inventory,
                 <li onClick={remarks}>Observaciones</li>
             </ul>
             </div>
-            {login ? <FaUserCircle className={`${customClassName} w-[20%] text-[60px]`} /> : <div className='w-[20%] flex justify-center '><button onClick={() => setLocation("/login/HJQL9823")} className=' w-[50%] text-[25px] text-[#F0ECE3] flex justify-center cursor-pointer bg-[#2F2C37] shadow-xl rounded-[18px] ' >Login</button></div> }
+            {login ? <FaUserCircle className={`${customClassName} w-[20%] text-[60px]`} /> : <div className='w-[50%] flex justify-center gap-3 '><button onClick={() => setLocation("/admin")} className=' w-[50%] text-[25px] text-[#F0ECE3] flex justify-center cursor-pointer bg-[#2F2C37] shadow-xl rounded-[18px] ' >Register</button><button onClick={() => setLocation("/login/HJQL9823")} className=' w-[30%] text-[25px] text-[#F0ECE3] flex justify-center cursor-pointer bg-[#2F2C37] shadow-xl rounded-[18px] ' >Login</button></div> }
         </div>
     </div>
   )

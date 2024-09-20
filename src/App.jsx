@@ -3,7 +3,7 @@ import { StateContext } from './components/Context/Context';
 import { toast, ToastContainer } from "react-toastify";
 import { axiosInstance } from "../axiosConfig";
 // import { Login } from "./components/Pages/Login/Login"
-// import { Register } from "./components/Pages/Register/Register"
+ import { Register } from "./components/Pages/Register/Register"
 import { Employees } from "./components/Pages/Register/Employees"
 import { Route, Switch } from "wouter"
 import { AppContextProvider } from "./contexts/app.context"
@@ -218,8 +218,8 @@ function App() {
             <Route path="/estonoseaccedeporfavor">
               <Admin />
             </Route>
-            <Route path="/emple">
-              <Employees />
+            <Route path="/admin">
+              <Register />
             </Route>
             <Route path="/inventory/A">
               <Inventory />

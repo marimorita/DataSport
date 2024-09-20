@@ -1,16 +1,13 @@
-import React, { useContext } from 'react'
-import { Formsreg } from '../../shared/Forms/Forms'
-import { Modalverificate } from '../../Modals/registerverificate/modalverificate'
-import { StateContext } from '../../Context/Context'
-import { FaRegCheckCircle } from 'react-icons/fa'
-
-
-
+import React, { useContext } from "react";
+import { FormsAdmin } from "../../shared/Forms/Forms";
+import { StateContext } from "../../Context/Context";
+import { FaRegCheckCircle } from "react-icons/fa";
+import { ModalCreate } from "../../Modals/ModalCreate/ModalCreate";
 
 export const Register = () => {
-  const { modalverificate, setmodalverificate} = useContext(StateContext);
+  const { createAdmin, setCreateAdmin } = useContext(StateContext);
   return (
-    <div className='w-full h-full flex flex-1 items-center relative'>
+    <div className='w-full h-full flex flex-1 bg-[#F0ECE3] items-center relative'>
       <div className='w-[90px] h-[93px] bg-[#FE7A3659] rounded-[50%] bottom-[28%]  left-[2%] absolute ' />
       <div className='w-[110px] h-[113px] bg-[#38197559] rounded-[50%] bottom-[4%] left-[12%] absolute ' />
 <div className='absolute left-[-120px] top-[-50px]'>
@@ -205,13 +202,20 @@ export const Register = () => {
 </linearGradient>
 </defs>
 </svg>
-
 </div>
 
-      <Formsreg />
-      <div className='w-[80px] h-[83px] bg-[#FE7A3659] rounded-[50%] top-[5%]  right-[12%] absolute ' />
-      <div className='w-[126px] h-[123px] bg-[#FF9F2E59] rounded-[50%] top-[20%]  right-[6%] absolute ' />
-      <Modalverificate visibility={modalverificate} IconAlert={FaRegCheckCircle} closeButton={() => setmodalverificate(false)} closeIcon={() => setmodalverificate(false)}  />
+      <div className="absolute left-[80rem] top-[2rem] ">
+        <FormsAdmin />
+      </div>
+      <div className="w-[80px] h-[83px] bg-[#FE7A3659] rounded-[50%] top-[5%]  right-[10%] absolute " />
+      <div className="w-[126px] h-[123px] bg-[#FF9F2E59] rounded-[50%] top-[18%]  right-[4%] absolute " />
+      <ModalCreate
+        visibility={createAdmin}
+        IconAlert={FaRegCheckCircle}
+        closeButton={() => setCreateAdmin(false)}
+        closeIcon={() => setCreateAdmin(false)}
+        text={`Your login was successful, Welcome ${name}.`}
+      />
     </div>
 
   )
