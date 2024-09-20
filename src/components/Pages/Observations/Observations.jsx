@@ -93,7 +93,7 @@ const AddObservationModal = ({ isOpen, onClose, onAdd }) => {
             className="w-full mb-2 p-4 border rounded text-center"
             placeholder="Detalles"
             value={detalles}
-            onChange={(e) => setDetalles(e.target.value)}  // Actualiza estado de los detalles
+            onChange={(e) => setDetalles(e.target.value)}  
           />
           <div className="flex justify-center">
             <button type="submit" className="px-4 py-2 bg-[#2a2933] text-white rounded">Crear</button>
@@ -154,7 +154,7 @@ export const Observations = ({ nabvar }) => {
     fetchClients();
   }, [setObservaciones]);
 
-  console.log("observaciones:", observaciones);
+  console.log("observaciones:");
 
 
 
