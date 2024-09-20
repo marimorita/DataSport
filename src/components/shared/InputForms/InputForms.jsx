@@ -137,17 +137,17 @@ export const Perfilcontenedor = ({ customClassName, nombre, apellido, documento,
 
 export const Buscador = ({ onChange, value }) => {
   return (
-    <div className="relative">
+    <div className="relative left-10">
       <input
         placeholder="Buscar con documento"
-        className="input shadow-lg border-2 border-[#000000] hover:border-2 hover:border-[#000000] px-5 py-3 rounded-xl w-[20rem] transition-all outline-none"
+        className="input shadow-lg border-2 border-[#000000] hover:border-2 hover:border-[#000000] pl-12 py-3 pr-5 rounded-xl w-[20rem] transition-all outline-none"
         name="search"
         type="search"
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
       <svg
-        className="size-6 absolute top-3 right-3 text-[#000000]"
+        className="size-6 absolute top-3 left-[1rem] text-[#000000]"
         stroke="currentColor"
         strokeWidth="1.5"
         viewBox="0 0 24 24"
@@ -194,7 +194,7 @@ export const AsistenceBuscador = ({ value, onChange, possibleMatch, onSelectMatc
 export default AsistenceBuscador;
 
 // CustomInput Component
-export const CustomInput = ({ label, type = "text", inputProps, inputRef }) => {
+export const CustomInput = ({ label, type = "text", color, inputProps, inputRef }) => {
   const [used, setUsed] = useState(false);
   const [focused, setFocused] = useState(false);
 
@@ -208,16 +208,22 @@ export const CustomInput = ({ label, type = "text", inputProps, inputRef }) => {
     const actived = used
       ? "text-[20px] left-5 -translate-y-8 bg-white px-3"
       : "text-[25px] left-5";
-    return `absolute text-[#692FDB] transition-[transform_font-size_padding] duration-[250ms] ${actived}`;
+    return `absolute transition-[transform_font-size_padding] duration-[250ms] ${actived}`;
   };
 
   return (
     <span className="relative flex items-center w-full">
-      <label className={labelClasses()}>{label}</label>
+      <label className={labelClasses()} style={{ color: color }}>
+        {label}
+      </label>
       <input
         ref={inputRef}
         type={type}
-        className="w-full h-[4rem] border-[4px] rounded-xl outline-[#381975] outline-offset-2 border-[#692FDB] px-4 placeholder:text-[#692FDB] text-[25px]  "
+        className="w-full h-[4rem] border-[4px] rounded-xl px-4 text-[25px] outline-none"
+        style={{
+          borderColor: color,
+          color: color, 
+        }}
         onFocus={() => {
           setFocused(true);
           validateActive(true);
@@ -228,12 +234,17 @@ export const CustomInput = ({ label, type = "text", inputProps, inputRef }) => {
         }}
         {...inputProps}
       />
+      <style jsx>{`
+        input::placeholder {
+          color: ${color}; /* Color dinámico para el placeholder */
+        }
+      `}</style>
     </span>
   );
 };
 
-// CustomTextArea Component
-export const CustomTextArea = ({ label, inputProps, inputRef }) => {
+// CustomInmputTextarea Component
+export const CustomTextArea = ({ label, color, inputProps, inputRef }) => {
   const [used, setUsed] = useState(false);
   const [focused, setFocused] = useState(false);
 
@@ -245,17 +256,24 @@ export const CustomTextArea = ({ label, inputProps, inputRef }) => {
 
   const labelClasses = () => {
     const actived = used
-      ? "text-[20px]  left-5 -translate-y-12 bg-white px-3"
+      ? "text-[20px] left-5 -translate-y-12 bg-white px-3"
       : "text-[25px] top-3 left-5";
-    return `absolute text-[#692FDB] transition-[transform_font-size_padding] duration-[250ms] ${actived}`;
+    return `absolute transition-[transform_font-size_padding] duration-[250ms] ${actived}`;
   };
 
   return (
     <span className="relative flex items-center w-full">
-      <label className={labelClasses()}>{label}</label>
+      <label className={labelClasses()} style={{ color: color }}>
+        {label}
+      </label>
       <textarea
         ref={inputRef}
-        className="w-full h-[6rem] border-[4px] rounded-xl outline-[#381975] outline-offset-2 border-[#692FDB] px-4 placeholder:text-[#692FDB] text-[25px] resize-none"
+        className="w-full h-[6rem] border-[4px] rounded-xl px-4 text-[25px] resize-none placeholder-opacity-100"
+        style={{
+          borderColor: color,
+          outlineColor: color,
+          color: color, // Texto del textarea
+        }}
         onFocus={() => {
           setFocused(true);
           validateActive(true);
@@ -266,6 +284,63 @@ export const CustomTextArea = ({ label, inputProps, inputRef }) => {
         }}
         {...inputProps}
       />
+      <style jsx>{`
+        textarea::placeholder {
+          color: ${color}; /* Color dinámico para el placeholder */
+        }
+      `}</style>
+    </span>
+  );
+};
+
+// Custominmputregister Component
+export const CustomInputregister = ({ label, type = "text", color, inputProps, inputRef }) => {
+  const [used, setUsed] = useState(false);
+  const [focused, setFocused] = useState(false);
+
+  const validateActive = (isFocused) => {
+    if (!inputRef.current) return;
+    const { value } = inputRef.current;
+    setUsed(value.length !== 0 || isFocused);
+  };
+
+  const labelClasses = () => {
+    const activeClasses = used || focused 
+      ? "text-[20px] left-5 -translate-y-8 bg-[#F0ECE3] px-3" 
+      : "text-[25px] left-5";
+    
+    return `absolute transition-transform duration-250 ${activeClasses}`;
+  };
+
+  return (
+    <span className="relative flex items-center">
+      <label className={labelClasses()} style={{ color }}>
+        {label}
+      </label>
+      <input
+        ref={inputRef}
+        type={type}
+        className="w-[17rem] h-[4rem] border-[4px] rounded-xl px-4 text-[25px] outline-none bg-[#F0ECE3]"
+        style={{
+          borderColor: color,
+          color,
+        }}
+        onFocus={() => {
+          setFocused(true);
+          validateActive(true);
+        }}
+        onBlur={() => {
+          setFocused(false);
+          validateActive(false);
+        }}
+        placeholder=" " // Placeholder vacío para activar la animación
+        {...inputProps}
+      />
+      <style jsx>{`
+        input::placeholder {
+          color: transparent; /* Evitar que el placeholder afecte la visibilidad */
+        }
+      `}</style>
     </span>
   );
 };

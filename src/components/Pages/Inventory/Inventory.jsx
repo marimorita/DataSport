@@ -111,7 +111,6 @@ export const Inventory = ({ nabvar }) => {
     [
       <InventorySelectorBienes onNext={handleNextAction} key="Bienes" />,
       <InventorySelectorProductos onNext={handleNextAction} key="Productos" />,
-      <InventorySelectorEspacios onNext={handleNextAction} key="Espacios" />,
 
     ],
     {

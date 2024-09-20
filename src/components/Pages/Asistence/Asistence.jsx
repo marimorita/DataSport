@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import {ButtomHome}  from '../../shared/Button/Buttons';
 import { useLocation } from 'wouter';
-import asistence from '../../../assets/asistence.png';
+import asistence from '../../../assets/SEO 2.svg';
 import AsistenceTable from '../../shared/userTable/asistenceTable';
 import AsistenceBuscador from '../../shared/InputForms/InputForms';
 import Buscador from '../../shared/InputForms/InputForms';
@@ -10,6 +10,7 @@ import StatusCard from '../../shared/utils/utils';
 import generateAsistencePDF from '../../shared/GeneratePDF/AsistenceReport';
 import { StateContext } from '../../Context/Context';
 import {axiosInstance} from '../../../../axiosConfig';
+
 import { NavbarType } from '../../shared/Navbar/Navbar';
 
 
@@ -79,6 +80,7 @@ export const Asistence = ({ Location, LocationProfile, nabvar }) => {
     generateAsistencePDF(asistencia);
   };
 
+
   useEffect(() => {
     const checkMidnight = () => {
       const now = new Date();
@@ -125,7 +127,7 @@ export const Asistence = ({ Location, LocationProfile, nabvar }) => {
       
       <StatusCard/>
       {!showTable ? (
-        <img className='w-[300px] h-[300px]' src={asistence} alt="No hay asistencia" />
+        <img className='w-[300px] h-[300px]'  src={asistence} alt="No hay asistencia" />
       ) : (
         <div className='mb-16 w-[85%] flex flex-col items-center relative'>
           <div className='absolute top-0 right-44  bottom-4 -mt-[4.5rem]'>

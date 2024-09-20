@@ -70,22 +70,23 @@ export const CreateProducts = ({ closeIcon, visibility }) => {
           <div className="flex flex-col justify-center h-[80%] items-center gap-4">
             <h1 className="text-[50px]">Crea tu Productos</h1>
             <section className="flex flex-col gap-4 w-full lg:max-w-[30rem]">
-              <CustomInput label="Titulo" inputRef={inputNameRef} />
-              <CustomTextArea label="Descripcion" inputRef={inputDescriptionRef} />
+              <CustomInput label="Titulo" inputRef={inputNameRef} color={'#FE7A36'} />
+              <CustomTextArea label="Descripcion" inputRef={inputDescriptionRef} color={'#FE7A36'}/>
               <span className="grid grid-cols-2 gap-4">
                 <CustomInput
                   label="Cantidad"
                   type="number"
                   inputProps={{ min: 0 }}
                   inputRef={inputStockRef}
+                  color={'#FE7A36'}
                 />
-                <CustomInput label="imagen" type="file" />
+                <CustomInput label="imagen" type="file" color={'#FE7A36'} />
               </span>
-              <CustomInput label="Precio" type="number" inputProps={{ min: 0 }} inputRef={inputPriceRef} />
-              <CustomInput label="Referencia" inputRef={inputIdRef} />
+              <CustomInput label="Precio" type="number" color={'#FE7A36'} inputProps={{ min: 0 }} inputRef={inputPriceRef} />
+              <CustomInput label="Referencia" color={'#FE7A36'} inputRef={inputIdRef} />
             </section>
             <button
-              className="bg-gradient-to-r from-[#381975] to-[#692FDB] w-[10rem] h-[3rem] rounded-lg text-white text-[30px]"
+              className="bg-gradient-to-r from-[#FE7A36] to-[#FF9F2E] w-[10rem] h-[3rem] rounded-lg text-white text-[30px]"
               onClick={toggleRegisterAsset}
             >
               Crear

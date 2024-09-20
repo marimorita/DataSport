@@ -32,7 +32,9 @@ import { AuthProvider } from "./components/Context/AuthContext"
 import { ProtectedRoute } from "./components/Context/ProtectectRoutes"
 import { Inventory } from './components/Pages/Inventory/Inventory';
 import { Observations } from './components/Pages/Observations/Observations';
+import { Modal404 } from './components/Modals/Modal404/Modal404';
 // import { ModalTestPage } from './components/Pages/WorkingTeam/WorkingTeam';
+
 
 
 function App() {
@@ -188,8 +190,8 @@ function App() {
 
             {/* Normal Routes */}
 
-            <Route path={`/assistance`}>
-              <Asistence Location={`/`} />
+            <Route path={`/`}>
+              <Home Location={`/`} />
             </Route>
             <Route path={`/clients`}>
               <Clients Location={`/`} />
@@ -199,7 +201,7 @@ function App() {
             </Route>
 
             <Route path="/">
-              <Home />
+              <Registerlist />
             </Route>
             <Route path="/login/HJQL9823">
               <LoginAdmin Location={'/'} />
@@ -222,13 +224,11 @@ function App() {
             <Route path="/inventory/A">
               <Inventory />
             </Route>
-            <div></div>
             <Route path="/Observations/A">
               <Observations />
             </Route>
-
-            <Route>
-              <div>404: No such page</div>
+            <Route path={"/404/modal"}>
+              <Modal404/>
             </Route>
           </Switch>
         </div>

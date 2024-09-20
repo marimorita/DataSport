@@ -1,32 +1,49 @@
-import React, { useContext, useRef, useState, useEffect } from 'react'
-import { axiosInstance } from '../../../../axiosConfig';
-import { InputFormsreg, InputFormslog, Inputrecuerdame, Inputolvi, InputFormsUsers, InputFormsEmployees, InputFormslog2, Perfilcontenedor, InputFormsAdmin } from '../InputForms/InputForms';
-import { Buttonlog, Buttonreg, ButtonUsers, ButtonEmployees, Buttonlog2, Buttonfilter, ButtonAdmin, ButtomHome } from '../Button/Buttons';
+import React, { useContext, useRef, useState, useEffect } from "react";
+import { axiosInstance } from "../../../../axiosConfig";
+import {
+  InputFormsreg,
+  InputFormslog,
+  Inputrecuerdame,
+  Inputolvi,
+  InputFormsUsers,
+  InputFormsEmployees,
+  InputFormslog2,
+  Perfilcontenedor,
+  InputFormsAdmin,
+  CustomInput,
+  CustomInputregister,
+} from "../InputForms/InputForms";
+import {
+  Buttonlog,
+  Buttonreg,
+  ButtonUsers,
+  ButtonEmployees,
+  Buttonlog2,
+  Buttonfilter,
+  ButtonAdmin,
+  ButtomHome,
+} from "../Button/Buttons";
 import { FaUserCircle } from "react-icons/fa";
-import { useLocation } from 'wouter'
-import { StateContext } from '../../Context/Context';
+import { useLocation } from "wouter";
+import { StateContext } from "../../Context/Context";
 import { toast, ToastContainer } from "react-toastify";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import CircularProgressBar from '../ProgressBar/CircularProgressBar';
+import CircularProgressBar from "../ProgressBar/CircularProgressBar";
 
-
-
-export const FormsAdmin = ({ }) => {
+export const FormsAdmin = ({}) => {
   const { setCreateAdmin } = useContext(StateContext);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [location, setLocation] = useLocation();
-  const inputIdRef = useRef()
-  const inputNameRef = useRef()
-  const inputLastNameRef = useRef()
-  const inputEmailRef = useRef()
-  const inputPhoneRef = useRef()
-  const inputAddressRef = useRef()
-  const inputPasswordRef = useRef()
-  const inputIdCenterRef = useRef()
-
+  const inputIdRef = useRef();
+  const inputNameRef = useRef();
+  const inputLastNameRef = useRef();
+  const inputEmailRef = useRef();
+  const inputPhoneRef = useRef();
+  const inputAddressRef = useRef();
+  const inputPasswordRef = useRef();
+  const inputIdCenterRef = useRef();
 
   const toggleCreateAdmin = async () => {
-
     if (isSubmitting) return; // Evita envíos duplicados
 
     setIsSubmitting(true);
@@ -39,79 +56,121 @@ export const FormsAdmin = ({ }) => {
       phone: inputPhoneRef.current.value,
       address: inputAddressRef.current.value,
       password: inputPasswordRef.current.value,
-      img: '',
+      img: "",
       role: "admin",
       idCenter: inputIdCenterRef.current.value,
     };
 
     try {
-      const response = await axiosInstance.post('/administrator/register', adminData);
+      const response = await axiosInstance.post(
+        "/administrator/register",
+        adminData
+      );
 
       if (response.status === 200 || response.status === 201) {
         setCreateAdmin(true);
       } else {
         toast.error(error.response.data.error, {
           progressStyle: {
-            backgroundColor: '#692FDB', // Color de la barra de carga
+            backgroundColor: "#692FDB", // Color de la barra de carga
           },
         });
       }
     } catch (error) {
       toast.error(error.response.data.error, {
         progressStyle: {
-          backgroundColor: '#692FDB', // Color de la barra de carga
+          backgroundColor: "#692FDB", // Color de la barra de carga
         },
       });
     } finally {
       setIsSubmitting(false);
     }
-
   };
 
   return (
     <>
-      <form className='absolute w-[600px] flex flex-col justify-center top-[10%] right-[30%] gap-[60px] items-center '>
-        <div onClick={() => setLocation("/registeredlist")} >
-          <IoMdArrowRoundBack className='cursor-pointer text-[40px] text-[#1E1E1E] fixed left-[15rem] top-[6rem]' />
+      <form className="absolute w-[600px] flex flex-col justify-center top-[10%] right-[30%] gap-[60px] items-center ">
+        <div onClick={() => setLocation("/registeredlist")}>
+          <IoMdArrowRoundBack className="cursor-pointer text-[40px] text-[#1E1E1E] fixed left-[15rem] top-[6rem]" />
         </div>
-        <div className='flex flex-col items-center gap-[20px] '>
-          <h2 className='text-[#381975] font-medium text-[46px] '>Inscripción Administrador</h2>
+        <div className="flex flex-col items-center gap-[20px] ">
+          <h2 className="text-[#381975] font-medium text-[46px] ">
+            Inscripción Administrador
+          </h2>
         </div>
-        <div className='flex flex-col items-center gap-[40px]'>
-          <label className='flex flex-wrap justify-between gap-y-[20px] '>
-            <InputFormsAdmin type={'text'} placeholder='Pon tu Cedula' userRef={inputIdRef} />
-            <InputFormsAdmin type={'text'} placeholder='Pon tu Nombre' userRef={inputNameRef} />
-            <InputFormsAdmin type={'text'} placeholder='Pon tu Apellido' userRef={inputLastNameRef} />
-            <InputFormsAdmin type={'email'} placeholder='Pon tu Correo' userRef={inputEmailRef} />
-            <InputFormsAdmin type={'text'} placeholder='Pon tu Telefono' userRef={inputPhoneRef} />
-            <InputFormsAdmin type={'text'} placeholder='Pon tu Direccion' userRef={inputAddressRef} />
-            <InputFormsAdmin type={'password'} placeholder='Pon tu Contraseña' userRef={inputPasswordRef} />
-            <InputFormsAdmin type={'text'} placeholder='Pon tu Numero de Centro' userRef={inputIdCenterRef} />
+        <div className="flex flex-col items-center gap-[40px]">
+          <label className="flex flex-wrap justify-between gap-y-[20px] ">
+            <InputFormsAdmin
+              type={"text"}
+              placeholder="Pon tu Cedula"
+              userRef={inputIdRef}
+            />
+            <InputFormsAdmin
+              type={"text"}
+              placeholder="Pon tu Nombre"
+              userRef={inputNameRef}
+            />
+            <InputFormsAdmin
+              type={"text"}
+              placeholder="Pon tu Apellido"
+              userRef={inputLastNameRef}
+            />
+            <InputFormsAdmin
+              type={"email"}
+              placeholder="Pon tu Correo"
+              userRef={inputEmailRef}
+            />
+            <InputFormsAdmin
+              type={"text"}
+              placeholder="Pon tu Telefono"
+              userRef={inputPhoneRef}
+            />
+            <InputFormsAdmin
+              type={"text"}
+              placeholder="Pon tu Direccion"
+              userRef={inputAddressRef}
+            />
+            <InputFormsAdmin
+              type={"password"}
+              placeholder="Pon tu Contraseña"
+              userRef={inputPasswordRef}
+            />
+            <InputFormsAdmin
+              type={"text"}
+              placeholder="Pon tu Numero de Centro"
+              userRef={inputIdCenterRef}
+            />
           </label>
-          <ButtonAdmin width='' Text={'Crear Empleado'} onClick={toggleCreateAdmin} />
+          <ButtonAdmin
+            width=""
+            Text={"Crear Empleado"}
+            onClick={toggleCreateAdmin}
+          />
         </div>
       </form>
-      <ToastContainer position="top-center" autoClose={1500} pauseOnHover={false} />
+      <ToastContainer
+        position="top-center"
+        autoClose={1500}
+        pauseOnHover={false}
+      />
     </>
-  )
-}
+  );
+};
 
 export const FormsEmployees = ({ Location }) => {
   const { setCreateEmpleyees } = useContext(StateContext);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [location, setLocation] = useLocation();
-  const inputIdRef = useRef()
-  const inputNameRef = useRef()
-  const inputLastNameRef = useRef()
-  const inputEmailRef = useRef()
-  const inputPhoneRef = useRef()
-  const inputAddressRef = useRef()
-  const inputPasswordRef = useRef()
-  const inputIdCenterRef = useRef()
-
+  const inputIdRef = useRef();
+  const inputNameRef = useRef();
+  const inputLastNameRef = useRef();
+  const inputEmailRef = useRef();
+  const inputPhoneRef = useRef();
+  const inputAddressRef = useRef();
+  const inputPasswordRef = useRef();
+  const inputIdCenterRef = useRef();
 
   const toggleCreateEmployees = async () => {
-
     if (isSubmitting) return; // Evita envíos duplicados
 
     setIsSubmitting(true);
@@ -124,86 +183,133 @@ export const FormsEmployees = ({ Location }) => {
       phone: inputPhoneRef.current.value,
       address: inputAddressRef.current.value,
       password: inputPasswordRef.current.value,
-      img: '',
+      img: "",
       role: "employee",
       idCenter: inputIdCenterRef.current.value,
-      state: 'Activo',
+      state: "Activo",
     };
 
     try {
-      const token = localStorage.getItem('token');
-      const response = await axiosInstance.post('/employees/register', employeesData, {
-        headers: {
-          Authorization: `Bearer ${token}`
+      const token = localStorage.getItem("token");
+      const response = await axiosInstance.post(
+        "/employees/register",
+        employeesData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      });
-
+      );
 
       if (response.status === 200 || response.status === 201) {
         setCreateEmpleyees(true);
       } else {
         toast.error(error.response.data.error, {
           progressStyle: {
-            backgroundColor: '#692FDB', // Color de la barra de carga
+            backgroundColor: "#692FDB", // Color de la barra de carga
           },
         });
       }
     } catch (error) {
       toast.error(error.response.data.error, {
         progressStyle: {
-          backgroundColor: '#692FDB', // Color de la barra de carga
+          backgroundColor: "#692FDB", // Color de la barra de carga
         },
       });
     } finally {
       setIsSubmitting(false);
     }
-
   };
 
   return (
     <>
-      <div className='fixed' onClick={() => setLocation(Location)} >
-        <ButtomHome customClassName={'cursor-pointer text-[40px] text-[#1E1E1E] fixed right-[38rem] top-[0rem]'} />
+      <div className="fixed" onClick={() => setLocation(Location)}>
+        <ButtomHome
+          customClassName={
+            "cursor-pointer text-[40px] text-[#1E1E1E] fixed right-[38rem] top-[0rem]"
+          }
+        />
       </div>
-      <form className='w-[560px] flex flex-col gap-[60px] items-center '>
-        <div className='flex flex-col items-center gap-[20px] '>
-          <h2 className='text-[#1E1E1E] font-medium text-[56px] '>Inscripción Empleado</h2>
+      <form className="w-[560px] flex flex-col gap-[60px] items-center ">
+        <div className="flex flex-col items-center gap-[20px] ">
+          <h2 className="text-[#1E1E1E] font-medium text-[56px] ">
+            Inscripción Empleado
+          </h2>
         </div>
-        <div className='flex flex-col items-center gap-[40px]'>
-          <label className='flex flex-wrap justify-center  gap-y-[20px] gap-x-[15px] '>
-            <InputFormsEmployees type={'text'} placeholder='Pon tu Cedula' userRef={inputIdRef} />
-            <InputFormsEmployees type={'text'} placeholder='Pon tu Nombre' userRef={inputNameRef} />
-            <InputFormsEmployees type={'text'} placeholder='Pon tu Apellido' userRef={inputLastNameRef} />
-            <InputFormsEmployees type={'email'} placeholder='Pon tu Correo' userRef={inputEmailRef} />
-            <InputFormsEmployees type={'text'} placeholder='Pon tu Telefono' userRef={inputPhoneRef} />
-            <InputFormsEmployees type={'text'} placeholder='Pon tu Direccion' userRef={inputAddressRef} />
-            <InputFormsEmployees type={'password'} placeholder='Pon tu Contraseña' userRef={inputPasswordRef} />
-            <InputFormsEmployees type={'text'} placeholder='Pon tu Numero de Centro' userRef={inputIdCenterRef} />
+        <div className="flex flex-col items-center gap-[40px]">
+          <label className="flex flex-wrap justify-center  gap-y-[20px] gap-x-[15px] ">
+            <CustomInputregister
+              label="Cedula"
+              inputRef={inputIdRef}
+              color="#1e1e1e"
+            />
+            <CustomInputregister
+              label="Nombre"
+              inputRef={inputNameRef}
+              color="#1e1e1e"
+            />
+            <CustomInputregister
+              label="Apellido"
+              inputRef={inputLastNameRef}
+              color="#1e1e1e"
+            />
+            <CustomInputregister
+              label="Correo"
+              inputRef={inputEmailRef}
+              color="#1e1e1e"
+            />
+            <CustomInputregister
+              label="Numero"
+              inputRef={inputPhoneRef}
+              color="#1e1e1e"
+            />
+            <CustomInputregister
+              label="Direccion"
+              inputRef={inputAddressRef}
+              color="#1e1e1e"
+            />
+            <CustomInputregister
+              label="Contraseña"
+              inputRef={inputPasswordRef}
+              color="#1e1e1e"
+            />
+            <CustomInputregister
+              label="N° estab"
+              inputRef={inputIdCenterRef}
+              color="#1e1e1e"
+            />
           </label>
-          <ButtonUsers width='' Text={'Crear Empleado'} onClick={toggleCreateEmployees} />
+          <ButtonUsers
+            width=""
+            Text={"Crear Empleado"}
+            onClick={toggleCreateEmployees}
+          />
         </div>
       </form>
-      <ToastContainer position="top-center" autoClose={1500} pauseOnHover={false} />
+      <ToastContainer
+        position="top-center"
+        autoClose={1500}
+        pauseOnHover={false}
+      />
     </>
-  )
-}
+  );
+};
 
 export const FormsUsers = ({ Location }) => {
   const { setCreateUser } = useContext(StateContext);
   const [location, setLocation] = useLocation();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const inputIdRef = useRef()
-  const inputNameRef = useRef()
-  const inputLastNameRef = useRef()
-  const inputEmailRef = useRef()
-  const inputPhoneRef = useRef()
-  const inputAddressRef = useRef()
+  const inputIdRef = useRef();
+  const inputNameRef = useRef();
+  const inputLastNameRef = useRef();
+  const inputEmailRef = useRef();
+  const inputPhoneRef = useRef();
+  const inputAddressRef = useRef();
   // const inputAsistanceRef = useRef()
-  const inputIdCenterRef = useRef()
+  const inputIdCenterRef = useRef();
 
   const toggleCreateUser = async () => {
-
     if (isSubmitting) return; // Evita envíos duplicados
 
     setIsSubmitting(true);
@@ -217,16 +323,16 @@ export const FormsUsers = ({ Location }) => {
       address: inputAddressRef.current.value,
       // assistance: "Hoy",
       idCenter: inputIdCenterRef.current.value,
-      state: 'Activo',
-      img: '',
+      state: "Activo",
+      img: "",
     };
 
     try {
-      const token = localStorage.getItem('token');
-      const response = await axiosInstance.post('/clients/register', userData, {
+      const token = localStorage.getItem("token");
+      const response = await axiosInstance.post("/clients/register", userData, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       if (response.status === 200 || response.status === 201) {
@@ -236,85 +342,126 @@ export const FormsUsers = ({ Location }) => {
       } else {
         toast.error(error.response.data.error, {
           progressStyle: {
-            backgroundColor: '#692FDB', // Color de la barra de carga
+            backgroundColor: "#692FDB", // Color de la barra de carga
           },
         });
       }
 
-      inputIdRef.current.value = '';
-      inputNameRef.current.value = '';
-      inputLastNameRef.current.value = '';
-      inputEmailRef.current.value = '';
-      inputPhoneRef.current.value = '';
-      inputAddressRef.current.value = '';
-      inputIdCenterRef.current.value = '';
+      inputIdRef.current.value = "";
+      inputNameRef.current.value = "";
+      inputLastNameRef.current.value = "";
+      inputEmailRef.current.value = "";
+      inputPhoneRef.current.value = "";
+      inputAddressRef.current.value = "";
+      inputIdCenterRef.current.value = "";
     } catch (error) {
       toast.error(error.response.data.error, {
         progressStyle: {
-          backgroundColor: '#692FDB', // Color de la barra de carga
+          backgroundColor: "#692FDB", // Color de la barra de carga
         },
       });
     } finally {
       setIsSubmitting(false);
     }
-
   };
 
   return (
     <>
-      <div className='fixed' onClick={() => setLocation(Location)} >
-        <ButtomHome customClassName={'cursor-pointer text-[40px] text-[#1E1E1E] fixed right-[38rem] top-[0rem]'} />
+      <div className="fixed" onClick={() => setLocation(Location)}>
+        <ButtomHome
+          customClassName={
+            "cursor-pointer text-[40px] text-[#1E1E1E] fixed right-[38rem] top-[0rem]"
+          }
+        />
       </div>
-      <form className='w-[560px] flex flex-col gap-[60px] items-center '>
-        <div className='flex flex-col items-center gap-[20px] '>
-          <h2 className='text-[#1E1E1E] font-medium text-[56px] '>Inscripción Cliente</h2>
+      <form className="w-[560px] flex flex-col gap-[60px] items-center ">
+        <div className="flex flex-col items-center gap-[20px] ">
+          <h2 className="text-[#1E1E1E] font-medium text-[56px] ">
+            Inscripción Cliente
+          </h2>
         </div>
-        <div className='flex flex-col items-center gap-[40px]'>
-          <label className='flex flex-wrap justify-center  gap-y-[20px] gap-x-[15px] '>
-            <InputFormsUsers type={'text'} placeholder='Pon tu Numero de Cedula' userRef={inputIdRef} />
-            <InputFormsUsers type={'text'} placeholder='Pon tu Nombre' userRef={inputNameRef} />
-            <InputFormsUsers type={'text'} placeholder='Pon tu Apellido' userRef={inputLastNameRef} />
-            <InputFormsUsers type={'text'} placeholder='Pon tu Correo' userRef={inputEmailRef} />
-            <InputFormsUsers type={'email'} placeholder='Pon tu Telefono' userRef={inputPhoneRef} />
-            <InputFormsUsers type={'text'} placeholder='Pon tu Direccion' userRef={inputAddressRef} />
-            <InputFormsUsers type={'email'} placeholder='Pon El numero de tu centro' userRef={inputIdCenterRef} />
+        <div className="flex flex-col items-center gap-[40px]">
+          <label className="flex flex-wrap justify-center  gap-y-[20px] gap-x-[10px] ">
+            <CustomInputregister
+              label="Cedula"
+              inputRef={inputIdRef}
+              color="#1e1e1e"
+            />
+            <CustomInputregister
+              label="Nombre"
+              inputRef={inputNameRef}
+              color="#1e1e1e"
+            />
+            <CustomInputregister
+              label="Apellido"
+              inputRef={inputLastNameRef}
+              color="#1e1e1e"
+            />
+            <CustomInputregister
+              label="Correo"
+              inputRef={inputEmailRef}
+              color="#1e1e1e"
+            />
+            <CustomInputregister
+              label="Numero"
+              inputRef={inputPhoneRef}
+              color="#1e1e1e"
+            />
+            <CustomInputregister
+              label="Direccion"
+              inputRef={inputAddressRef}
+              color="#1e1e1e"
+            />
+            <CustomInputregister
+              label="N° Estab"
+              inputRef={inputIdCenterRef}
+              color="#1e1e1e"
+            />
           </label>
-          <ButtonUsers width='' Text={'Crear Usuario'} onClick={toggleCreateUser} />
+          <ButtonUsers
+            width=""
+            Text={"Crear Usuario"}
+            onClick={toggleCreateUser}
+          />
         </div>
       </form>
-      <ToastContainer position="top-center" autoClose={1500} pauseOnHover={false} />
+      <ToastContainer
+        position="top-center"
+        autoClose={1500}
+        pauseOnHover={false}
+      />
     </>
-  )
-}
+  );
+};
 
 export const FormsTwoVerificAdmin = () => {
-  const inputPasswordRef = useRef()
+  const inputPasswordRef = useRef();
   const [location, setLocation] = useLocation();
-  const [routeAdmin, setRouteAdmin] = useState('');
+  const [routeAdmin, setRouteAdmin] = useState("");
 
   useEffect(() => {
     // Obtén el valor de routeE de localStorage al cargar el componente
-    const storedRoute = localStorage.getItem('routeA');
+    const storedRoute = localStorage.getItem("routeA");
     if (storedRoute) {
       setRouteAdmin(storedRoute);
     }
   }, [routeAdmin]);
 
   const toggleTwoVerific = async () => {
-    const code = inputPasswordRef.current.value
+    const code = inputPasswordRef.current.value;
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token && code) {
       try {
         const response = await axiosInstance.post(
-          '/twoverific/verifycode',
+          "/twoverific/verifycode",
           { code },
           { headers: { Authorization: `Bearer ${token}` } }
         );
         // alert("Codigo correcto se logeo con exito")
         toast.success(response.data.message, {
           progressStyle: {
-            backgroundColor: '#692FDB', // Color de la barra de carga
+            backgroundColor: "#692FDB", // Color de la barra de carga
           },
         });
         // console.log(token);
@@ -329,14 +476,14 @@ export const FormsTwoVerificAdmin = () => {
         // alert('Error verifying code');
         toast.error(error.response.data.error, {
           progressStyle: {
-            backgroundColor: '#692FDB', // Color de la barra de carga
+            backgroundColor: "#692FDB", // Color de la barra de carga
           },
         });
       }
     } else {
       toast.error("Codigo requerido", {
         progressStyle: {
-          backgroundColor: '#692FDB', // Color de la barra de carga
+          backgroundColor: "#692FDB", // Color de la barra de carga
         },
       });
       // alert('Token and code are required');
@@ -347,25 +494,29 @@ export const FormsTwoVerificAdmin = () => {
     <>
       <form className="absolute w-[600px] flex flex-col top-[100px] left-[450px] gap-[40px] items-center ">
         <div className="flex flex-col items-center gap-[20px] ">
-          <h2 className="text-[#FE7A36] font-medium text-[50px] ">Verificacion dos pasos</h2>
-          <FaUserCircle className="text-[70px] text-[#FE7A36] " />
+          <h2 className="text-[#1e1e1e] font-medium text-[50px] ">
+            Verificacion dos pasos
+          </h2>
+          <FaUserCircle className="text-[70px] text-[#1e1e1e] " />
         </div>
-        <div className="flex flex-col items-center gap-[8px]">
+        <div className="flex flex-col items-center gap-[20px]">
           <label className="flex flex-col items-center justify-center gap-y-[20px] ">
-            <InputFormslog type={'text'} placeholder="Pon tú Codigo..." userRef={inputPasswordRef} />
-          </label>
-          <div className="w-full px-2 flex flex-col gap-0 items-start">
-            <Inputolvi
-              placeholder="¿Estas registrado en la app?"
-              textsize={"10px"}
+          <CustomInput
+              color="#1e1e1e"
+              label="Pon tú Código"
+              inputRef={inputPasswordRef} // Asegúrate de usar inputRef
             />
-          </div>
-          <div >
-            <Buttonlog Text={"Enviar"} width='' onClick={toggleTwoVerific} />
+          </label>
+            <div>
+            <ButtonUsers width="" Text={"Enviar"} onClick={toggleTwoVerific} />
           </div>
         </div>
       </form>
-      <ToastContainer position="top-center" autoClose={1000} pauseOnHover={false} />
+      <ToastContainer
+        position="top-center"
+        autoClose={1000}
+        pauseOnHover={false}
+      />
     </>
   );
 };
@@ -375,17 +526,16 @@ export const FormsTwoVerificEmployee = () => {
   const [location, setLocation] = useLocation();
   const [loading, setLoading] = useState(false);
 
-
   const toggleTwoVerific = async () => {
-    const code = inputPasswordRef.current.value
-    const token = localStorage.getItem('token');
-    const routeEmployee = localStorage.getItem('routeE');
+    const code = inputPasswordRef.current.value;
+    const token = localStorage.getItem("token");
+    const routeEmployee = localStorage.getItem("routeE");
 
     if (token && code) {
       setLoading(true);
       try {
         const response = await axiosInstance.post(
-          '/twoverific/verifycode',
+          "/twoverific/verifycode",
           { code },
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -394,7 +544,7 @@ export const FormsTwoVerificEmployee = () => {
         // alert("Codigo correcto se logeo con exito")
         toast.success(response.data.message, {
           progressStyle: {
-            backgroundColor: '#692FDB', // Color de la barra de carga
+            backgroundColor: "#692FDB", // Color de la barra de carga
           },
         });
         // console.log(token);
@@ -409,7 +559,7 @@ export const FormsTwoVerificEmployee = () => {
         // alert('Error verifying code');
         toast.error(error.response.data.error, {
           progressStyle: {
-            backgroundColor: '#692FDB', // Color de la barra de carga
+            backgroundColor: "#692FDB", // Color de la barra de carga
           },
         });
       } finally {
@@ -418,7 +568,7 @@ export const FormsTwoVerificEmployee = () => {
     } else {
       toast.error("Codigo requerido", {
         progressStyle: {
-          backgroundColor: '#692FDB', // Color de la barra de carga
+          backgroundColor: "#692FDB", // Color de la barra de carga
         },
       });
       // alert('Token and code are required');
@@ -429,25 +579,29 @@ export const FormsTwoVerificEmployee = () => {
     <>
       <form className="absolute w-[600px] flex flex-col top-[100px] left-[450px] gap-[40px] items-center ">
         <div className="flex flex-col items-center gap-[20px] ">
-          <h2 className="text-[#FE7A36] font-medium text-[50px] ">Verificacion dos pasos</h2>
-          <FaUserCircle className="text-[70px] text-[#FE7A36] " />
+          <h2 className="text-[#1e1e1e] font-medium text-[50px] ">
+            Verificacion dos pasos
+          </h2>
+          <FaUserCircle className="text-[70px] text-[#1e1e1e] " />
         </div>
-        <div className="flex flex-col items-center gap-[8px]">
+        <div className="flex flex-col items-center gap-[30px]">
           <label className="flex flex-col items-center justify-center gap-y-[20px] ">
-            <InputFormslog type={'text'} placeholder="Pon tú Codigo..." userRef={inputPasswordRef} />
-          </label>
-          <div className="w-full px-2 flex flex-col gap-0 items-start">
-            <Inputolvi
-              placeholder="¿Estas registrado en la app?"
-              textsize={"10px"}
+            <CustomInput
+              color="#1e1e1e"
+              label="Pon tú Código"
+              inputRef={inputPasswordRef} // Asegúrate de usar inputRef
             />
-          </div>
-          <div >
-            <Buttonlog width='' Text={"Enviar"} onClick={toggleTwoVerific} />
+          </label>
+          <div>
+            <ButtonUsers width="" Text={"Enviar"} onClick={toggleTwoVerific} />
           </div>
         </div>
       </form>
-      <ToastContainer position="top-center" autoClose={1000} pauseOnHover={false} />
+      <ToastContainer
+        position="top-center"
+        autoClose={1000}
+        pauseOnHover={false}
+      />
     </>
   );
 };
@@ -455,14 +609,13 @@ export const FormsTwoVerificEmployee = () => {
 export const Formslogempleado = () => {
   const [location, setLocation] = useLocation();
   const { setLoginEmpleyees } = useContext(StateContext);
-  const inputEmailRef = useRef()
-  const inputPasswordRef = useRef()
+  const inputEmailRef = useRef();
+  const inputPasswordRef = useRef();
   const [animate, setAnimate] = useState(false);
   const [progress, setProgress] = useState(0);
   const { animateProgress, setAnimateProgress } = useContext(StateContext);
 
   const toggleLoginEmployee = async () => {
-
     // toast.error('Pagina Inhabilitada', {
     //   progressStyle: {
     //     backgroundColor: '#692FDB', // Color de la barra de carga
@@ -475,11 +628,14 @@ export const Formslogempleado = () => {
     };
 
     try {
-      const response = await axiosInstance.post('/employees/login', employeeData);
+      const response = await axiosInstance.post(
+        "/employees/login",
+        employeeData
+      );
 
       setAnimate(true);
       setTimeout(() => {
-        setAnimateProgress(true)
+        setAnimateProgress(true);
       }, 1000);
 
       if (response.status === 200 || response.status === 201) {
@@ -488,9 +644,9 @@ export const Formslogempleado = () => {
         const route = response.data.routeCode;
 
         // Almacenar el token en localStorage
-        localStorage.setItem('token', token);
-        localStorage.setItem('role', role);
-        localStorage.setItem('routeE', route);
+        localStorage.setItem("token", token);
+        localStorage.setItem("role", role);
+        localStorage.setItem("routeE", route);
 
         await sendVerificationCode(token);
         // console.log(token);
@@ -500,59 +656,60 @@ export const Formslogempleado = () => {
         // console.log(response.data);
         toast.error(error.response.data.error, {
           progressStyle: {
-            backgroundColor: '#692FDB', // Color de la barra de carga
+            backgroundColor: "#692FDB", // Color de la barra de carga
           },
         });
       }
     } catch (error) {
       toast.error(error.response.data.error, {
         progressStyle: {
-          backgroundColor: '#692FDB', // Color de la barra de carga
+          backgroundColor: "#692FDB", // Color de la barra de carga
         },
       });
     }
-
   };
 
   const sendVerificationCode = async (token) => {
-      let simulateProgress;
-      try {
-        const totalDuration = 5000; // Duración simulada de 5 segundos
-  
-        // Inicializa un intervalo para simular el progreso mientras se descarga la data
-        simulateProgress = setInterval(() => {
-          setProgress(prev => {
-            if (prev >= 100) {
-              clearInterval(simulateProgress);
-              return 100;
-            }
-            return prev + 1; // Incremento del progreso
-          });
-        }, totalDuration / 100); // Divide la duración total en 100 partes
-  
-        // Envía la solicitud de verificación del token
-        const response = await axiosInstance.post(
-          '/vr/veriftokenandsendcode',
-          {}, // Cuerpo vacío para esta solicitud
-          {
-            headers: { Authorization: `Bearer ${token}` },
-            onDownloadProgress: (progressEvent) => {
-              const total = progressEvent.total || totalDuration; // Usa el tamaño total o simulado
-              const currentProgress = Math.round((progressEvent.loaded * 100) / total);
-              setProgress(currentProgress);
-            }
+    let simulateProgress;
+    try {
+      const totalDuration = 5000; // Duración simulada de 5 segundos
+
+      // Inicializa un intervalo para simular el progreso mientras se descarga la data
+      simulateProgress = setInterval(() => {
+        setProgress((prev) => {
+          if (prev >= 100) {
+            clearInterval(simulateProgress);
+            return 100;
           }
-        );
+          return prev + 1; // Incremento del progreso
+        });
+      }, totalDuration / 100); // Divide la duración total en 100 partes
+
+      // Envía la solicitud de verificación del token
+      const response = await axiosInstance.post(
+        "/vr/veriftokenandsendcode",
+        {}, // Cuerpo vacío para esta solicitud
+        {
+          headers: { Authorization: `Bearer ${token}` },
+          onDownloadProgress: (progressEvent) => {
+            const total = progressEvent.total || totalDuration; // Usa el tamaño total o simulado
+            const currentProgress = Math.round(
+              (progressEvent.loaded * 100) / total
+            );
+            setProgress(currentProgress);
+          },
+        }
+      );
     } catch (error) {
       toast.error(error.response.data.error, {
         progressStyle: {
-          backgroundColor: '#692FDB', // Color de la barra de carga
+          backgroundColor: "#692FDB", // Color de la barra de carga
         },
       });
-    }finally {
+    } finally {
       // Asegúrate de que se detenga el progreso al llegar a 100%
       clearInterval(simulateProgress);
-      setProgress(100);  // Configura el progreso al 100 si no lo ha alcanzado
+      setProgress(100); // Configura el progreso al 100 si no lo ha alcanzado
     }
   };
 
@@ -564,19 +721,35 @@ export const Formslogempleado = () => {
 
   return (
     <>
-    <div className='relative w-[600px] flex flex-col  left-[450px] gap-[40px] items-center'>
-
-      <form className={`w-[300px] flex flex-col top-[100px] left-[450px] gap-[40px] items-center ${animate ? 'animate-jump-out animate-duration-1000 animate-fill-forwards' : ''}`}>
-        <div className="flex flex-col items-center gap-[20px] ">
-          <h2 className="text-[#FE7A36] font-medium text-[50px] ">Login</h2>
-          <FaUserCircle className="text-[70px] text-[#FE7A36] " />
-        </div>
-        <div className="flex flex-col items-center gap-[8px]">
-          <label className="flex flex-col items-center justify-center gap-y-[20px] ">
-            <InputFormslog type={'text'} placeholder="Pon tú Email..." userRef={inputEmailRef} />
-            <InputFormslog type={'password'} placeholder="Pon tú Contraseña..." userRef={inputPasswordRef} />
-          </label>
-          {/* <div className="w-full px-2 flex flex-col gap-0 items-start">
+      <div className="relative w-[600px] flex flex-col  left-[450px] gap-[40px] items-center">
+        <form
+          className={`w-[300px] flex flex-col top-[100px] left-[450px] gap-[40px] items-center ${
+            animate
+              ? "animate-jump-out animate-duration-1000 animate-fill-forwards"
+              : ""
+          }`}
+        >
+          <div className="flex flex-col items-center gap-[20px] ">
+            <h2 className="text-[#FE7A36] font-medium text-[50px] ">Login</h2>
+            <FaUserCircle className="text-[70px] text-[#FE7A36] " />
+          </div>
+          <div className="flex flex-col items-center gap-[8px]">
+            <label className="flex flex-col items-center justify-center gap-y-[20px] ">
+              <label className="flex flex-col items-center justify-center gap-y-[20px]">
+                <CustomInput
+                  label="Correo"
+                  inputRef={inputEmailRef}
+                  color="#FE7A36"
+                />
+                <CustomInput
+                  type="password"
+                  label="Contraseña"
+                  inputRef={inputPasswordRef}
+                  color="#FE7A36"
+                />
+              </label>
+            </label>
+            {/* <div className="w-full px-2 flex flex-col gap-0 items-start">
           <Inputolvi
             onClick={() => setLocation("/register")}
             placeholder="¿No estas registrado en la app?"
@@ -584,29 +757,41 @@ export const Formslogempleado = () => {
           />
           <Inputrecuerdame placeholder="recuerdame" />
         </div> */}
-          <div >
-            <Buttonlog width='' Text={"Iniciar"} onClick={toggleLoginEmployee} />
+            <div>
+              <Buttonlog
+                width=""
+                Text={"Iniciar"}
+                onClick={toggleLoginEmployee}
+              />
+            </div>
           </div>
-        </div>
-      </form>
-      <CircularProgressBar validator={animateProgress} progress={progress} size={220} ></CircularProgressBar>
+        </form>
+        <CircularProgressBar
+          validator={animateProgress}
+          progress={progress}
+          size={220}
+        ></CircularProgressBar>
       </div>
-      <ToastContainer position="top-center" autoClose={1000} pauseOnHover={false} />
+      <ToastContainer
+        position="top-center"
+        autoClose={1000}
+        pauseOnHover={false}
+      />
     </>
   );
 };
 
-export const Formsreg = ({ }) => {
+export const Formsreg = ({}) => {
   const [location, setLocation] = useLocation();
   const { setmodalverificate } = useContext(StateContext);
   return (
-    <form className='absolute w-[550px] flex flex-col top-[30px] right-[160px] gap-[50px] items-center '>
-      <div className='flex flex-col items-center gap-[10px] '>
-        <h2 className='text-[#692FDB] font-medium text-[62px] '>Registrate</h2>
-        <FaUserCircle className='text-[80px] text-[#692FDB] ' />
+    <form className="absolute w-[550px] flex flex-col top-[30px] right-[160px] gap-[50px] items-center ">
+      <div className="flex flex-col items-center gap-[10px] ">
+        <h2 className="text-[#692FDB] font-medium text-[62px] ">Registrate</h2>
+        <FaUserCircle className="text-[80px] text-[#692FDB] " />
       </div>
-      <div className='flex flex-col items-center gap-[10px]'>
-        <label className='flex flex-wrap justify-around gap-y-[15px] '>
+      <div className="flex flex-col items-center gap-[10px]">
+        <label className="flex flex-wrap justify-around gap-y-[15px] ">
           <InputFormsreg placeholder="Pon tu correo..." />
           <InputFormsreg placeholder="Pon tu direccion..." />
           <InputFormsreg placeholder="Pon tu local..." />
@@ -622,58 +807,59 @@ export const Formsreg = ({ }) => {
             placeholder="¿Ya estas registrado en la app?"
           />
         </div>
-        <Buttonreg Text={'Contactanos'} />
+        <Buttonreg Text={"Contactanos"} />
       </div>
     </form>
-  )
-}
+  );
+};
 
 export const Formslog = () => {
   return (
-    <form className='absolute w-[600px] flex flex-col top-[50px] left-[450px] gap-[60px] items-center '>
-      <div className='flex flex-col items-center gap-[20px] '>
-        <h2 className='text-[#FE7A36] font-medium text-[62px] '>Login</h2>
-        <FaUserCircle className='text-[80px] text-[#FE7A36] ' />
+    <form className="absolute w-[600px] flex flex-col top-[50px] left-[450px] gap-[60px] items-center ">
+      <div className="flex flex-col items-center gap-[20px] ">
+        <h2 className="text-[#FE7A36] font-medium text-[62px] ">Login</h2>
+        <FaUserCircle className="text-[80px] text-[#FE7A36] " />
       </div>
-      <div className='flex flex-col items-center gap-[40px]'>
-        <label className='flex flex-col justify-center gap-y-[20px] '>
-          <InputFormslog placeholder='Pon tú ID' />
-          <InputFormslog placeholder='Pon tú codigo' />
-          <div className='w-[360px] flex justify-between'>
-            <Inputrecuerdame placeholder='recuerdame' />
-            <Inputolvi placeholder='¿Olvidaste tu contraseña?' />
+      <div className="flex flex-col items-center gap-[40px]">
+        <label className="flex flex-col justify-center gap-y-[20px] ">
+          <InputFormslog placeholder="Pon tú ID" />
+          <InputFormslog placeholder="Pon tú codigo" />
+          <div className="w-[360px] flex justify-between">
+            <Inputrecuerdame placeholder="recuerdame" />
+            <Inputolvi placeholder="¿Olvidaste tu contraseña?" />
           </div>
         </label>
-        <Buttonlog Text={'Iniciar'} />
+        <Buttonlog Text={"Iniciar"} />
       </div>
     </form>
-  )
-}
+  );
+};
 
 export const Formslogadmin = () => {
   const [location, setLocation] = useLocation();
   const { setLoginAdmin } = useContext(StateContext);
+
   const { animateProgress, setAnimateProgress } = useContext(StateContext);
-  const inputEmailRef = useRef()
-  const inputPasswordRef = useRef()
+  const inputEmailRef = useRef();
+  const inputPasswordRef = useRef();
   const [animate, setAnimate] = useState(false);
   const [progress, setProgress] = useState(0);
 
   const toggleLoginAdmin = async () => {
-
-
     const adminData = {
       email: inputEmailRef.current.value,
       password: inputPasswordRef.current.value,
     };
 
     try {
-
-      const response = await axiosInstance.post('/administrator/login', adminData);
+      const response = await axiosInstance.post(
+        "/administrator/login",
+        adminData
+      );
 
       setAnimate(true);
       setTimeout(() => {
-        setAnimateProgress(true)
+        setAnimateProgress(true);
       }, 1000);
 
       if (response.status === 200 || response.status === 201) {
@@ -681,34 +867,30 @@ export const Formslogadmin = () => {
         const role = response.data.role;
         const route = response.data.routeCode;
 
-
-
         // Almacenar el token en localStorage
-        localStorage.setItem('token', token);
-        localStorage.setItem('role', role);
-        localStorage.setItem('routeA', route);
+        localStorage.setItem("token", token);
+        localStorage.setItem("role", role);
+        localStorage.setItem("routeA", route);
 
         await sendVerificationCode(token);
         // console.log(token);
         // const data = await response.json();
         // console.log('User registered:', data);
-
       } else {
         // console.log(response.data);
         toast.error(error.response.data.error, {
           progressStyle: {
-            backgroundColor: '#692FDB', // Color de la barra de carga
+            backgroundColor: "#692FDB", // Color de la barra de carga
           },
         });
       }
     } catch (error) {
       toast.error(error.response.data.error, {
         progressStyle: {
-          backgroundColor: '#692FDB', // Color de la barra de carga
+          backgroundColor: "#692FDB", // Color de la barra de carga
         },
       });
     }
-
   };
 
   const sendVerificationCode = async (token) => {
@@ -718,7 +900,7 @@ export const Formslogadmin = () => {
 
       // Inicializa un intervalo para simular el progreso mientras se descarga la data
       simulateProgress = setInterval(() => {
-        setProgress(prev => {
+        setProgress((prev) => {
           if (prev >= 100) {
             clearInterval(simulateProgress);
             return 100;
@@ -729,29 +911,30 @@ export const Formslogadmin = () => {
 
       // Envía la solicitud de verificación del token
       const response = await axiosInstance.post(
-        '/vr/veriftokenandsendcode',
+        "/vr/veriftokenandsendcode",
         {}, // Cuerpo vacío para esta solicitud
         {
           headers: { Authorization: `Bearer ${token}` },
           onDownloadProgress: (progressEvent) => {
             const total = progressEvent.total || totalDuration; // Usa el tamaño total o simulado
-            const currentProgress = Math.round((progressEvent.loaded * 100) / total);
+            const currentProgress = Math.round(
+              (progressEvent.loaded * 100) / total
+            );
             setProgress(currentProgress);
-          }
+          },
         }
       );
-
     } catch (error) {
       // Manejo de errores con la notificación de Toast
-      toast.error(error.response?.data?.error || 'Error en la verificación', {
+      toast.error(error.response?.data?.error || "Error en la verificación", {
         progressStyle: {
-          backgroundColor: '#692FDB', // Color de la barra de carga
+          backgroundColor: "#692FDB", // Color de la barra de carga
         },
       });
     } finally {
       // Asegúrate de que se detenga el progreso al llegar a 100%
       clearInterval(simulateProgress);
-      setProgress(100);  // Configura el progreso al 100 si no lo ha alcanzado
+      setProgress(100); // Configura el progreso al 100 si no lo ha alcanzado
     }
   };
 
@@ -763,17 +946,33 @@ export const Formslogadmin = () => {
 
   return (
     <>
-      <div className='relative w-[600px] flex flex-col  left-[450px] gap-[40px] items-center '>
-        <form className={`w-[300px] flex flex-col top-[100px] left-[450px] gap-[40px] items-center ${animate ? 'animate-jump-out animate-duration-1000 animate-fill-forwards' : ''}`}>
+      <div className="relative w-[600px] flex flex-col  left-[450px] gap-[40px] items-center ">
+        <form
+          className={`w-[300px] flex flex-col top-[100px] left-[450px] gap-[40px] items-center ${
+            animate
+              ? "animate-jump-out animate-duration-1000 animate-fill-forwards"
+              : ""
+          }`}
+        >
           <div className="flex flex-col items-center gap-[20px] ">
             <h2 className="text-[#692FDB] font-medium text-[50px] ">Login</h2>
             <FaUserCircle className="text-[70px] text-[#692FDB] " />
           </div>
           <div className="flex flex-col items-center gap-[8px]">
-            <label className="flex flex-col items-center justify-center gap-y-[20px] ">
-              <InputFormslog2 type={'text'} placeholder="Pon tú Correo..." userRef={inputEmailRef} />
-              <InputFormslog2 type={'password'} placeholder="Pon tú contraseña..." userRef={inputPasswordRef} />
+            <label className="flex flex-col items-center justify-center gap-y-[20px]">
+              <CustomInput
+                label="Correo"
+                inputRef={inputEmailRef}
+                color="#692FDB"
+              />
+              <CustomInput
+                type="password"
+                label="Contraseña"
+                inputRef={inputPasswordRef}
+                color="#692FDB"
+              />
             </label>
+
             <div className="w-full px-2 flex flex-col gap-0 items-start">
               {/* <Inputolvi
             onClick={() => setLocation("/register")}
@@ -782,17 +981,27 @@ export const Formslogadmin = () => {
             
           />
           <Inputrecuerdame placeholder="recuerdame" /> */}
-
             </div>
-            <Buttonlog2 width="" Text={"Iniciar"} onClick={() => {
-              toggleLoginAdmin();
-            }} />
+            <Buttonlog2
+              width=""
+              Text={"Iniciar"}
+              onClick={() => {
+                toggleLoginAdmin();
+              }}
+            />
           </div>
         </form>
-        <CircularProgressBar validator={animateProgress} progress={progress} size={220} ></CircularProgressBar>
+        <CircularProgressBar
+          validator={animateProgress}
+          progress={progress}
+          size={220}
+        ></CircularProgressBar>
       </div>
-      <ToastContainer position="top-center" autoClose={1000} pauseOnHover={false} />
+      <ToastContainer
+        position="top-center"
+        autoClose={1000}
+        pauseOnHover={false}
+      />
     </>
   );
 };
-

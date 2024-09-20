@@ -1,12 +1,14 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { NavbarEmployee } from "../../shared/Navbar/Navbar";
 import { Usertype } from "../../shared/Figures/Figures";
 import Carrusel from "../../Carrusel/Datoscuriosos/carrusel1";
 import { Footer } from "../../Footer/Footer";
 import Principalcarrusel from "../../Carrusel/Principalcarrusel/carrusel0";
-
+import { StateContext } from '../../Context/Context';
 
 export const HomeEmployee = () => {
+  const { userObservation, setUserObservation } = useContext(StateContext);
+
   return (
     <div className="w-full h-auto bg-[#F0ECE3] flex flex-col gap-[5rem]">
       <NavbarEmployee login={true} customClassName={'text-[#FE7A36]'} />
