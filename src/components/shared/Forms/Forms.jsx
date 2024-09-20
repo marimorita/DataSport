@@ -30,12 +30,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import CircularProgressBar from "../ProgressBar/CircularProgressBar";
 
-<<<<<<< HEAD
-
-export const FormsAdmin = ({ }) => {
-=======
 export const FormsAdmin = ({}) => {
->>>>>>> testFront
   const { setCreateAdmin } = useContext(StateContext);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [location, setLocation] = useLocation();
@@ -675,35 +670,6 @@ export const Formslogempleado = () => {
   };
 
   const sendVerificationCode = async (token) => {
-<<<<<<< HEAD
-
-      let simulateProgress;
-      try {
-        const totalDuration = 5000; // Duración simulada de 5 segundos
-  
-        // Inicializa un intervalo para simular el progreso mientras se descarga la data
-        simulateProgress = setInterval(() => {
-          setProgress(prev => {
-            if (prev >= 100) {
-              clearInterval(simulateProgress);
-              return 100;
-            }
-            return prev + 1; // Incremento del progreso
-          });
-        }, totalDuration / 100); // Divide la duración total en 100 partes
-  
-        // Envía la solicitud de verificación del token
-        const response = await axiosInstance.post(
-          '/vr/veriftokenandsendcode',
-          {}, // Cuerpo vacío para esta solicitud
-          {
-            headers: { Authorization: `Bearer ${token}` },
-            onDownloadProgress: (progressEvent) => {
-              const total = progressEvent.total || totalDuration; // Usa el tamaño total o simulado
-              const currentProgress = Math.round((progressEvent.loaded * 100) / total);
-              setProgress(currentProgress);
-            }
-=======
     let simulateProgress;
     try {
       const totalDuration = 5000; // Duración simulada de 5 segundos
@@ -714,7 +680,6 @@ export const Formslogempleado = () => {
           if (prev >= 100) {
             clearInterval(simulateProgress);
             return 100;
->>>>>>> testFront
           }
           return prev + 1; // Incremento del progreso
         });

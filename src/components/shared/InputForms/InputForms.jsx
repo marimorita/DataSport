@@ -292,8 +292,6 @@ export const CustomTextArea = ({ label, color, inputProps, inputRef }) => {
     </span>
   );
 };
-<<<<<<< HEAD
-=======
 
 // Custominmputregister Component
 export const CustomInputregister = ({ label, type = "text", color, inputProps, inputRef }) => {
@@ -346,4 +344,3 @@ export const CustomInputregister = ({ label, type = "text", color, inputProps, i
     </span>
   );
 };
->>>>>>> testFront
