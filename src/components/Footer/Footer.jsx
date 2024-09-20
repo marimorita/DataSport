@@ -7,7 +7,7 @@ import { CgMail } from "react-icons/cg";
 
 export const Footer = () => {
   return (
-    <div className="flex-col w-full h-[35rem] bg-gradient-to-r from-[#381975]  to-[#692FDB] ">
+    <div className="flex-col w-full h-[30rem] bg-gradient-to-r from-[#381975]  to-[#692FDB] ">
       <div className="text-white flex-col text-[1rem]  gap-y-[4rem]">
         <div className="flex justify-center gap-[12rem] pt-[4rem] mb-[2rem] ">
           <ul>
