@@ -20,6 +20,8 @@ export const ProfileUsers = ({ Location }) => {
   const { userView, setUserView } = useContext(StateContext)
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(false);
+  const [isPaymentHistoryOpen, setIsPaymentHistoryOpen] = useState(false);
+
 
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
@@ -614,12 +616,16 @@ export const ProfileUsers = ({ Location }) => {
                       de cada usuario{" "}
                     </h1>
                   </div>
-                  <div className="mt-[1rem]  mr-[4rem]">
+                  <div>
                     <Buttonredirect
-                      customClassName={
-                        "bg-[#F0ECE3] text-[#000001] text-[20px] text-center w-[15rem] text-[22px] rounded-[10px] py-[0.5rem]"
-                      }
-                      Text={"Equipo de trabajo"}
+                      customClassName="bg-[#F0ECE3] text-[#000001] text-[20px] text-center w-[15rem] text-[22px] rounded-[10px] py-[0.5rem]"
+                      Text="Historial de Pagos"
+                      onClick={() => setIsPaymentHistoryOpen(true)}
+                    />
+
+                    <PaymentHistory
+                      isOpen={isPaymentHistoryOpen}
+                      onClose={() => setIsPaymentHistoryOpen(false)}
                     />
                   </div>
                 </div>

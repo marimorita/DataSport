@@ -197,8 +197,8 @@ export const Register = () => {
 <path d="M105.84 167.633H105.98L106.26 168.457V169.281H105.84V167.633Z" fill="#85378C"/>
 <defs>
 <linearGradient id="paint0_linear_985_585" x1="145.259" y1="274.028" x2="140.618" y2="89.6508" gradientUnits="userSpaceOnUse">
-<stop offset="0.220931" stop-color="#692FDB"/>
-<stop offset="0.688362" stop-color="#FE7A36"/>
+<stop offset="0.220931" stopColor="#692FDB"/>
+<stop offset="0.688362" stopColor="#FE7A36"/>
 </linearGradient>
 </defs>
 </svg>

@@ -11,8 +11,12 @@ import {
 import { axiosInstance } from '../../../../axiosConfig';
 import { ProductModal } from "../../Modals/ModalEquipments/ModalEquipment";
 import { Footer } from "../../Footer/Footer";
-
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
+import axios from "axios";
 // import NextInventory from '../../shared/inventorySelector/inventorySelector'
+initMercadoPago('TEST-6e3e3274-9651-4994-b1ea-10daf4df052c', {
+  locale: "es-CO",
+});
 
 export const Inventory = ({ nabvar }) => {
   const [viewAssets, setViewAssets] = useState([]);
@@ -208,6 +212,41 @@ export const Inventory = ({ nabvar }) => {
   console.log("alo", viewAssets);
 
   const userType = nabvar;
+
+  const [ preferenceId, setPreferenceId] = useState(null);
+
+
+  const createPreferences = async (product) => {
+
+    const dates = {
+      title: product.name,
+      quantity: 1,
+      unit_price: product.price,
+    }
+
+    console.log({ dates })
+    
+    try {
+      const response = await axios.post("http://localhost:3009/createpreferences", dates)
+
+      const { id } = response.data
+      return id
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+
+  const handleBuy = async (product) => {
+    console.log("se dio click a pagar");
+    console.log({product});
+    
+    const id = await createPreferences(product);
+    if (id) {
+      setPreferenceId(id)
+    }
+  }
+
   return (
     <div className="bg-[#F0ECE3] w-full flex flex-col justify-center gap-[3rem] ">
       <div className="w-full h-auto bg-[#F0ECE3] flex flex-col gap-[5rem]">
@@ -242,11 +281,15 @@ export const Inventory = ({ nabvar }) => {
                 title={product.name}
                 description={product.description}
                 price={product.price}
+                Onclick={()=>handleBuy(product)}
               />
             ))}
           </>
         )}
       </div>
+        {preferenceId && <Wallet initialization={{ preferenceId: preferenceId }} customization={{ texts: { valueProp: 'smart_option' } }} />}
+      
+
       <div className="w-full ">
         <Footer />
       </div>

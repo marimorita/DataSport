@@ -14,13 +14,12 @@ export const HomeEmployee = () => {
       <NavbarEmployee login={true} customClassName={'text-[#FE7A36]'} />
       <Usertype name={' Empleado'} customClassName={'bg-gradient-to-r from-[#F25200]  to-[#FF9F2E]'}/>
       <div className="flex flex-col justify-end min-h-[35rem] relative overflow-hidden ">
-        <section className="flex justify-between ">
-          <span className="mb-[20rem]">
-            <h1 className="text-[50px] px-[8rem] py-[1rem] text-[#3F3D56] ">
-
-              <b>¿Qué es Data Sport?</b>
+        <section className="flex justify-between sm:flex-col-reverse ">
+          <span className="mb-[20rem] sm:mb-[15rem]  ">
+            <h1 className="text-[50px] px-[8rem] py-[1rem] text-[#3F3D56] xl:text-[45px] lg:text-[35px] lg:ml-[-1rem] md:text-[28px] md:ml-[-4rem] sm:text-[20px]  sm:text-center sm:ml-[-1rem]">
+              <b>Que es Data Sport??</b>
             </h1>
-            <p className=" text-[25px] w-[45rem] px-[8rem] text-[#1E1E1E]">
+            <p className=" text-[25px] w-[45rem] px-[8rem] text-[#1E1E1E] xl:text-[25px] lg:text-[20px] lg:ml-[-1rem] md:text-[15px] md:ml-[-4rem] md:w-[40rem] sm:text-[12px] sm:ml-[-6rem] sm:text-center">
               En Data Sport optimizamos la gestión de centros deportivos
               sistematizando la información de clientes, empleados e
               inventarios. Facilitamos el control de mensualidades y asistencias
@@ -30,13 +29,13 @@ export const HomeEmployee = () => {
           </span>
           <span className="max-w-md z-10">
             <span>
-              <div className="relative right-[0rem]">
-                <p className="max-w-[35rem] text-center text-[25px] text-[#1E1E1E]">
+              <div className="relative sm:flex-col sm:justify-center sm:left-[1rem] lg:right-[6rem]">
+                <p className="max-w-[35rem] text-center text-[25px] text-[#1E1E1E] lg:text-[20px] sm:text-[15px] sm:max-w-[95%] sm:mx-[1%]">
                   Hola, D.S (Data Sport) te da las gracias por confiar en
                   nuestros servicios
                 </p>
                 <svg
-                  className="size-[25rem]"
+                  className="size-[25rem] lg:size-[18rem] md:size-[14rem] sm:siz-[12rem] sm:ml-[6rem]"
                   viewBox="0 0 330 333"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -343,7 +342,7 @@ export const HomeEmployee = () => {
           </span>
           <span className="flex absolute right-0  -translate-y-[8rem] translate-x-[5rem]">
             <svg
-              className="size-[45rem]"
+              className="w-[45rem] h-auto lg:w-[25rem] sm:hidden"
               width="503"
               height="590"
               viewBox="0 0 503 590"
@@ -380,9 +379,9 @@ export const HomeEmployee = () => {
           </span>
         </section>
       </div>
-      <div className="w-full h-[18rem] flex justify-evenly items-center  ">
+      <div className="w-full h-[18rem] sm:w-[95%] flex justify-evenly items-center  ">
         <svg
-          className=" size-[40rem]"
+          className=" size-[40rem] md:hidden "
           width="450"
           height="450"
           viewBox="0 0 450 450"
@@ -614,9 +613,10 @@ export const HomeEmployee = () => {
             fill="#FE7A36"
           />
         </svg>
-        <div className="flex flex-col items-center justify-end ">
-          <h1 className="text-[60px] mb-[-3rem]">¡Datos curiosos!</h1>
+        <div className="flex flex-col items-center justify-end lg:w-[90%] md:justify-center sm:justify-center ">
+          <h1 className="text-[60px] mb-[-3rem] xl:text[45px] lg:text-[35px] lg:mb-[-1.5rem] md:text-[30px] md:mb-[-1rem] sm:text-[25px]">¡Datos curiosos!</h1>
           <svg
+          className=" md:size-[40rem] sm:size-[32.5rem] sm:ml-[-1rem]"
             width="700"
             height="700"
             viewBox="0 0 200 200"

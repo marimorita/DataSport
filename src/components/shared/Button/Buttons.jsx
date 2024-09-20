@@ -140,10 +140,10 @@ export const Buttonfilter = ({ Text, width, customClassName }) => {
   );
 };
 
-export const ButtonInventory = ({ Text, width }) => {
+export const ButtonInventory = ({ Text, width, Onclick }) => {
   return (
     <>
-      <button
+      <button onClick={Onclick}
         className={` w-[${width}] bg-gradient-to-r from-[#381975]  to-[#692FDB] text-white px-[0.8rem] py-[0.2rem] rounded-[5px] shadow-md `}
       >
         {Text}

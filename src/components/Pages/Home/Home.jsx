@@ -5,6 +5,7 @@ import Carrusel from "../../Carrusel/Datoscuriosos/carrusel1";
 import { Footer } from "../../Footer/Footer";
 import Principalcarrusel from "../../Carrusel/Principalcarrusel/carrusel0";
 import { toast, ToastContainer } from "react-toastify";
+import { useNavbarAnimation } from "../../../hooks/useNavbarAnimation";
 
 
 
@@ -42,10 +43,15 @@ export const Home = () => {
     });
   }
 
+  const { navbarAnimationClasses } = useNavbarAnimation();
+
   return (
     <>
     <div className="w-full h-auto bg-[#F0ECE3] flex flex-col gap-[5rem]">
       <Navbar assistence={assistence} inventory={inventory} register={register} remarks={remarks} login={false} />
+      <section className={navbarAnimationClasses()}>
+        <Navbar assistence={assistence} inventory={inventory} register={register} remarks={remarks} login={false} />
+      </section>
       <Usertype name={''} customClassName={'bg-gradient-to-r from-[#231F20]  to-[#3F3D56]'} />
       <div className="flex flex-col justify-end min-h-[35rem] relative overflow-hidden ">
         <section className="flex justify-between ">

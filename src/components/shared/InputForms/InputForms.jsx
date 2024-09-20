@@ -294,9 +294,11 @@ export const CustomTextArea = ({ label, color, inputProps, inputRef }) => {
 };
 
 // Custominmputregister Component
-export const CustomInputregister = ({ label, type = "text", color, inputProps, inputRef }) => {
+export const CustomInputRegister = ({ label, type = "text", color, inputProps, inputRef }) => {
   const [used, setUsed] = useState(false);
   const [focused, setFocused] = useState(false);
+
+  console.log({ inputRef })
 
   const validateActive = (focused) => {
     if (!inputRef.current) return;
@@ -305,11 +307,10 @@ export const CustomInputregister = ({ label, type = "text", color, inputProps, i
   };
 
   const labelClasses = () => {
-    const activeClasses = used || focused 
-      ? "text-[20px] left-5 -translate-y-8 bg-[#F0ECE3] px-3" 
+    const actived = used
+      ? "text-[20px] left-5 -translate-y-8 bg-[#F0ECE3] px-3"
       : "text-[25px] left-5";
-    
-    return `absolute transition-transform duration-250 ${activeClasses}`;
+    return `absolute transition-[transform_font-size_padding] duration-[250ms] ${actived}`;
   };
 
   return (
@@ -323,7 +324,7 @@ export const CustomInputregister = ({ label, type = "text", color, inputProps, i
         className="w-[17rem] h-[4rem] border-[4px] rounded-xl px-4 text-[25px] outline-none bg-[#F0ECE3]"
         style={{
           borderColor: color,
-          color,
+          color: color,
         }}
         onFocus={() => {
           setFocused(true);
@@ -331,14 +332,13 @@ export const CustomInputregister = ({ label, type = "text", color, inputProps, i
         }}
         onBlur={() => {
           setFocused(false);
-          validateActive(false);
+          validateActive(false); // Validar si el input tiene texto al perder el foco
         }}
-        placeholder=" " // Placeholder vacío para activar la animación
         {...inputProps}
       />
       <style jsx>{`
         input::placeholder {
-          color: transparent; /* Evitar que el placeholder afecte la visibilidad */
+          color: transparent;
         }
       `}</style>
     </span>

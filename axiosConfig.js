@@ -3,7 +3,7 @@ import axios from 'axios';
 //desplegada: https://datasportback.onrender.com
 // Configuración global de Axios
 const axiosInstance = axios.create({
-    baseURL: 'https://datasportback.onrender.com/ds/auth'
+    baseURL: 'http://localhost:3000/ds/auth'
 });
 
 axiosInstance.interceptors.request.use(config => {

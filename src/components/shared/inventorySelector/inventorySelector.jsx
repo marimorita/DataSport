@@ -67,7 +67,7 @@ export const InventorySelectorProductos = ({ onNext }) => {
           className="text-[2.5rem] cursor-pointer"
         />
       </div>
-      <div className=" cursor-pointer flex justify-center items-center bg-[#FE7A36] size-[4rem] rounded-lg fixed right-[3rem] bottom-[7rem]">
+      <div className=" cursor-pointer flex justify-center items-center bg-[#FE7A36] size-[4rem] rounded-lg absolute right-[3rem] bottom-[7rem]">
         <FaPlus className="text-[2.5rem] text-white" onClick={() => 
           
           setModalCreatePoducts(true)

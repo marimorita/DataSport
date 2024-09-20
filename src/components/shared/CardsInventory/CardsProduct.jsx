@@ -2,7 +2,7 @@ import React from 'react'
 import { ButtonInventory } from '../Button/Buttons';
 
 
-export const CardsProducts = ({title,description,price}) => {
+export const CardsProducts = ({title,description,price, Onclick}) => {
     return (
         <div className=" cursor-pointer bg-white to-100% flex flex-col items-center gap-[20px] justify-center p-[15px] w-[14rem] h-[19rem] shadow-2xl rounded-[10px]">
         <div className=" flex justify-center items-center w-[7rem] h-[7rem]">
@@ -45,7 +45,7 @@ export const CardsProducts = ({title,description,price}) => {
         </div>
         <div className=" w-[100%] gap-x-1.5 flex justify-between ">
             <h1 className='text-[1.3rem]'><b>$ {price}</b></h1>
-              <ButtonInventory customClassName={''} width={'5rem'} Text={'Gestionar'}/>
+              <ButtonInventory Onclick={Onclick}  customClassName={''} width={'5rem'} Text={'Gestionar'}/>
         </div>
       </div>
     );

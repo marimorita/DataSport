@@ -12,6 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mercadopago/sdk-react": "^0.0.3",
     "@types/axios": "^0.14.0",
     "axios": "^1.7.3",
     "context": "^3.0.29",

@@ -11,7 +11,7 @@ import {
   Perfilcontenedor,
   InputFormsAdmin,
   CustomInput,
-  CustomInputregister,
+  CustomInputRegister,
 } from "../InputForms/InputForms";
 import {
   Buttonlog,
@@ -49,16 +49,16 @@ export const FormsAdmin = ({}) => {
     setIsSubmitting(true);
 
     const adminData = {
-      id: inputIdRef.current?.value || '',
-      name: inputNameRef.current?.value || '',
-      lastName: inputLastNameRef.current?.value || '',
-      email: inputEmailRef.current?.value || '',
-      phone: inputPhoneRef.current?.value || '',
-      address: inputAddressRef.current?.value || '',
-      password: inputPasswordRef.current?.value || '',
+      id: inputIdRef.current?.value ,
+      name: inputNameRef.current?.value ,
+      lastName: inputLastNameRef.current?.value ,
+      email: inputEmailRef.current?.value ,
+      phone: inputPhoneRef.current?.value ,
+      address: inputAddressRef.current?.value ,
+      password: inputPasswordRef.current?.value ,
       img: '',
       role: 'admin',
-      idCenter: inputIdCenterRef.current?.value || '',
+      idCenter: inputIdCenterRef.current?.value ,
     };
 
     try {
@@ -98,14 +98,14 @@ export const FormsAdmin = ({}) => {
         </div>
         <div className='flex flex-col items-center gap-[40px]'>
           <label className='flex flex-wrap justify-between gap-y-[20px] '>
-            <CustomInputregister label={'Cedula'} userRef={inputIdRef} color={'#1e1e1e'}/>
-            <CustomInputregister label={'Nombre'} userRef={inputNameRef} color={'#1e1e1e'}/>
-            <CustomInputregister label={'Apellido'} userRef={inputLastNameRef} color={'#1e1e1e'}/>
-            <CustomInputregister type={'email'}  label={'Correo'} userRef={inputEmailRef} color={'#1e1e1e'}/>
-            <CustomInputregister label={'Numero'} userRef={inputPhoneRef} color={'#1e1e1e'}/>
-            <CustomInputregister label={'Direccion'} userRef={inputAddressRef} color={'#1e1e1e'}/>
-            <CustomInputregister type={'password'}  label={'Contraseña'} userRef={inputPasswordRef} color={'#1e1e1e'}/>
-            <CustomInputregister label={'N° Estab'} userRef={inputIdCenterRef} color={'#1e1e1e'}/>
+            <CustomInputRegister label={'Cedula'} inputRef={inputIdRef} color={'#1e1e1e'}/>
+            <CustomInputRegister label={'Nombre'} inputRef={inputNameRef} color={'#1e1e1e'}/>
+            <CustomInputRegister label={'Apellido'} inputRef={inputLastNameRef} color={'#1e1e1e'}/>
+            <CustomInputRegister type='email'  label={'Correo'} inputRef={inputEmailRef} color={'#1e1e1e'}/>
+            <CustomInputRegister label={'Numero'} inputRef={inputPhoneRef} color={'#1e1e1e'}/>
+            <CustomInputRegister label={'Direccion'} inputRef={inputAddressRef} color={'#1e1e1e'}/>
+            <CustomInputRegister type='password'  label={'Contraseña'} inputRef={inputPasswordRef} color={'#1e1e1e'}/>
+            <CustomInputRegister label={'N° Estab'} inputRef={inputIdCenterRef} color={'#1e1e1e'}/>
           </label>
           <ButtonUsers width='' Text={'Crear Admin'} onClick={toggleCreateAdmin} />
         </div>
@@ -148,7 +148,7 @@ export const FormsEmployees = ({ Location }) => {
       img: "",
       role: "employee",
       idCenter: inputIdCenterRef.current.value,
-      state: "Activo",
+      state: "Funcionamiento",
     };
 
     try {
@@ -200,42 +200,42 @@ export const FormsEmployees = ({ Location }) => {
         </div>
         <div className="flex flex-col items-center gap-[40px]">
           <label className="flex flex-wrap justify-center  gap-y-[20px] gap-x-[15px] ">
-            <CustomInputregister
+            <CustomInputRegister
               label="Cedula"
               inputRef={inputIdRef}
               color="#1e1e1e"
             />
-            <CustomInputregister
+            <CustomInputRegister
               label="Nombre"
               inputRef={inputNameRef}
               color="#1e1e1e"
             />
-            <CustomInputregister
+            <CustomInputRegister
               label="Apellido"
               inputRef={inputLastNameRef}
               color="#1e1e1e"
             />
-            <CustomInputregister
+            <CustomInputRegister
               label="Correo"
               inputRef={inputEmailRef}
               color="#1e1e1e"
             />
-            <CustomInputregister
+            <CustomInputRegister
               label="Numero"
               inputRef={inputPhoneRef}
               color="#1e1e1e"
             />
-            <CustomInputregister
+            <CustomInputRegister
               label="Direccion"
               inputRef={inputAddressRef}
               color="#1e1e1e"
             />
-            <CustomInputregister
+            <CustomInputRegister
               label="Contraseña"
               inputRef={inputPasswordRef}
               color="#1e1e1e"
             />
-            <CustomInputregister
+            <CustomInputRegister
               label="N° estab"
               inputRef={inputIdCenterRef}
               color="#1e1e1e"
@@ -344,37 +344,37 @@ export const FormsUsers = ({ Location }) => {
         </div>
         <div className="flex flex-col items-center gap-[40px]">
           <label className="flex flex-wrap justify-center  gap-y-[20px] gap-x-[10px] ">
-            <CustomInputregister
+            <CustomInputRegister
               label="Cedula"
               inputRef={inputIdRef}
               color="#1e1e1e"
             />
-            <CustomInputregister
+            <CustomInputRegister
               label="Nombre"
               inputRef={inputNameRef}
               color="#1e1e1e"
             />
-            <CustomInputregister
+            <CustomInputRegister
               label="Apellido"
               inputRef={inputLastNameRef}
               color="#1e1e1e"
             />
-            <CustomInputregister
+            <CustomInputRegister
               label="Correo"
               inputRef={inputEmailRef}
               color="#1e1e1e"
             />
-            <CustomInputregister
+            <CustomInputRegister
               label="Numero"
               inputRef={inputPhoneRef}
               color="#1e1e1e"
             />
-            <CustomInputregister
+            <CustomInputRegister
               label="Direccion"
               inputRef={inputAddressRef}
               color="#1e1e1e"
             />
-            <CustomInputregister
+            <CustomInputRegister
               label="N° Estab"
               inputRef={inputIdCenterRef}
               color="#1e1e1e"

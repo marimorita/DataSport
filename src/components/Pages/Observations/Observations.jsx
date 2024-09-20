@@ -87,7 +87,7 @@ const AddObservationModal = ({ isOpen, onClose, onAdd }) => {
             className="w-full mb-2 p-2 border-2 border-[#000000] rounded-md text-center"
             placeholder="Motivo"
             value={motivo}
-            onChange={(e) => setMotivo(e.target.value)}  // Actualiza estado del motivo
+            onChange={(e) => setMotivo(e.target.value)}  // Actuasliza estado del motivo
           />
           <textarea
             className="w-full mb-2 p-4 border rounded text-center"
