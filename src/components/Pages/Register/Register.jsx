@@ -7,7 +7,7 @@ import { ModalCreate } from "../../Modals/ModalCreate/ModalCreate";
 export const Register = () => {
   const { createAdmin, setCreateAdmin } = useContext(StateContext);
   return (
-    <div className='w-full h-full flex flex-1 items-center relative'>
+    <div className='w-full h-full flex flex-1 bg-[#F0ECE3] items-center relative'>
       <div className='w-[90px] h-[93px] bg-[#FE7A3659] rounded-[50%] bottom-[28%]  left-[2%] absolute ' />
       <div className='w-[110px] h-[113px] bg-[#38197559] rounded-[50%] bottom-[4%] left-[12%] absolute ' />
 <div className='absolute left-[-120px] top-[-50px]'>

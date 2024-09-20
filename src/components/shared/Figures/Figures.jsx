@@ -2,13 +2,9 @@ import React, { useContext } from 'react'
 import { useLocation } from 'wouter'
 import { StateContext } from '../../Context/Context';
 
-
-
 export const Usertype = ({ name, customClassName }) => {
     const [location, setLocation] = useLocation();
-    const { userObservation, setUserObservation } = useContext(StateContext);
-    console.log("nombre Home",userObservation);
-    
+    const { userObservation } = useContext(StateContext);
 
     return (
         <div className='flex justify-center items-center my-[3rem] cursor-pointer'>
@@ -32,13 +28,20 @@ export const Usertype = ({ name, customClassName }) => {
                     <path d="M100.845 215.4C102.029 208.45 100.168 167.75 100.168 167.75L81.1049 163L66.3281 194.3L66.7229 216.7L100.845 215.4Z" fill="#FE7A36" />
                 </svg>
                 <div className='flex flex-col text-center text-[#F0ECE3] ml-[2rem]'>
-                    {userObservation.map(userName => (
-                        <h1 className='text-[40px]'>¡Hola {userName.name}!</h1>
-                    ))
-                    }
-                    <p className='w-[25rem] text-[20px] text-[#cacac9]'>Espero que estes teniendo un gran día, ¿hoy que tienes en mente? </p>
+                    {userObservation && userObservation.length > 0 ? (
+                        userObservation.map((userName, index) => (
+                            <h1 key={index} className='text-[40px]'>¡Hola {userName.name}!</h1>
+                        ))
+                    ) : (
+                        <h1 className='text-[40px]'>¡Hola!</h1>
+                    )}
+                    <p className='w-[25rem] text-[20px] text-[#cacac9]'>
+                        Espero que estés teniendo un gran día, ¿hoy qué tienes en mente?
+                    </p>
                 </div>
             </div>
         </div>
     )
 }
+
+
