@@ -12,7 +12,7 @@ import SearchVector from '../../../assets/Searching.png'
 import {axiosInstance} from '../../../../axiosConfig';
 import { StateContext } from '../../Context/Context';
 import { NavbarType } from '../../shared/Navbar/Navbar';
-
+import { Footer } from '../../Footer/Footer';
 
 const SearchWithSuggestion = ({ onChange, value, possibleMatch, onSelectMatch }) => {
   return (
@@ -191,6 +191,9 @@ export const Registerlist = ({Location, LocationProfile, LocationRegisterUser, L
       </div>
     </div>
     <ToastContainer position="top-center" autoClose={1500} pauseOnHover={false}  />
+    <div className="w-full ">
+          <Footer />
+        </div>
     </>
   );
 }

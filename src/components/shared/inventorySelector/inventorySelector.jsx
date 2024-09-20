@@ -37,7 +37,7 @@ export const InventorySelectorBienes = ({ onNext, onSearch }) => {
         />
       </div>
 
-      <div className=" flex justify-center items-center bg-[#692FDB] size-[4rem] rounded-lg fixed right-[3rem] bottom-[3rem]">
+      <div className=" flex justify-center items-center bg-[#692FDB] size-[4rem] rounded-lg absolute right-[3rem] bottom-[7rem]">
         <FaPlus className=" cursor-pointer text-[2.5rem] text-white" onClick={() => 
           
             setmodalCreateBienes(true)
@@ -67,7 +67,7 @@ export const InventorySelectorProductos = ({ onNext }) => {
           className="text-[2.5rem] cursor-pointer"
         />
       </div>
-      <div className=" cursor-pointer flex justify-center items-center bg-[#FE7A36] size-[4rem] rounded-lg fixed right-[3rem] bottom-[3rem]">
+      <div className=" cursor-pointer flex justify-center items-center bg-[#FE7A36] size-[4rem] rounded-lg fixed right-[3rem] bottom-[7rem]">
         <FaPlus className="text-[2.5rem] text-white" onClick={() => 
           
           setModalCreatePoducts(true)
@@ -93,7 +93,7 @@ export const InventorySelectorEspacios = ({ onNext }) => {
           onClick={onNext}
           className="text-[2.5rem] cursor-pointer"
         />
-        <div className=" cursor-pointer flex justify-center items-center bg-[#1E1E1E] size-[4rem] rounded-lg fixed right-[3rem] bottom-[3rem]">
+        <div className=" cursor-pointer flex justify-center items-center bg-[#1E1E1E] size-[4rem] rounded-lg fixed right-[3rem] bottom-[7rem]">
           <FaPlus className="text-[2.5rem] text-white" />
         </div>
       </div>

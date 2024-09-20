@@ -12,6 +12,7 @@ import { StateContext } from '../../Context/Context';
 import {axiosInstance} from '../../../../axiosConfig';
 
 import { NavbarType } from '../../shared/Navbar/Navbar';
+import { Footer } from '../../Footer/Footer';
 
 
 export const Asistence = ({ Location, LocationProfile, nabvar }) => {
@@ -141,6 +142,9 @@ export const Asistence = ({ Location, LocationProfile, nabvar }) => {
           <AsistenceTable users={asistencia} LocationProfile={LocationProfile} />
         </div>
       )}
+          <div className="w-full ">
+          <Footer />
+        </div>
     </div>
   );
 };

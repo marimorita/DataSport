@@ -6,6 +6,8 @@ import { toast, ToastContainer } from "react-toastify";
 import { axiosInstance } from '../../../../axiosConfig';
 import { ModalCreate } from '../../Modals/ModalCreate/ModalCreate';
 import { FaRegCheckCircle } from 'react-icons/fa';
+import { Footer } from "../../Footer/Footer";
+
 
 const ObservationModal = ({ observation, isOpen, onClose }) => {
   if (!isOpen || !observation) return null;
@@ -225,6 +227,9 @@ export const Observations = ({ nabvar }) => {
         isOpen={!!selectedObservation} // Si hay una observación seleccionada, el modal está abierto
         onClose={() => setSelectedObservation(null)} // Cierra el modal
       />
+            <div className="w-full ">
+        <Footer />
+      </div>
     </>
   );
 };

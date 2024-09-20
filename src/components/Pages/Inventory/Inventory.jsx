@@ -162,7 +162,7 @@ export const Inventory = ({ nabvar }) => {
     };
 
     fetchAssets();
-  }, [setViewProducts]);  
+  }, [setViewProducts]);
 
 
   console.log(viewAssets.length);
@@ -209,7 +209,7 @@ export const Inventory = ({ nabvar }) => {
 
   const userType = nabvar;
   return (
-    <div className="bg-[#F0ECE3] flex flex-col justify-center gap-[3rem] px-[6rem]">
+    <div className="bg-[#F0ECE3] w-full flex flex-col justify-center gap-[3rem] ">
       <div className="w-full h-auto bg-[#F0ECE3] flex flex-col gap-[5rem]">
         <NavbarType type={userType} />
       </div>
@@ -233,20 +233,23 @@ export const Inventory = ({ nabvar }) => {
               onClose={() => setModalOpen(false)}
               id={selectedProduct}
             />
-      </>
+          </>
         )}
-      {key === "Productos" && (
-        <>
-        {viewProducts.map((product, index) => (
-          <CardsProducts 
-          title={product.name}
-          description={product.description}
-          price={product.price}
-          />
-        ))}
-        </>
-      )}
-    </div>
+        {key === "Productos" && (
+          <>
+            {viewProducts.map((product, index) => (
+              <CardsProducts
+                title={product.name}
+                description={product.description}
+                price={product.price}
+              />
+            ))}
+          </>
+        )}
+      </div>
+      <div className="w-full ">
+        <Footer />
+      </div>
     </div >
   );
 };
