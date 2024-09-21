@@ -37,7 +37,7 @@ export const InventorySelectorBienes = ({ onNext, onSearch }) => {
         />
       </div>
 
-      <div className=" flex justify-center items-center bg-[#692FDB] size-[4rem] rounded-lg absolute right-[3rem] bottom-[7rem]">
+      <div className=" flex justify-center items-center bg-[#692FDB] size-[4rem] rounded-lg absolute right-[3rem] bottom-[-15rem]">
         <FaPlus className=" cursor-pointer text-[2.5rem] text-white" onClick={() => 
           
             setmodalCreateBienes(true)
